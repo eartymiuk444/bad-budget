@@ -112,6 +112,14 @@ public class TrackerHistoryItem {
 
     public String getDayString() { return dayString; }
 
+    /*
+    Setters
+     */
+    public void setUserTransactionDescription(String userTransactionDescription)
+    {
+        this.userTransactionDescription = userTransactionDescription;
+    }
+
     /**
      * Converts the passed action into its equivalent string representation
      * @param action - the action to convert

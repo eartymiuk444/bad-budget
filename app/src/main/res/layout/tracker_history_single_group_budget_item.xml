@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Single item for our tracker history list -->
+<!-- Single item for our group budget items -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
+
+    <View
+        android:layout_alignParentTop="true"
+        android:background="?android:listDivider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </View>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
         >
 
         <LinearLayout
@@ -23,7 +31,7 @@
             android:paddingLeft="@dimen/tracker_history_padding_medium"
             >
             <TextView
-                android:id="@+id/tracker_history_item_description"
+                android:id="@+id/tracker_group_history_group_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -31,11 +39,11 @@
                 android:textSize="@dimen/single_tracker_history_medium_text"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:text="@string/tracker_history_item"
+                android:text="@string/tracker_group_history_group_description"
                 />
 
             <TextView
-                android:id="@+id/tracker_history_day_time"
+                android:id="@+id/tracker_group_history_change"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -43,10 +51,11 @@
                 android:textSize="@dimen/single_tracker_history_medium_text"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:text="@string/tracker_history_day_time"/>
+                android:text="@string/tracker_group_history_change_placeholder"/>
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayoutResets"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -58,7 +67,7 @@
             >
 
             <TextView
-                android:id="@+id/tracker_history_action_description"
+                android:id="@+id/tracker_group_history_auto_reset"
                 android:layout_weight="3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -66,10 +75,10 @@
                 android:textSize="@dimen/single_tracker_history_medium_text"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:text="@string/tracker_history_action_default"/>
+                android:text="@string/tracker_group_history_auto_reset_placeholder"/>
 
             <TextView
-                android:id="@+id/tracker_history_date"
+                android:id="@+id/tracker_group_history_user_reset"
                 android:layout_width="0dp"
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
@@ -77,7 +86,7 @@
                 android:textSize="@dimen/single_tracker_history_medium_text"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:text="@string/tracker_history_date"
+                android:text="@string/tracker_group_history_user_reset_placeholder"
                 />
 
         </LinearLayout>

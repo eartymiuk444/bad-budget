@@ -46,8 +46,8 @@
     <dimen name="tracker_padding_large">24dp</dimen>
     <dimen name="tracker_padding_medium">16dp</dimen>
     <dimen name="tracker_padding_small">4dp</dimen>
-    <dimen name="single_tracker_large_text">20sp</dimen>
-    <dimen name="single_tracker_medium_text">16sp</dimen>
+    <dimen name="single_tracker_large_text">18sp</dimen>
+    <dimen name="single_tracker_medium_text">14sp</dimen>
     <dimen name="single_tracker_small_text">12sp</dimen>
     <dimen name="single_tracker_button_height">48dp</dimen>
     <dimen name="single_tracker_card_elevation">4dp</dimen>
@@ -61,10 +61,12 @@
     <dimen name="tracker_history_padding_large">24dp</dimen>
     <dimen name="tracker_history_padding_medium">16dp</dimen>
     <dimen name="tracker_history_padding_small">4dp</dimen>
-    <dimen name="single_tracker_history_large_text">20sp</dimen>
-    <dimen name="single_tracker_history_medium_text">16sp</dimen>
+    <dimen name="single_tracker_history_large_text">18sp</dimen>
+    <dimen name="single_tracker_history_medium_text">14sp</dimen>
     <dimen name="single_tracker_history_small_text">12sp</dimen>
     <dimen name="single_tracker_history_button_height">48dp</dimen>
+
+    <dimen name="single_tracker_history_grouping_card_elevation">4dp</dimen>
 
     <!-- Generic Dimensions -->
     <dimen name="generic_padding_large">24dp</dimen>

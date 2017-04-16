@@ -255,7 +255,7 @@
             android:label="@string/tracker_history_activity_title"
             android:parentActivityName=".bbmain.TrackActivity"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateAlwaysHidden">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".bbmain.TrackActivity" />

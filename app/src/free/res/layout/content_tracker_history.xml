@@ -25,24 +25,54 @@ Tracker history activity layout. Displays the current history for the tracker
         android:paddingBottom="@dimen/tracker_padding_small"
         android:paddingTop="@dimen/tracker_padding_small">
 
-        <!-- Clear All Button -->
-        <android.widget.Button
-            android:id="@+id/clearAllButton"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/trackerHistoryBottomRow"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_gravity="end"
-            android:onClick="clearAllButtonClick"
-            android:text="@string/tracker_history_clear_all" />
+            android:weightSum="3">
+
+            <!-- Groupings Spinner -->
+            <Spinner
+                android:id="@+id/trackerHistoryGroupingsSpinner"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+            </Spinner>
+
+            <!-- Hide Resets Checkbox -->
+            <CheckBox
+                android:id="@+id/hideResetsCheckbox"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="@string/tracker_history_hide_resets"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="hideResetsClick"
+
+                />
+
+            <!-- Clear All Button -->
+            <android.widget.Button
+                android:id="@+id/clearAllButton"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="clearAllButtonClick"
+                android:text="@string/tracker_history_clear_all"
+                />
+        </LinearLayout>
 
         <ListView
             android:id="@+id/trackerHistoryListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/clearAllButton"
-            android:layout_alignParentTop="true"></ListView>
+            android:layout_above="@id/trackerHistoryBottomRow"
+            android:layout_alignParentTop="true"
+            >
+        </ListView>
 
     </RelativeLayout>
 </RelativeLayout>

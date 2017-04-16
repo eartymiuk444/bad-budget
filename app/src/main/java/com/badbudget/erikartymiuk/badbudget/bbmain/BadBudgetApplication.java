@@ -15,11 +15,14 @@ import com.erikartymiuk.badbudgetlogic.budget.RemainAmountAction;
 import com.erikartymiuk.badbudgetlogic.main.BadBudgetData;
 import com.erikartymiuk.badbudgetlogic.main.Frequency;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -183,6 +186,10 @@ public class BadBudgetApplication extends Application
 
     /* Saved state key for budget total freq in loss table */
     public static final String BUDGET_TOTAL_FREQ_KEY = "BUDGET_TOTAL_FREQ";
+
+    /* Keys for User Description Dialog */
+    public static final String BUDGET_DESCRIPTION_KEY = "BUDGET_DESCRIPTION";
+    public static final String USER_DESCRIPTION_KEY = "USER_DESCRIPTION";
 
     /* Application Global Variables */
     private int selectedBudgetId = -1;   //Currently selected budget id
@@ -381,6 +388,38 @@ public class BadBudgetApplication extends Application
         else {
             SimpleDateFormat format = new SimpleDateFormat(TRACKER_DATE_FORMAT);
             return format.format(date);
+        }
+    }
+
+    /**
+     * Given a string from representing a date, this method returns the date
+     * representation of that string. If the string is null or the empty string
+     * then this method returns null.
+     * Inverse of the dateString operation.
+     *
+     * @param dateString - the date from the db in string format (should be mm-dd-yyyy)
+     * @return - the Date object corresponding to the passed string, or null if the string is represents
+     * null.
+     */
+    public static Date stringToDate(String dateString)
+    {
+        if (dateString != null && !dateString.equals(""))
+        {
+            try {
+                DateFormat format = new SimpleDateFormat("MM-dd-yyyy", Locale.ENGLISH);
+                Date date = format.parse(dateString);
+                return date;
+            }
+            catch (ParseException e)
+            {
+                //TODO
+                System.err.println("Parse Exception");
+                return null;
+            }
+        }
+        else
+        {
+            return null;
         }
     }
 

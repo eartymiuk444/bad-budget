@@ -23,14 +23,16 @@ import com.erikartymiuk.badbudgetlogic.budget.BudgetItem;
 public class TrackCalcFrag extends DialogFragment {
 
     public static final String ITEM_DESCRIPTION_KEY = "ITEM_DESCRIPTION";
-    public static final String PLUS_CHARACTER = "+";
-    public static final String MINUS_CHARACTER = "-";
+    public static final String PLUS_CHARACTER = " + ";
+    public static final String MINUS_CHARACTER = " - ";
     public static final String DECIMAL_CHARACTER = ".";
 
     private double savedResult = 0.0;   //The saved previous result that can be reused to calculate the
                                             // new running result.
     private double currResult = 0.0;    //The current result that takes into account the full input field and not
                                             //just numbers up to the last operation sign
+
+    private EditText userDescription;
 
     private BudgetItem item;
 
@@ -102,9 +104,9 @@ public class TrackCalcFrag extends DialogFragment {
         final Button cancel = (Button) customLayout.findViewById(R.id.track_calc_cancel);
         final Button ok = (Button) customLayout.findViewById(R.id.track_calc_ok);
         final Button reset = (Button) customLayout.findViewById(R.id.track_calc_reset);
-        //final EditText description = (EditText) customLayout.findViewById(R.id.track_calc_description);
+        userDescription = (EditText) customLayout.findViewById(R.id.track_calc_description);
 
-        //description.setHint(item.getDescription() + " - " + description.getHint());
+        userDescription.setHint(item.getDescription() + " - " + userDescription.getHint());
 
         input.setText(BadBudgetApplication.roundedDoubleBB(item.getCurrAmount()));
         result.setText(BadBudgetApplication.roundedDoubleBB(item.getCurrAmount()));
@@ -280,21 +282,22 @@ public class TrackCalcFrag extends DialogFragment {
      */
     private void parseLastNumber(String input, TextView result)
     {
-        int operationIndex = input.length() - 1;
-        char currChar = input.charAt(operationIndex);
+        String replacedInput = input.replaceAll("\\s","");
+        int operationIndex = replacedInput.length() - 1;
+        char currChar = replacedInput.charAt(operationIndex);
         while (!(currChar == '+' || currChar == '-'))
         {
             operationIndex--;
-            currChar = input.charAt(operationIndex);
+            currChar = replacedInput.charAt(operationIndex);
         }
 
         if (currChar == '+')
         {
-            currResult = savedResult + Double.parseDouble(input.substring(operationIndex + 1));
+            currResult = savedResult + Double.parseDouble(replacedInput.substring(operationIndex + 1));
         }
         else
         {
-            currResult = savedResult - Double.parseDouble(input.substring(operationIndex + 1));
+            currResult = savedResult - Double.parseDouble(replacedInput.substring(operationIndex + 1));
         }
         result.setText(BadBudgetApplication.roundedDoubleBB(currResult));
     }
@@ -324,5 +327,15 @@ public class TrackCalcFrag extends DialogFragment {
     public String budgetItemDescription()
     {
         return this.item.getDescription();
+    }
+
+    /**
+     * Get the user entered description if one was input into the calculator. If one was not entered
+     * returns the empty string.
+     * @return the user entered description for the transaction or the empty string if one was not entered.
+     */
+    public String userTransactionDescription()
+    {
+        return this.userDescription.getText().toString();
     }
 }

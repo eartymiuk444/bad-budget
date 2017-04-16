@@ -163,7 +163,7 @@ public class TrackActivity extends BadBudgetChildActivity implements TrackCalcFr
     }
 
     /**
-     * Checks to see if their is a stale item (i.e. staleItem != null) and updates that item in our
+     * Checks to see if there is a stale item (i.e. staleItem != null) and updates that item in our
      * database if there is and sets stale item to null indicating everything is up to date. Additionally,
      * adds an entry to the applications tracker history. If, however, the stale
      * item current amount is equal to the original amount than no update is needed and staleItem is
@@ -180,12 +180,12 @@ public class TrackActivity extends BadBudgetChildActivity implements TrackCalcFr
             double diff = staleItem.getCurrAmount() - staleItemOriginalAmount;
             if (diff > 0)
             {
-                updateItem(staleItem.getDescription(), TrackerHistoryItem.TrackerAction.add,
+                updateItem(staleItem.getDescription(), "", TrackerHistoryItem.TrackerAction.add,
                         Math.abs(diff), staleItemOriginalAmount, staleItem.getCurrAmount());
             }
             else if (diff < 0)
             {
-                updateItem(staleItem.getDescription(), TrackerHistoryItem.TrackerAction.subtract,
+                updateItem(staleItem.getDescription(), "", TrackerHistoryItem.TrackerAction.subtract,
                         Math.abs(diff), staleItemOriginalAmount, staleItem.getCurrAmount());
             }
         }
@@ -207,7 +207,7 @@ public class TrackActivity extends BadBudgetChildActivity implements TrackCalcFr
      * @param originalAmount - the original amount of the item prior to the action
      * @param updatedAmount - the updated amount of the item after the action
      */
-    private void updateItem(String itemDescription, TrackerHistoryItem.TrackerAction action,
+    private void updateItem(String itemDescription, String userDescription, TrackerHistoryItem.TrackerAction action,
                            double actionAmount, double originalAmount, double updatedAmount)
     {
         String strFilter = BBDatabaseContract.BudgetItems.COLUMN_DESCRIPTION + "=?";
@@ -228,14 +228,14 @@ public class TrackActivity extends BadBudgetChildActivity implements TrackCalcFr
         String dayString = dayFormat.format(applicationDate);
         String timeString = timeFormat.format(applicationDate);
 
-        TrackerHistoryItem historyItem = new TrackerHistoryItem(itemDescription, "", dateString, dayString, timeString,
+        TrackerHistoryItem historyItem = new TrackerHistoryItem(itemDescription, userDescription, dateString, dayString, timeString,
                 action, actionAmount, originalAmount, updatedAmount);
         List<TrackerHistoryItem> appTrackerHistory = ((BadBudgetApplication)getApplication()).getTrackerHistoryItems();
         appTrackerHistory.add(0, historyItem);
 
         ContentValues trackerHistoryItemValues = new ContentValues();
         trackerHistoryItemValues.put(BBDatabaseContract.TrackerHistoryItems.COLUMN_BUDGET_ITEM_DESCRIPTION, itemDescription);
-        trackerHistoryItemValues.put(BBDatabaseContract.TrackerHistoryItems.COLUMN_USER_TRANSACTION_DESCRIPTION, "");
+        trackerHistoryItemValues.put(BBDatabaseContract.TrackerHistoryItems.COLUMN_USER_TRANSACTION_DESCRIPTION, userDescription);
         trackerHistoryItemValues.put(BBDatabaseContract.TrackerHistoryItems.COLUMN_DATE, dateString);
         trackerHistoryItemValues.put(BBDatabaseContract.TrackerHistoryItems.COLUMN_DAY, dayString);
         trackerHistoryItemValues.put(BBDatabaseContract.TrackerHistoryItems.COLUMN_TIME, timeString);
@@ -516,19 +516,22 @@ public class TrackActivity extends BadBudgetChildActivity implements TrackCalcFr
         double diff = resultDouble - item.getCurrAmount();
         if (reset)
         {
-            updateItem(itemDescription, TrackerHistoryItem.TrackerAction.userReset,
+            updateItem(itemDescription, trackCalcFrag.userTransactionDescription(),
+                    TrackerHistoryItem.TrackerAction.userReset,
                     item.lossAmount(), item.getCurrAmount(), resultDouble);
         }
         else
         {
             if (diff > 0)
             {
-                updateItem(itemDescription, TrackerHistoryItem.TrackerAction.add,
+                updateItem(itemDescription, trackCalcFrag.userTransactionDescription(),
+                        TrackerHistoryItem.TrackerAction.add,
                         Math.abs(diff), item.getCurrAmount(), resultDouble);
             }
             else if (diff < 0)
             {
-                updateItem(itemDescription, TrackerHistoryItem.TrackerAction.subtract,
+                updateItem(itemDescription, trackCalcFrag.userTransactionDescription(),
+                        TrackerHistoryItem.TrackerAction.subtract,
                         Math.abs(diff), item.getCurrAmount(), resultDouble);
             }
         }

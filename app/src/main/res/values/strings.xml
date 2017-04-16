@@ -671,4 +671,33 @@
     <string name="track_calc_bot_pos1">RES</string>
     <string name="track_calc_bot_pos2">OK</string>
 
+    <!-- Tracker History Options/Grouping Strings -->
+    <string name="tracker_history_individual">Individual</string>
+    <string name="tracker_history_all_time">All-Time</string>
+
+    <string-array name="tracker_history_groupings">
+        <item>@string/tracker_history_individual</item>
+        <item>@string/daily</item>
+        <item>@string/weekly</item>
+        <item>@string/monthly</item>
+        <item>@string/yearly</item>
+        <item>@string/tracker_history_all_time</item>
+    </string-array>
+
+    <string name="tracker_history_hide_resets">Hide Resets</string>
+    <string name="tracker_history_grouping_date_placeholder">Time Period</string>
+
+    <string name="tracker_group_history_group_description">Budget Group Item</string>
+    <string name="tracker_group_history_change_placeholder">Subtracted 0</string>
+    <string name="tracker_group_history_auto_reset_placeholder">Auto-Reset 0</string>
+    <string name="tracker_group_history_user_reset_placeholder">User Reset 0</string>
+
+    <!-- User Description Dialog Strings -->
+    <string name="user_description_dialog_title">Transaction Description</string>
+    <string name="user_description_dialog_clear">Clear</string>
+    <string name="user_description_dialog_cancel">Cancel</string>
+    <string name="user_description_dialog_ok">OK</string>
+    <string name="user_description_optional_description">Description (Optional)</string>
+
+
 </resources>

@@ -26,6 +26,7 @@ import com.erikartymiuk.badbudgetlogic.main.Source;
 import com.erikartymiuk.badbudgetlogic.predictdataclasses.PredictDataBudgetItem;
 import com.erikartymiuk.badbudgetlogic.predictdataclasses.TransactionHistoryItem;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -269,7 +270,13 @@ public class BBDatabaseContract
                 TrackerHistoryItems.COLUMN_UPDATED_BUDGET_AMOUNT
         };
 
-        String sortOrder = TrackerHistoryItems.COLUMN_CREATED_AT + " " + TrackerHistoryItems.SORT_ORDER_DESC;
+        /**
+         * Sorting tracker history items works by first sorting by the date string. Then to sort within a date
+         * we use the created_at field. Auto updates will always be handled prior to any user generated history
+         * items and thus the created at fields show up as least recent for a given date.
+         */
+        String sortOrder = TrackerHistoryItems.COLUMN_DATE + " " + TrackerHistoryItems.SORT_ORDER_DESC +
+                            "," + TrackerHistoryItems.COLUMN_CREATED_AT + " " + TrackerHistoryItems.SORT_ORDER_DESC;
 
         //Going to select all the tracker history items with our query, sorted
         //by date and time. The where clause (including its args), group by, and having
@@ -420,7 +427,7 @@ public class BBDatabaseContract
                                 BadBudgetApplication.AUTO_RESET_TRACKER_HISTORY_TIME,
                                 TrackerHistoryItem.TrackerAction.autoReset,
                                 pdbi.getLossAmountToday(), pdbi.getOriginalAmount(), pdbi.getUpdatedAmount());
-                        newTrackerHistoryItems.add(0, historyItem);
+                        newTrackerHistoryItems.add(historyItem);
                         appTrackerHistoryItems.add(0, historyItem);
                     }
                 }
