@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Navigation Drawer menu -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/budgetGroup"
+        android:checkableBehavior="none">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_home_black_24px"
+        android:title="@string/nav_drawer_home" />
+
+<!--    <item
+        android:id="@+id/nav_history"
+        android:icon="@drawable/ic_history_black_24px"
+        android:title="@string/nav_drawer_history" />
+-->
+    <item
+        android:id="@+id/nav_predict"
+        android:icon="@drawable/ic_date_range_black_24px"
+        android:title="@string/nav_drawer_predict" />
+
+    <item
+        android:id="@+id/nav_tracker"
+        android:icon="@drawable/ic_exposure_black_24dp"
+        android:title="@string/nav_drawer_tracker" />
+
+    <item
+        android:id="@+id/nav_budget_settings"
+        android:icon="@drawable/ic_settings_black_24px"
+        android:title="@string/nav_drawer_budget_settings" />
+    </group>
+
+    <group
+        android:id="@+id/globalGroup"
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/nav_delete_budget"
+            android:icon="@drawable/ic_delete_black_24px"
+            android:title="@string/nav_drawer_delete_budget" />
+    </group>
+
+</menu>

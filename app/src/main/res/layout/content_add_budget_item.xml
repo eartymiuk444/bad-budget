@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ Layout for the add budget item activity. Modeled after the add account activity.
+ -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:fitsSystemWindows="true"
+    tools:context=".inputforms.AddBudgetItemActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="12">
+
+            <!-- Budget Item Name/Description Prompt and User Input-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2">
+                <TextView
+                    android:id="@+id/addBudgetItemDescriptionPrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_budget_item_description_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    />
+                <EditText
+                    android:id="@+id/addBudgetItemDescriptionInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/add_budget_item_description_hint"
+                    android:textSize="@dimen/standard_text_size"
+                    android:inputType="text"
+                    android:imeOptions="actionDone"
+                    android:layout_below="@+id/addBudgetItemDescriptionPrompt"
+                    />
+            </RelativeLayout>
+
+            <!-- Budget Item Frequency Field -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:weightSum="2">
+                <TextView
+                    android:id="@+id/addBudgetItemFrequencyPrompt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/add_budget_item_frequency_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    />
+                <Spinner
+                    android:id="@+id/addBudgetItemFrequencySpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/standard_text_size"
+                    android:gravity="center_vertical"
+                    android:entries="@array/add_budget_item_frequency_array"
+                    android:layout_weight="1"
+                    />
+            </LinearLayout>
+
+            <!-- Budget Amount Prompt and User Input -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2">
+                <TextView
+                    android:id="@+id/addBudgetItemAmountPrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_budget_item_amount_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    />
+                <EditText
+                    android:id="@+id/addBudgetItemAmountInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/add_loss_amount_hint"
+                    android:textSize="@dimen/standard_text_size"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:imeOptions="actionDone"
+                    android:layout_below="@+id/addBudgetItemAmountPrompt"
+                    />
+            </RelativeLayout>
+
+            <!-- Next date field -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3">
+                <TextView
+                    android:id="@+id/addBudgetItemNextPrompt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/add_budget_item_next_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="horizontal"
+                    android:weightSum="5"
+                    >
+                    <TextView
+                        android:id="@+id/addBudgetItemNextInput"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:hint="@string/add_budget_item_date_hint"
+                        android:textSize="@dimen/standard_text_size"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:onClick="nextDateClicked"
+                        android:layout_weight="2"
+                        />
+                    <CheckBox android:id="@+id/addBudgetItemProratedCheckbox"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:checked="false"
+                        android:onClick="proratedCheckboxChecked"
+                        android:layout_weight="3"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- End date field, includes ongoing checkbox -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:weightSum="3">
+                <TextView
+                    android:id="@+id/addBudgetItemEndPrompt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/add_budget_item_end_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="horizontal"
+                    android:weightSum="5"
+                    >
+                    <TextView
+                        android:id="@+id/addBudgetItemEndInput"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:hint="@string/add_budget_item_date_hint"
+                        android:textSize="@dimen/standard_text_size"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:onClick="endDateClicked"
+                        android:layout_weight="2"
+                        />
+                    <CheckBox android:id="@+id/addBudgetItemOngoingCheckbox"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:checked="false"
+                        android:onClick="ongoingCheckboxChecked"
+                        android:layout_weight="3"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/addBudgetItemButtons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <!-- Submit Button to Add Budget Item -->
+                <android.widget.Button
+                    android:id="@+id/submitButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/add_budget_item_submit"
+                    android:textSize="@dimen/standard_text_size"
+                    android:onClick="submitClick"
+                    />
+
+                <!-- Cancel Button for Undo Decision to Add Budget Item -->
+                <android.widget.Button
+                    android:id="@+id/cancelButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/add_budget_item_cancel"
+                    android:textSize="@dimen/standard_text_size"
+                    android:onClick="cancelClick"
+                    />
+
+                <!-- Delete Button for when the user is editing an existing budget item -->
+                <android.widget.Button
+                    android:id="@+id/deleteButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/delete_add_edit_string"
+                    android:textSize="@dimen/standard_text_size"
+                    android:onClick="deleteClick"
+                    android:enabled="false"
+                    android:visibility="invisible"
+                    android:background="@color/deleteButtonColor"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

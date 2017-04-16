@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Tracker history activity layout. Displays the current history for the tracker
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".bbmain.TrackHistoryActivity">
+
+    <!-- Ad container -->
+    <RelativeLayout
+        android:id="@+id/adRelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_alignParentBottom="true"></RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/adRelativeLayout"
+        android:paddingBottom="@dimen/tracker_padding_small"
+        android:paddingTop="@dimen/tracker_padding_small">
+
+        <!-- Clear All Button -->
+        <android.widget.Button
+            android:id="@+id/clearAllButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="end"
+            android:onClick="clearAllButtonClick"
+            android:text="@string/tracker_history_clear_all" />
+
+        <ListView
+            android:id="@+id/trackerHistoryListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/clearAllButton"
+            android:layout_alignParentTop="true"></ListView>
+
+    </RelativeLayout>
+</RelativeLayout>

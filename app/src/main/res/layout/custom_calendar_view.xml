@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <!-- date title -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:id="@+id/custom_calendar_date_display"
+        android:gravity="center"
+        android:textSize="@dimen/standard_text_size"
+        android:text="@string/custom_calendar_placeholder_date"/>
+
+    <!-- days header -->
+    <LinearLayout
+        android:id="@+id/custom_calendar_header"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/custom_calendar_sunday"
+            android:textSize="@dimen/smaller_text_size"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/custom_calendar_monday"
+            android:textSize="@dimen/smaller_text_size"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/custom_calendar_tuesday"
+            android:textSize="@dimen/smaller_text_size"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/custom_calendar_wednesday"
+            android:textSize="@dimen/smaller_text_size"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/custom_calendar_thursday"
+            android:textSize="@dimen/smaller_text_size"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/custom_calendar_friday"
+            android:textSize="@dimen/smaller_text_size"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/custom_calendar_saturday"
+            android:textSize="@dimen/smaller_text_size"
+            />
+    </LinearLayout>
+
+    <!-- days view -->
+    <GridView
+        android:id="@+id/custom_calendar_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="7"
+        />
+</LinearLayout>

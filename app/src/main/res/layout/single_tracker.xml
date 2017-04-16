@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android.support.v7.cardview="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/single_tracker_padding_top_bottom"
+    >
+
+    <android.support.v7.widget.CardView
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android.support.v7.cardview:cardUseCompatPadding="true"
+        android.support.v7.cardview:cardPreventCornerOverlap="false"
+        android.support.v7.cardview:cardElevation="@dimen/single_tracker_card_elevation"
+        >
+
+        <View
+            android:id="@+id/cardBackgroundView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:paddingTop="@dimen/tracker_padding_medium"
+                android:paddingBottom="@dimen/tracker_padding_small"
+                android:paddingRight="@dimen/tracker_padding_medium"
+                android:paddingLeft="@dimen/tracker_padding_medium"
+
+                >
+                <TextView
+                    android:id="@+id/tracker_item_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:textSize="@dimen/single_tracker_medium_text"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:text="@string/tracker_item"
+                    />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/tracker_item_next_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:textSize="@dimen/single_tracker_medium_text"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:text="@string/tracker_next"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:paddingTop="@dimen/tracker_padding_small"
+                android:paddingRight="@dimen/tracker_padding_large"
+                android:paddingLeft="@dimen/tracker_padding_medium"
+                android:paddingBottom="@dimen/tracker_padding_medium">
+                <Button
+                    android:id="@+id/tracker_item_minus"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/single_tracker_button_height"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="@dimen/single_tracker_medium_text"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:text="@string/tracker_minus"
+                    />
+
+                <TextView
+                    android:id="@+id/tracker_item_remaining"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/single_tracker_medium_text"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:text="@string/tracker_amount"/>
+
+                <Button
+                    android:id="@+id/tracker_item_plus"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/single_tracker_button_height"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textSize="@dimen/single_tracker_medium_text"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:text="@string/tracker_plus"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

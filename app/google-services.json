@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "850297215539",
+    "firebase_url": "https://bad-budget.firebaseio.com",
+    "project_id": "bad-budget",
+    "storage_bucket": "bad-budget.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850297215539:android:31698d133be180d4",
+        "android_client_info": {
+          "package_name": "com.badbudget.erikartymiuk.badbudgetfree"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "850297215539-val0ustscd0bk1sbjs5abs22ndqnk8ug.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.badbudget.erikartymiuk.badbudgetfree",
+            "certificate_hash": "24e0def7250a6836a991e3952a39d60ba7ae5232"
+          }
+        },
+        {
+          "client_id": "850297215539-mql1o9qvp94t9mf9hiengrd8r7ic7lrs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA74ebgxgwzfQmObQLdBPdBC24NJNodKFc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "850297215539-mql1o9qvp94t9mf9hiengrd8r7ic7lrs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

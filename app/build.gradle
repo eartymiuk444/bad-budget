@@ -1,0 +1,69 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 23
+
+        //Espresso testing 9/30
+        testInstrumentationRunner 'android.support.menu.runner.AndroidJUnitRunner'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled true
+        }
+        debug {
+            debuggable true
+        }
+    }
+    productFlavors {
+        free {
+            applicationId "com.badbudget.erikartymiuk.badbudgetfree"
+            versionCode 9
+            versionName "1.32"
+            buildConfigField('boolean', 'FREE_VERSION', "true")
+        }
+        paid {
+            applicationId "com.badbudget.erikartymiuk.badbudget"
+            versionCode 11
+            versionName "1.42"
+            buildConfigField('boolean', 'FREE_VERSION', "false")
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    //Android Test Espresso 9/30
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2') {
+        exclude module: 'support-annotations'
+    }
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.2') {
+        exclude module: 'support-annotations'
+        exclude module: 'design'
+        exclude module: 'support-v4'
+        exclude module: 'support:recyclerview-v7'
+    }
+    compile 'com.android.support:cardview-v7:23.4.0'
+    //Adding analytics and ads for free flavor
+    freeCompile 'com.google.firebase:firebase-core:10.2.0'
+    freeCompile 'com.google.firebase:firebase-ads:10.2.0'
+    compile files('libs/BadBudgetLogic.jar')
+}
+//This plugin was originally needed to generate string resources and dependencies from the
+//google-services.json file. The generated resources have been placed in the string resources
+//in the src/free/res/values directory of the app. Thus the plugin should no longer be needed.
+//Additionally the plugin added in needed dependencies, namely firebase-xxxx, but these
+//have been added in manually above but only for the free flavor. The needed dependencies
+//were verified using 'gradlew :app:dependencies' with the apply plugin uncommented.
+
+//Adding ads, this needs to be at the bottom
+//apply plugin: 'com.google.gms.google-services'

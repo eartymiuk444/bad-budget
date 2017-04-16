@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Custom dialog layout for the tracker calculator -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:weightSum="8"
+    android:focusableInTouchMode="true">
+
+    <!-- Input field -->
+    <TextView
+        android:id="@+id/track_calc_input"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:paddingLeft="@dimen/padding_generic"
+        android:paddingStart="@dimen/padding_generic"
+        android:text=""
+        android:textSize="@dimen/standard_text_size"
+        android:background="?attr/editTextBackground"/>
+
+    <!-- Result field -->
+    <TextView
+        android:id="@+id/track_calc_result"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:paddingLeft="@dimen/padding_generic"
+        android:paddingStart="@dimen/padding_generic"
+        android:text=""
+        android:textSize="@dimen/standard_text_size"
+        android:background="?attr/editTextBackground"/>
+
+    <!-- Description Field (Optional) TODO
+    <EditText
+        android:id="@+id/track_calc_description"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:hint="@string/track_calc_description"
+        android:paddingLeft="@dimen/padding_generic"
+        android:paddingStart="@dimen/padding_generic"
+        android:textSize="@dimen/standard_text_size"
+        android:inputType="text"
+        />
+    -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <Button
+            android:id="@+id/track_calc_clear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/track_calc_pos0" />
+
+        <Button
+            android:id="@+id/track_calc_7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/track_calc_pos1"
+            />
+
+        <Button
+            android:id="@+id/track_calc_8"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/track_calc_pos2"
+            />
+
+        <Button
+            android:id="@+id/track_calc_9"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/track_calc_pos3"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/track_calc_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/track_calc_pos4"
+            />
+
+        <Button
+            android:id="@+id/track_calc_5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/track_calc_pos5"
+            />
+
+        <Button
+            android:id="@+id/track_calc_6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/track_calc_pos6"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+
+        <Button
+            android:id="@+id/track_calc_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/track_calc_pos7"
+            />
+
+        <Button
+            android:id="@+id/track_calc_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/track_calc_pos8"
+            />
+
+        <Button
+            android:id="@+id/track_calc_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/track_calc_pos9"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <Button
+            android:id="@+id/track_calc_decimal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/track_calc_pos10"
+            />
+
+        <Button
+            android:id="@+id/track_calc_0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/track_calc_pos11"
+            />
+
+        <Button
+            android:id="@+id/track_calc_plus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/track_calc_pos12"
+            />
+
+        <Button
+            android:id="@+id/track_calc_minus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/track_calc_pos13"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="6">
+
+        <Button
+            android:id="@+id/track_calc_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/track_calc_bot_pos0"
+            />
+
+        <Button
+            android:id="@+id/track_calc_reset"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/track_calc_bot_pos1"
+            />
+
+        <Button
+            android:id="@+id/track_calc_ok"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/track_calc_bot_pos2"
+            />
+    </LinearLayout>
+
+</LinearLayout>

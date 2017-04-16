@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ Layout for the Add Savings Activity. Similar to the add account layout but more complicated
+ as it has more input fields and a larger variety of input fields including Text, Checkboxes, Date
+ input via DatePickerFragments, and static and dynamic spinners.
+ -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:fitsSystemWindows="true"
+    tools:context=".inputforms.AddSavingsActivity">
+
+    <!-- Everything besides the title is scrollable -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <!-- Scrollable screen separated into four parts. This first part is
+            all the data for a regular account -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/add_savings_padding">
+
+                <!-- Account Name Prompt and User Input-->
+                <TextView
+                    android:id="@+id/addSavingsAccountNamePrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_savings_account_name_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    />
+                <EditText
+                    android:id="@+id/addSavingsAccountName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/add_savings_account_name_hint"
+                    android:textSize="@dimen/standard_text_size"
+                    android:inputType="text"
+                    android:imeOptions="actionDone"
+                    />
+
+                <!-- Savings Account Current Value Prompt and Input -->
+                <TextView
+                    android:id="@+id/addSavingsCurrentValuePrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_savings_current_value_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    />
+                <EditText
+                    android:id="@+id/addSavingsCurrentValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/add_savings_current_value_hint"
+                    android:textSize="@dimen/standard_text_size"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:imeOptions="actionDone"
+                    />
+
+                <!-- Savings Account Interest Rate Prompt and Input -->
+                <TextView
+                    android:id="@+id/addSavingsInterestRatePrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_savings_interest_rate_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    />
+                <EditText
+                    android:id="@+id/addSavingsInterestRate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/add_savings_interest_rate_hint"
+                    android:textSize="@dimen/standard_text_size"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:imeOptions="actionDone"
+                    />
+
+                <!-- Quicklook Checkbox -->
+                <CheckBox android:id="@+id/addSavingsQuicklookCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_savings_quicklook_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
+
+            <!-- Second section is the data needed specific to a goal if the user wishes to set one. -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/add_savings_padding">
+
+                <TextView
+                    android:id="@+id/addSavingsGoalPrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_savings_goal_prompt"
+                    android:textSize="@dimen/larger_text_size"
+                    android:textStyle="bold"
+                    />
+
+                <CheckBox android:id="@+id/addSavingsSetGoal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_savings_set_goal_prompt"
+                    android:textSize="@dimen/smaller_text_size"
+                    android:textStyle="bold"
+                    android:onClick="setGoalClicked"/>
+
+                <LinearLayout android:id="@+id/addSavingsGoalAmountLinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    >
+
+                    <TextView
+                        android:id="@+id/addSavingsGoalAmountPrompt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/add_savings_goal_amount_prompt"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        />
+                    <EditText
+                        android:id="@+id/addSavingsGoalAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:hint="@string/add_savings_goal_amount_hint"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:inputType="numberDecimal|numberSigned"
+                        android:imeOptions="actionDone"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:enabled="false"
+                        />
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/addSavingsGoalDateLinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:id="@+id/addSavingsGoalDatePrompt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/add_savings_goal_date_prompt"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        />
+                    <TextView
+                        android:id="@+id/addSavingsGoalDate"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:hint="@string/add_savings_goal_date_hint"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:onClick="goalDateClicked"
+                        android:padding="@dimen/add_savings_small_padding"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Third section is the contribution data, including amount, frequency, source,
+                next and end date. -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/add_savings_padding">
+
+                <TextView
+                    android:id="@+id/addSavingsContributionPrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_savings_contribution_prompt"
+                    android:textSize="@dimen/larger_text_size"
+                    android:textStyle="bold"/>
+
+                <LinearLayout android:id="@+id/addSavingsContributionFrequencyLinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    >
+
+                    <TextView
+                        android:id="@+id/addSavingsContributionFrequencyPrompt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/add_savings_contribution_frequency_prompt"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        />
+                    <Spinner
+                        android:id="@+id/addSavingsContributionFrequency"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:entries="@array/add_savings_frequency_array"
+                        />
+                </LinearLayout>
+
+
+                <LinearLayout android:id="@+id/addSavingsContributionAmountLinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:id="@+id/addSavingsContributionAmountPrompt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/add_savings_contribution_amount_prompt"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        />
+                    <EditText
+                        android:id="@+id/addSavingsContributionAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:hint="@string/add_savings_contribution_amount_hint"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:inputType="numberDecimal|numberSigned"
+                        android:gravity="center_vertical"
+                        android:imeOptions="actionDone"
+                        android:layout_weight="1"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/addSavingsSourceAccountLinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    >
+
+                    <TextView
+                        android:id="@+id/addSavingsSourceAccountPrompt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/add_savings_source_account_prompt"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        />
+                    <Spinner
+                        android:id="@+id/addSavingsSourceAccount"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        />
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/addSavingsNextDateLinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    >
+
+                    <TextView
+                        android:id="@+id/addSavingsNextDatePrompt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/add_savings_next_date_prompt"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        />
+
+                    <TextView
+                        android:id="@+id/addSavingsNextDate"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:hint="@string/add_savings_next_date_hint"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:onClick="nextDateClicked"
+                        android:layout_weight="1"
+                        android:padding="@dimen/add_savings_small_padding"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/addSavingsEndDateLinearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    >
+                    <TextView
+                        android:id="@+id/addSavingsEndDatePrompt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/add_savings_end_date_prompt"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:textStyle="bold"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        >
+
+                        <TextView
+                            android:id="@+id/addSavingsEndDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:hint="@string/add_savings_end_date_hint"
+                            android:textSize="@dimen/smaller_text_size"
+                            android:gravity="center_vertical"
+                            android:clickable="true"
+                            android:onClick="endDateClicked"
+                            android:padding="@dimen/add_savings_small_padding"
+                            />
+
+                        <CheckBox android:id="@+id/addSavingsOngoingCheckbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:checked="false"
+                            android:onClick="ongoingCheckboxChecked"
+                            />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Fourth and final section are the three buttons (clean, submit, and cancel) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/add_savings_padding"
+                android:weightSum="3"
+                >
+
+                <android.widget.Button
+                    android:id="@+id/addSavingsCleanButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/add_savings_clean_button"
+                    android:textSize="@dimen/standard_text_size"
+                    android:onClick="addSavingsCleanClick"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/add_savings_padding"
+                android:weightSum="3">
+
+                <android.widget.Button
+                    android:id="@+id/addSavingsSubmitButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/add_savings_submit_button"
+                    android:textSize="@dimen/standard_text_size"
+                    android:onClick="addSavingsSubmitClick"
+                    />
+
+                <!-- Cancel Button for Undo Decision to Add Account -->
+                <android.widget.Button
+                    android:id="@+id/addSavingsCancelButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/add_savings_cancel_button"
+                    android:textSize="@dimen/standard_text_size"
+                    android:onClick="addSavingsCancelClick"
+                    />
+                <!-- Delete Button for when the user is editing an existing account -->
+                <android.widget.Button
+                    android:id="@+id/deleteButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/delete_add_edit_string"
+                    android:textSize="@dimen/standard_text_size"
+                    android:onClick="deleteClick"
+                    android:enabled="false"
+                    android:visibility="invisible"
+                    android:background="@color/deleteButtonColor"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

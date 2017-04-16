@@ -1,0 +1,674 @@
+<resources>
+    <!-- Home Page Strings -->
+    <string name="app_name">Bad Budget?</string>
+    <string name="cash_button_text">Cash</string>
+    <string name="savings_button_text">Savings</string>
+    <string name="debts_button_text">Debts</string>
+    <string name="gains_button_text">Gains</string>
+    <string name="losses_button_text">Losses</string>
+    <string name="budget_button_text">Budget</string>
+    <string name="track_button_text">Track</string>
+    <string name="predict_button_text">Predict</string>
+
+    <!-- Cash Table Strings -->
+    <string name="cash_activity_title">Cash Accounts</string>
+    <string name="cash_table_account">Account</string>
+    <string name="cash_table_amount">Value</string>
+    <string name="cash_table_savings">Savings?</string>
+    <string name="cash_table_quicklook">Quicklook?</string>
+    <string name="add_account_text">Add Account</string>
+
+    <!-- Add Account Strings -->
+    <string name="add_account_activity_title">Add Account</string>
+    <string name="account_name_prompt">Account Name?</string>
+    <string name="current_value_prompt">Current Value?</string>
+    <string name="savings_account_prompt">Setup as Savings Account?</string>
+    <string name="input_account_name_hint">Account name/description...</string>
+    <string name="input_account_amount_hint">Current value...</string>
+    <string name="input_account_quicklook">Quicklook?</string>
+    <string name="confirm_add_string">Submit</string>
+    <string name="cancel_add_string">Cancel</string>
+
+    <string name="add_account_edit_title">Edit Account</string>
+    <string name="delete_add_edit_string">Delete</string>
+    <string name="account_delete_error_base">"Cannot Delete This Account:"</string>
+    <string name="account_delete_error_savings_contribution_source">Contribution source for</string>
+    <string name="account_delete_error_debts_payment_source">Payment source for</string>
+    <string name="account_delete_error_gains_destination">Destination for</string>
+    <string name="account_delete_error_losses_source">Source for</string>
+    <string name="account_delete_error_budget_source">Source for Budget</string>
+
+    <!-- Add Savings Account Strings, prefix add_savings -->
+
+    <string name="add_savings_activity_title">Add Savings Account</string>
+
+    <string name="add_savings_account_name_prompt">Account Name</string>
+    <string name="add_savings_account_name_hint">Account Name/Description...</string>
+
+    <string name="add_savings_current_value_prompt">Current Value</string>
+    <string name="add_savings_current_value_hint">Current Value...</string>
+
+    <string name="add_savings_interest_rate_prompt">Interest Rate</string>
+    <string name="add_savings_interest_rate_hint">Interest Rate...</string>
+
+    <string name="add_savings_quicklook_prompt">Quicklook</string>
+
+    <string name="add_savings_goal_prompt"><u>Goal</u></string>
+    <string name="add_savings_set_goal_prompt">Set Goal</string>
+    <string name="add_savings_goal_amount_prompt">Goal Amount</string>
+    <string name="add_savings_goal_amount_hint">Goal Amount Not Set...</string>
+    <string name="add_savings_goal_date_prompt">Goal Date</string>
+    <string name="add_savings_goal_date_hint">Goal Date Not Set...</string>
+
+    <string name="add_savings_contribution_prompt"><u>Contribution</u></string>
+    <string name="add_savings_contribution_amount_prompt">Contribution Amount</string>
+    <string name="add_savings_contribution_amount_hint">Contribution Amount...</string>
+    <string name="add_savings_contribution_frequency_prompt">Contribution Frequency</string>
+    <string name="add_savings_contribution_frequency_hint">Monthly (Default)</string>
+    <string name="add_savings_source_account_prompt">Source Account</string>
+    <string name="add_savings_source_account_hint">Choose Source...</string>
+
+    <string name="add_savings_next_date_prompt">Next Contribution</string>
+    <string name="add_savings_next_date_hint">Set...</string>
+
+    <string name="add_savings_end_date_prompt">End Date</string>
+    <string name="add_savings_end_date_hint">Set...</string>
+    <string name="add_savings_end_date_ongoing">Ongoing</string>
+    <string name="add_savings_end_date_disabled">Will End on Goal Date</string>
+
+    <string name="add_savings_clean_button">Clean</string>
+    <string name="add_savings_submit_button">Submit</string>
+    <string name="add_savings_cancel_button">Cancel</string>
+
+    <string-array name="add_savings_frequency_array">
+        <item>@string/one_time</item>
+        <item>@string/daily</item>
+        <item>@string/weekly</item>
+        <item>@string/bi_weekly</item>
+        <item>@string/monthly</item>
+        <item>@string/yearly</item>
+    </string-array>
+    <string name="add_savings_data_clean_message">Data is Clean!</string>
+    <string name="add_savings_clean_missing_input">To Clean Please Enter: the current value, an interest rate, a contribution amount, and a start Date.\nAdditionally Enter 2 of 3: goal amount, goal date, and/or contribution amount.</string>
+    <string name="add_savings_clean_auto_set_goal_amount">Goal Amount Set: </string>
+    <string name="add_savings_clean_auto_set_goal_date">Goal Date Set: </string>
+    <string name="add_savings_clean_auto_set_contribution_amount">Contribution Amount Set: </string>
+
+    <string name="add_savings_submit_missing">Missing:</string>\
+    <string name="add_savings_submit_missing_goal">Missing Goal:</string>
+    <string name="add_savings_submit_data_dirty">Data Should Be Cleaned</string>
+    <string name="add_savings_duplicate_account_name">Duplicate Account Name</string>
+
+    <string name="add_savings_edit_title">Edit Account</string>
+
+    <!-- Clean Fragment Strings -->
+    <string name="clean_fragment_title">Clean...</string>
+    <string name="clean_fragment_update">Clean</string>
+    <string name="clean_fragment_cancel">Cancel</string>
+    <string name="clean_fragment_goal_amount">Goal Amount:</string>
+    <string name="clean_fragment_goal_date">Goal Date:</string>
+    <string name="clean_fragment_contribution_amount">Contribution Amount:</string>
+
+    <!-- Savings (Table) Activity strings -->
+    <string name="savings_activity_title">Savings Accounts</string>
+    <string name="savings_table_account">Account</string>
+    <string name="savings_table_amount">Value</string>
+    <string name="savings_table_contribution">Contribution</string>
+    <string name="savings_table_goal">Goal</string>
+    <string name="savings_table_quicklook">Quicklook?</string>
+    <string name="savings_table_not_applicable">N/A</string>
+    <string name="add_savings_account_text">Add Savings Account</string>
+
+    <!-- Quicklook popup window strings -->
+    <string name="popup_quicklook_title_suffix"> - Quicklook</string>
+    <string name="popup_quicklook_detailed_look">Detailed Look</string>
+    <string name="popup_quicklook_date_placeholder">Date</string>
+
+    <!-- Application Strings -->
+    <string name="one_time">One-Time</string>
+    <string name="daily">Daily</string>
+    <string name="weekly">Weekly</string>
+    <string name="bi_weekly">Bi-Weekly</string>
+    <string name="monthly">Monthly</string>
+    <string name="yearly">Yearly</string>
+
+    <!-- Predict activity strings -->
+    <string name="predict_activity_title">Predict</string>
+    <string name="predict_year_prompt">Year</string>
+
+    <!-- Debts Activity Strings -->
+    <string name="debts_activity_title">Debts</string>
+    <string name="debts_credit_cards">Credit Cards</string>
+    <string name="debts_loans">Loans</string>
+    <string name="debts_miscellaneous">Miscellaneous</string>
+
+    <!-- Debts In General Strings -->
+    <string name="debt_no_payment">N/A</string>
+    <string name="dollar_sign">$</string>
+    <string name="payoff_shorthand">PO</string>
+
+    <!-- Credit Cards Activity Strings -->
+    <string name="credit_cards_activity_title">Credit Cards</string>
+    <string name="credit_cards_column_1">Name</string>
+    <string name="credit_cards_column_2">Debt</string>
+    <string name="credit_cards_column_3">Payment</string>
+    <string name="credit_cards_column_4">Quicklook?</string>
+    <string name="detailed_look_credit_cards_alt_column_4">Type</string>
+    <string name="credit_cards_add">Add Credit Card</string>
+
+    <!-- Loans Activity Strings -->
+    <string name="loans_activity_title">Loans</string>
+    <string name="loans_column_1">Name</string>
+    <string name="loans_column_2">Debt</string>
+    <string name="loans_column_3">Payment</string>
+    <string name="loans_column_4">Quicklook?</string>
+    <string name="loans_add">Add Loan</string>
+
+    <!-- Misc Activity Strings -->
+    <string name="misc_activity_title">Miscellaneous Debts</string>
+    <string name="misc_column_1">Name</string>
+    <string name="misc_column_2">Debt</string>
+    <string name="misc_column_3">Payment</string>
+    <string name="misc_column_4">Quicklook?</string>
+    <string name="misc_add">Add Miscellaneous Debt</string>
+
+    <!-- Add Credit Cards Activity Strings -->
+    <string name="add_cc_title">Add Credit Card</string>
+    <string name="add_cc_card_name">Card Name</string>
+    <string name="add_cc_card_name_hint">Credit Card Name...</string>
+    <string name="add_cc_current_debt">Current Debt</string>
+    <string name="add_cc_current_debt_hint">Current Debt...</string>
+    <string name="add_cc_quicklook_prompt">Quicklook?</string>
+    <string name="add_cc_setup_payment_prompt">Setup Payment?</string>
+    <string name="add_cc_submit">Submit</string>
+    <string name="add_cc_next">Next</string>
+    <string name="add_cc_cancel">Cancel</string>
+    <string name="add_cc_interest_rate">Interest Rate</string>
+    <string name="add_cc_interest_rate_hint">Interest Rate...</string>
+
+    <string name="edit_cc_title">Edit Credit Card</string>
+    <string name="edit_cc_edit_payment_text">Edit Credit Card with Payment?</string>
+    <string name="credit_card_delete_error_base">"Cannot Delete This Credit Card:"</string>
+    <string name="credit_card_delete_error_losses_source">Source for</string>
+    <string name="credit_card_delete_error_budget_source">Source for Budget</string>
+
+    <!-- Add Loans Activity Strings -->
+    <string name="add_loan_title">Add Loan</string>
+    <string name="add_loan_name">Loan Name</string>
+    <string name="add_loan_name_hint">Loan Name/Description...</string>
+    <string name="add_loan_current_debt">Current Debt</string>
+    <string name="add_loan_current_debt_hint">Current Debt...</string>
+    <string name="add_loan_quicklook_prompt">Quicklook?</string>
+    <string name="add_loan_setup_payment_prompt">Setup Payment?</string>
+    <string name="add_loan_submit">Submit</string>
+    <string name="add_loan_next">Next</string>
+    <string name="add_loan_cancel">Cancel</string>
+    <string name="add_loan_interest_rate">Interest Rate</string>
+    <string name="add_loan_interest_rate_hint">Interest Rate...</string>
+    <string name="add_loan_simple_interest_question">Simple Interest?</string>
+    <string name="add_loan_simple_interest">Simple Interest</string>
+    <string name="add_loan_simple_interest_principal">Principal</string>
+    <string name="add_loan_simple_interest_not_applicable">N/A</string>
+
+
+
+    <string name="edit_loan_title">Edit Loan</string>
+    <string name="edit_loan_edit_payment_text">Edit Loan with Payment?</string>
+
+    <!-- Add Loans Activity Strings -->
+    <string name="add_misc_title">Add Misc</string>
+    <string name="add_misc_name">Misc Name</string>
+    <string name="add_misc_name_hint">Misc Name/Description...</string>
+    <string name="add_misc_current_debt">Current Debt</string>
+    <string name="add_misc_current_debt_hint">Current Debt...</string>
+    <string name="add_misc_quicklook_prompt">Quicklook?</string>
+    <string name="add_misc_setup_payment_prompt">Setup Payment?</string>
+    <string name="add_misc_submit">Submit</string>
+    <string name="add_misc_next">Next</string>
+    <string name="add_misc_cancel">Cancel</string>
+    <string name="add_misc_interest_rate">Interest Rate</string>
+    <string name="add_misc_interest_rate_hint">Interest Rate...</string>
+
+    <string name="edit_misc_title">Edit Misc</string>
+    <string name="edit_misc_edit_payment_text">Edit Misc Debt with Payment?</string>
+
+    <!-- Add Credit Card Payment Activity Strings -->
+    <string name="add_creditcard_payment_title">Setup Payment</string>
+    <string name="edit_creditcard_payment_title">Edit Credit Card</string>
+
+    <string name="add_creditcard_payment_debt_prompt">Debt</string>
+    <string name="add_creditcard_payment_debt_hint">Debt Name/Description...</string>
+    <string name="add_creditcard_payment_value_prompt">Current Value</string>
+    <string name="add_creditcard_payment_value_hint">Current Value/Amount...</string>
+    <string name="add_creditcard_payment_quicklook_checkbox">Quicklook</string>
+
+    <string name="add_creditcard_payment_payment_prompt">Payment</string>
+    <string name="add_creditcard_payment_amount_prompt">Payment Amount</string>
+    <string name="add_creditcard_payment_amount_hint">Amount...</string>
+    <string name="add_creditcard_payment_frequency_prompt">Payment Frequency</string>
+    <string name="add_creditcard_payment_source_accout_prompt">Source Account</string>
+    <string name="add_creditcard_payment_next_prompt">Next Payment</string>
+    <string name="add_creditcard_payment_end_prompt">End Date</string>
+    <string name="add_creditcard_payment_goal_prompt">Goal</string>
+    <string name="add_creditcard_payment_goal_date_prompt">Goal Date</string>
+    <string name="add_creditcard_payment_set_goal_prompt">Set Goal Date</string>
+    <string name="add_creditcard_payment_date_hint">Set Date...</string>
+    <string name="add_creditcard_payment_note">*Note this doesn\'t account for interest</string>
+
+    <string name="add_creditcard_payment_ongoing">Ongoing</string>
+    <string name="add_creditcard_payment_end_date_disabled">Ends on Goal Date</string>
+    <string name="add_creditcard_payment_amount_payoff">Payoff</string>
+
+    <string name="add_creditcard_payment_duplicate_debt_name">Duplicate Debt Name!</string>
+    <string name="add_creditcard_payment_submit_data_dirty">Date Should Be Cleaned</string>
+
+    <string name="add_creditcard_payment_clean_button">Clean</string>
+    <string name="add_creditcard_payment_submit_button">Submit</string>
+    <string name="add_creditcard_payment_cancel_button">Cancel</string>
+
+    <string name="add_creditcard_payment_interest_rate_prompt">Interest Rate</string>
+    <string name="add_creditcard_payment_interest_rate_hint">Interest Rate...</string>
+
+    <string-array name="add_creditcard_payment_frequency_array">
+        <item>@string/one_time</item>
+        <item>@string/daily</item>
+        <item>@string/weekly</item>
+        <item>@string/bi_weekly</item>
+        <item>@string/monthly</item>
+        <item>@string/yearly</item>
+    </string-array>
+
+    <string name="add_creditcard_payment_data_clean_message">Data is Clean!</string>
+    <string name="add_creditcard_payment_data_clean_missing">To Clean Please Enter The Following:</string>
+    <string name="add_creditcard_payment_data_clean_and_or">And/Or</string>
+    <string name="add_creditcard_payment_data_goal_checkbox_unchecked">Can\'t Clean: Set Goal Unchecked</string>
+
+    <string name="add_creditcard_payment_auto_set_payment_amount">Payment Amount Set:</string>
+    <string name="add_creditcard_payment_auto_set_goal_date">Goal Date Set:</string>
+
+    <string name="add_creditcard_payment_submit_missing">Missing:</string>
+
+    <!-- Add Loan Payment Activity Strings -->
+    <string name="add_loan_payment_title">Setup Payment</string>
+    <string name="edit_loan_payment_title">Edit Loan</string>
+
+    <string name="add_loan_payment_debt_prompt">Debt</string>
+    <string name="add_loan_payment_debt_hint">Debt Name/Description...</string>
+    <string name="add_loan_payment_value_prompt">Current Value</string>
+    <string name="add_loan_payment_value_hint">Current Value/Amount...</string>
+    <string name="add_loan_payment_quicklook_checkbox">Quicklook</string>
+
+    <string name="add_loan_payment_payment_prompt">Payment</string>
+    <string name="add_loan_payment_amount_prompt">Payment Amount</string>
+    <string name="add_loan_payment_amount_hint">Amount...</string>
+    <string name="add_loan_payment_frequency_prompt">Payment Frequency</string>
+    <string name="add_loan_payment_source_accout_prompt">Source Account</string>
+    <string name="add_loan_payment_next_prompt">Next Payment</string>
+    <string name="add_loan_payment_end_prompt">End Date</string>
+    <string name="add_loan_payment_goal_prompt">Goal</string>
+    <string name="add_loan_payment_goal_date_prompt">Goal Date</string>
+    <string name="add_loan_payment_set_goal_prompt">Set Goal Date</string>
+    <string name="add_loan_payment_date_hint">Set Date...</string>
+    <string name="add_loan_payment_note">*Note this doesn\'t account for interest</string>
+
+    <string name="add_loan_payment_ongoing">Ongoing</string>
+    <string name="add_loan_payment_end_date_disabled">Ends on Goal Date</string>
+    <string name="add_loan_payment_amount_payoff">Payoff</string>
+
+    <string name="add_loan_payment_duplicate_debt_name">Duplicate Debt Name!</string>
+    <string name="add_loan_payment_submit_data_dirty">Date Should Be Cleaned</string>
+
+    <string name="add_loan_payment_clean_button">Clean</string>
+    <string name="add_loan_payment_submit_button">Submit</string>
+    <string name="add_loan_payment_cancel_button">Cancel</string>
+    <string name="add_loan_payment_interest_rate_prompt">Interest Rate</string>
+    <string name="add_loan_payment_interest_rate_hint">Interest Rate...</string>
+
+    <string-array name="add_loan_payment_frequency_array">
+        <item>@string/one_time</item>
+        <item>@string/daily</item>
+        <item>@string/weekly</item>
+        <item>@string/bi_weekly</item>
+        <item>@string/monthly</item>
+        <item>@string/yearly</item>
+    </string-array>
+
+    <string name="add_loan_payment_data_clean_message">Data is Clean!</string>
+    <string name="add_loan_payment_data_clean_missing">To Clean Please Enter The Following:</string>
+    <string name="add_loan_payment_data_clean_and_or">And/Or</string>
+    <string name="add_loan_payment_data_goal_checkbox_unchecked">Can\'t Clean: Set Goal Unchecked</string>
+    <string name="add_loan_payment_calculate_goal_error">Reasonable Goal Not Found</string>
+
+    <string name="add_loan_payment_auto_set_payment_amount">Payment Amount Set:</string>
+    <string name="add_loan_payment_auto_set_goal_date">Goal Date Set:</string>
+
+    <string name="add_loan_payment_submit_missing">Missing:</string>
+
+    <!-- Add Misc Payment Activity Strings -->
+    <string name="add_misc_payment_title">Setup Payment</string>
+    <string name="edit_misc_payment_title">Edit Misc. Debt</string>
+
+    <string name="add_misc_payment_debt_prompt">Debt</string>
+    <string name="add_misc_payment_debt_hint">Debt Name/Description...</string>
+    <string name="add_misc_payment_value_prompt">Current Value</string>
+    <string name="add_misc_payment_value_hint">Current Value/Amount...</string>
+    <string name="add_misc_payment_quicklook_checkbox">Quicklook</string>
+
+    <string name="add_misc_payment_payment_prompt">Payment</string>
+    <string name="add_misc_payment_amount_prompt">Payment Amount</string>
+    <string name="add_misc_payment_amount_hint">Amount...</string>
+    <string name="add_misc_payment_frequency_prompt">Payment Frequency</string>
+    <string name="add_misc_payment_source_accout_prompt">Source Account</string>
+    <string name="add_misc_payment_next_prompt">Next Payment</string>
+    <string name="add_misc_payment_end_prompt">End Date</string>
+    <string name="add_misc_payment_goal_prompt">Goal</string>
+    <string name="add_misc_payment_goal_date_prompt">Goal Date</string>
+    <string name="add_misc_payment_set_goal_prompt">Set Goal Date</string>
+    <string name="add_misc_payment_date_hint">Set Date...</string>
+    <string name="add_misc_payment_note">*Note this doesn\'t account for interest</string>
+
+    <string name="add_misc_payment_ongoing">Ongoing</string>
+    <string name="add_misc_payment_end_date_disabled">Ends on Goal Date</string>
+    <string name="add_misc_payment_amount_payoff">Payoff</string>
+
+    <string name="add_misc_payment_duplicate_debt_name">Duplicate Debt Name!</string>
+    <string name="add_misc_payment_submit_data_dirty">Date Should Be Cleaned</string>
+
+    <string name="add_misc_payment_clean_button">Clean</string>
+    <string name="add_misc_payment_submit_button">Submit</string>
+    <string name="add_misc_payment_cancel_button">Cancel</string>
+
+    <string name="add_misc_payment_interest_rate_prompt">Interest Rate</string>
+    <string name="add_misc_payment_interest_rate_hint">Interest Rate...</string>
+
+    <string-array name="add_misc_payment_frequency_array">
+        <item>@string/one_time</item>
+        <item>@string/daily</item>
+        <item>@string/weekly</item>
+        <item>@string/bi_weekly</item>
+        <item>@string/monthly</item>
+        <item>@string/yearly</item>
+    </string-array>
+
+    <string name="add_misc_payment_data_clean_message">Data is Clean!</string>
+    <string name="add_misc_payment_data_clean_missing">To Clean Please Enter The Following:</string>
+    <string name="add_misc_payment_data_clean_and_or">And/Or</string>
+    <string name="add_misc_payment_data_goal_checkbox_unchecked">Can\'t Clean: Set Goal Unchecked</string>
+
+    <string name="add_misc_payment_auto_set_payment_amount">Payment Amount Set:</string>
+    <string name="add_misc_payment_auto_set_goal_date">Goal Date Set:</string>
+
+    <string name="add_misc_payment_submit_missing">Missing:</string>
+
+    <!-- Gains Activity Strings -->
+    <string name="gains_activity_title">Gains</string>
+    <string name="gains_column_1">Description</string>
+    <string name="gains_column_2">Value</string>
+    <string name="gains_column_3">Frequency</string>
+    <string name="gains_column_4">Destination</string>
+    <string name="gains_add">Add Gain</string>
+
+    <!-- Losses Activity Strings -->
+    <string name="losses_activity_title">Losses</string>
+    <string name="losses_column_1">Description</string>
+    <string name="losses_column_2">Value</string>
+    <string name="losses_column_3">Frequency</string>
+    <string name="losses_column_4">Source</string>
+    <string name="losses_add">Add Loss</string>
+
+    <!-- Add Gain Activity Strings -->
+    <string name="add_gain_activity_title">Add Gain</string>
+    <string name="add_gain_activity__edit_title">Edit Gain</string>
+    <string name="add_gain_description_prompt">Description</string>
+    <string name="add_gain_description_hint">Name/Description...</string>
+    <string name="add_gain_amount_prompt">Amount</string>
+    <string name="add_gain_amount_hint">Amount...</string>
+    <string name="add_gain_frequency_prompt">Frequency</string>
+    <string name="add_gain_next_prompt">Next Gain</string>
+    <string name="add_gain_end_prompt">End Date</string>
+    <string name="add_gain_date_hint">Set Date...</string>
+    <string name="add_gain_ongoing">Ongoing</string>
+    <string name="add_gain_destination_prompt">Destination</string>
+    <string name="add_gain_submit">Submit</string>
+    <string name="add_gain_cancel">Cancel</string>
+
+    <string-array name="add_gain_frequency_array">
+        <item>@string/one_time</item>
+        <item>@string/daily</item>
+        <item>@string/weekly</item>
+        <item>@string/bi_weekly</item>
+        <item>@string/monthly</item>
+        <item>@string/yearly</item>
+    </string-array>
+
+    <!-- Add Loss Activity Strings -->
+    <string name="add_loss_activity_title">Add Loss</string>
+    <string name="add_loss_activity__edit_title">Edit Loss</string>
+    <string name="add_loss_description_prompt">Description</string>
+    <string name="add_loss_description_hint">Name/Description...</string>
+    <string name="add_loss_amount_prompt">Amount</string>
+    <string name="add_loss_amount_hint">Amount...</string>
+    <string name="add_loss_frequency_prompt">Frequency</string>
+    <string name="add_loss_next_prompt">Next Loss</string>
+    <string name="add_loss_end_prompt">End Date</string>
+    <string name="add_loss_date_hint">Set Date...</string>
+    <string name="add_loss_ongoing">Ongoing</string>
+    <string name="add_loss_source_prompt">Source</string>
+    <string name="add_loss_submit">Submit</string>
+    <string name="add_loss_cancel">Cancel</string>
+
+    <string-array name="add_loss_frequency_array">
+        <item>@string/one_time</item>
+        <item>@string/daily</item>
+        <item>@string/weekly</item>
+        <item>@string/bi_weekly</item>
+        <item>@string/monthly</item>
+        <item>@string/yearly</item>
+    </string-array>
+
+    <!-- BudgetSet Activity Strings -->
+    <string name="budget_activity_title">Budget</string>
+    <string name="budget_column_1">Item</string>
+    <string name="budget_column_2">Budget</string>
+    <string name="budget_column_3">Toggle</string>
+    <string name="budget_add">Budget New Item</string>
+
+    <!-- Add Budget Item Activity Strings -->
+    <string name="tracker_item_activity_title">Tracker Item</string>
+    <string name="tracker_item_description_prompt">Description</string>
+    <string name="tracker_item_description_hint">Name/Description...</string>
+    <string name="tracker_item_remain_amount_prompt">Remaining</string>
+    <string name="tracker_item_remain_amount_hint">Amount...</string>
+    <string name="tracker_item_plus_minus_amount_prompt">Plus/Minus Amount</string>
+    <string name="tracker_item_plus_minus_amount_hint">Amount...</string>
+    <string name="tracker_item_accumulates_hint">Accumulates</string>
+
+    <string name="tracker_item_submit">Submit</string>
+    <string name="tracker_item_cancel">Cancel</string>
+
+    <string-array name="add_budget_item_frequency_array">
+        <item>@string/one_time</item>
+        <item>@string/daily</item>
+        <item>@string/weekly</item>
+        <item>@string/bi_weekly</item>
+        <item>@string/monthly</item>
+        <item>@string/yearly</item>
+    </string-array>
+
+    <!-- Budget Preferences Activity Strings -->
+    <string name="budget_prefs_title">Budget Settings</string>
+    <string name="budget_prefs_source_prompt">Budget Items Source</string>
+    <string name="budget_prefs_auto_update">Auto Update Accounts/Debts</string>
+    <string name="budget_prefs_auto_reset_action">Auto Reset Remaining Amount Action</string>
+    <string name="budget_prefs_add_back">Add Back to Source</string>
+    <string name="budget_prefs_disappear">Disappear</string>
+    <string name="budget_prefs_accumulates">Accumulates</string>
+    <string name="budget_prefs_budget_items">Budget Items</string>
+    <string name="budget_prefs_auto_reset">Auto Reset Budget Items</string>
+    <string name="budget_prefs_reset_times">Reset Days</string>
+    <string name="budget_prefs_weekly">Weekly</string>
+    <string name="budget_prefs_monthly">Monthly</string>
+    <string name="budget_prefs_submit">Submit</string>
+    <string name="budget_prefs_cancel">Cancel</string>
+
+    <string-array name="budget_prefs_remain_amount_action_array">
+        <item>@string/budget_prefs_accumulates</item>
+        <item>@string/budget_prefs_disappear</item>
+        <item>@string/budget_prefs_add_back</item>
+    </string-array>
+
+    <string-array name="budget_prefs_remain_amount_action_array_no_add_back">
+        <item>@string/budget_prefs_accumulates</item>
+        <item>@string/budget_prefs_disappear</item>
+    </string-array>
+
+    <!-- Budget Tracker Activity Strings -->
+    <string name="budget_tracker_title">Budget Tracker</string>
+    <string name="budget_tracker_column_1">Item</string>
+    <string name="budget_tracker_column_2">Minus</string>
+    <string name="budget_tracker_column_3">Remain</string>
+    <string name="budget_tracker_column_4">Plus</string>
+    <string name="budget_tracker_column_5">Next</string>
+    <string name="budget_tracker_history">History</string>
+
+    <!-- Add Budget Item Activity Strings -->
+    <string name="add_budget_item_activity_title">Budget New Item</string>
+    <string name="add_budget_item_activity__edit_title">Edit Item</string>
+    <string name="add_budget_item_description_prompt">Description</string>
+    <string name="add_budget_item_description_hint">Name/Description...</string>
+    <string name="add_budget_item_amount_prompt">Budget</string>
+    <string name="add_budget_item_amount_hint">Amount...</string>
+    <string name="add_budget_item_frequency_prompt">Frequency</string>
+    <string name="add_budget_item_next_prompt">Next Loss</string>
+    <string name="add_budget_item_end_prompt">End Date</string>
+    <string name="add_budget_item_date_hint">Set Date...</string>
+    <string name="add_budget_item_prorated">Prorated</string>
+    <string name="add_budget_item_ongoing">Ongoing</string>
+    <string name="add_budget_item_submit">Submit</string>
+    <string name="add_budget_item_cancel">Cancel</string>
+
+    <!-- Navigation Drawer Strings -->
+    <string name="nav_drawer_opening">Opening</string>
+    <string name="nav_drawer_closing">Closing</string>
+    <string name="nav_drawer_tracker">Tracker</string>
+    <string name="nav_drawer_history">History</string>
+    <string name="nav_drawer_predict">Predict</string>
+    <string name="nav_drawer_home">Home</string>
+    <string name="nav_drawer_budget_select">Budget Select</string>
+    <string name="nav_drawer_budget_settings">Settings</string>
+    <string name="nav_drawer_budget_group_title">Budget</string>
+    <string name="nav_drawer_budget_suffix">Budget</string>
+    <string name="nav_drawer_budget_name">Budget</string>
+    <string name="nav_drawer_delete_budget">Delete</string>
+
+    <!-- Toolbar Strings -->
+    <string name="toolbar_about">About</string>
+    <string name="toolbar_predict_date_picker">Date Picker</string>
+    <string name="toolbar_budget_select_title">Budget Select</string>
+    <string name="toolbar_tracker_title">Tracker</string>
+
+
+    <!-- Tracker Single Item Strings -->
+    <string name="tracker_plus">+0</string>
+    <string name="tracker_minus">-0</string>
+    <string name="tracker_item">Tracker Item</string>
+    <string name="tracker_next">Sunday 01/01</string>
+    <string name="tracker_amount">0</string>
+    <string name="tracker_plus_prefix">+</string>
+    <string name="tracker_minus_prefix">-</string>
+
+    <!-- Tracker History Strings -->
+    <string name="tracker_history_activity_title">Tracker History</string>
+    <string name="tracker_history_item">Budget Item</string>
+    <string name="tracker_history_day_time">Sun 00:00 AM</string>
+    <string name="tracker_history_date">01/01/2000</string>
+    <string name="tracker_history_action_default">Default Action</string>
+    <string name="tracker_history_amount">0.00</string>
+    <string name="tracker_history_change">(0.00->0.00)</string>
+    <string name="tracker_history_clear_all">Clear All</string>
+
+    <!-- Detailed Look Strings-->
+    <string name="detailed_look_home_activity_title">Detailed Look</string>
+    <string name="detailed_look_on_this_day">On This Day</string>
+    <string name="detailed_look_all_history">Past Year</string>
+    <string name="detailed_look_on_this_day_activity_title">On This Day</string>
+    <string name="detailed_look_all_history_activity_title">Year History</string>
+    <string name="detailed_look_cash_activity_title">Cash Accounts</string>
+    <string name="detailed_look_savings_activity_title">Savings Accounts</string>
+    <string name="detailed_look_debts_activity_title">Debts</string>
+    <string name="detailed_look_on_this_day_account_history_title">On This Day</string>
+    <string name="detailed_look_toggle_button">Today/Year</string>
+
+    <string name="detailed_look_source">from Source (1234.56 -> 0.0)</string>
+    <string name="detailed_look_destination">to Destination (0.0 -> 1234.56)</string>
+    <string name="detailed_look_transaction_amount">1234.56</string>
+    <string name="detailed_look_history_date">01/01/2000</string>
+
+    <!-- Select Dialog Strings -->
+    <string name="select_dialog_title">Select Budget</string>
+    <string name="select_dialog_select">Select</string>
+    <string name="select_dialog_cancel">Cancel</string>
+    <string name="select_dialog_create_new">Create New</string>
+
+    <!-- Create Dialog Strings -->
+    <string name="create_dialog_title">Create New Budget</string>
+    <string name="create_dialog_budget_name_hint">Budget Name...</string>
+    <string name="create_dialog_confirm">Confirm</string>
+    <string name="create_dialog_cancel">Cancel</string>
+    <string name="create_dialog_copy">Copy Existing</string>
+
+    <!-- Copy Existing Dialog Strings -->
+    <string name="copy_existing_dialog_title">Copy Existing Budget</string>
+    <string name="copy_existing_dialog_copy">Copy</string>
+    <string name="copy_existing_dialog_cancel">Cancel</string>
+
+    <!-- Select Budget Source Dialog Strings -->
+    <string name="select_budget_source_dialog_title">Select Budget Source</string>
+    <string name="select_budget_source_dialog_select">Select</string>
+    <string name="select_budget_source_dialog_cancel">Cancel</string>
+    <string name="select_budget_source_progress_message">Setting budget source...</string>
+
+    <!-- Custom Calendar Strings -->
+    <string name="custom_calendar_placeholder_date">current date</string>
+    <string name="custom_calendar_monday">Mon</string>
+    <string name="custom_calendar_tuesday">Tue</string>
+    <string name="custom_calendar_wednesday">Wed</string>
+    <string name="custom_calendar_thursday">Thu</string>
+    <string name="custom_calendar_friday">Fri</string>
+    <string name="custom_calendar_saturday">Sat</string>
+    <string name="custom_calendar_sunday">Sun</string>
+
+    <!-- Delete Budget Activity Strings -->
+    <string name="delete_budget_activity_title">Delete Budgets</string>
+    <string name="delete_budget_delete_a_budget">Delete A Budget</string>
+
+    <!-- Delete Budget Dialog Strings -->
+    <string name="delete_budget_dialog_title">Delete Budget</string>
+    <string name="delete_budget_dialog_delete">Delete</string>
+    <string name="delete_budget_dialog_cancel">Cancel</string>
+
+    <!-- Aggregate Table Strings -->
+    <string name="table_total">Total</string>
+    <string name="budget_total">Budget</string>
+
+    <!-- Tracker Calculator Strings -->
+    <string name="track_calc_pos0">C</string>
+    <string name="track_calc_pos1">7</string>
+    <string name="track_calc_pos2">8</string>
+    <string name="track_calc_pos3">9</string>
+    <string name="track_calc_pos4">4</string>
+    <string name="track_calc_pos5">5</string>
+    <string name="track_calc_pos6">6</string>
+    <string name="track_calc_pos7">1</string>
+    <string name="track_calc_pos8">2</string>
+    <string name="track_calc_pos9">3</string>
+    <string name="track_calc_pos10">.</string>
+    <string name="track_calc_pos11">0</string>
+    <string name="track_calc_pos12">+</string>
+    <string name="track_calc_pos13">-</string>
+    <string name="track_calc_description">Description (Optional)</string>
+    <string name="track_calc_bot_pos0">CAN</string>
+    <string name="track_calc_bot_pos1">RES</string>
+    <string name="track_calc_bot_pos2">OK</string>
+
+</resources>

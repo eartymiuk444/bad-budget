@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:fitsSystemWindows="true"
+    tools:context=".inputforms.BudgetPrefsActivity">
+
+    <!-- Buttons -->
+    <LinearLayout
+        android:id="@+id/budgetPrefsButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_generic"
+        android:layout_alignParentBottom="true"
+        android:weightSum="3">
+
+        <!-- Submit Button -->
+        <android.widget.Button
+            android:id="@+id/submitButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/budget_prefs_submit"
+            android:textSize="@dimen/standard_text_size"
+            android:onClick="submitClick"
+            />
+
+        <!-- Cancel Button -->
+        <android.widget.Button
+            android:id="@+id/cancelButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/budget_prefs_cancel"
+            android:textSize="@dimen/standard_text_size"
+            android:onClick="cancelClick"
+            />
+    </LinearLayout>
+
+    <!-- Vertical Linear Layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/budgetPrefsButtons"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <!-- Auto Update Prompt and Input -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                android:padding="@dimen/padding_generic"
+                android:gravity="center_vertical"
+                >
+                <TextView
+                    android:id="@+id/autoUpdatePrompt"
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:text="@string/budget_prefs_auto_update"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    />
+                <CheckBox
+                    android:id="@+id/autoUpdateInput"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="autoUpdateClicked"/>
+            </LinearLayout>
+
+            <!-- Auto Reset Prompt and Input -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                android:padding="@dimen/padding_generic"
+                android:gravity="center_vertical"
+                >
+                <TextView
+                    android:id="@+id/autoResetPrompt"
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:text="@string/budget_prefs_auto_reset"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    />
+                <CheckBox
+                    android:id="@+id/autoResetInput"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="autoResetClicked"/>
+            </LinearLayout>
+
+            <!-- Auto Reset Action -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_generic">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/budget_prefs_auto_reset_action"
+                    android:textSize="@dimen/standard_text_size"
+                    android:enabled="true"
+                    android:textStyle="bold"
+                    />
+                <Spinner
+                    android:id="@+id/autoResetActions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+
+            <!-- Budget Item Source -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_generic">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/budget_prefs_source_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:enabled="true"
+                    android:textStyle="bold"
+                    />
+                <Spinner
+                    android:id="@+id/budgetSourceInput"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+
+            <!-- Budget Items Reset Times Prompt and Table -->
+            <TextView
+                android:id="@+id/resetTimesPrompt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/budget_prefs_reset_times"
+                android:textSize="@dimen/standard_text_size"
+                android:padding="@dimen/padding_generic"
+                android:textStyle="bold"
+                />
+
+            <TableLayout
+                android:id="@+id/resetTimesTable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <TableRow
+                    android:gravity="center"
+                    >
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/cell_height"
+                        android:layout_weight="1"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:text="@string/budget_prefs_weekly"
+                        android:textSize="@dimen/cell_text_size"
+                        android:padding="@dimen/table_padding"
+                        android:background="@drawable/bordertbl"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/cell_height"
+                        android:layout_weight="1"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:text="@string/budget_prefs_monthly"
+                        android:textSize="@dimen/cell_text_size"
+                        android:padding="@dimen/table_padding"
+                        android:background="@drawable/borderfull"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        />
+                </TableRow>
+
+                <!-- Spinner Row -->
+                <TableRow
+                    android:weightSum="2">
+                    <Spinner
+                        android:id="@+id/resetWeeklyInput"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/cell_height"
+                        android:layout_weight="1"
+                        android:background="@drawable/borderlb"
+                        android:popupBackground="@color/colorPrimary"
+                        />
+                    <Spinner
+                        android:id="@+id/resetMonthlyInput"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/cell_height"
+                        android:layout_weight="1"
+                        android:background="@drawable/borderlbr"
+                        android:popupBackground="@color/colorPrimary"
+                        />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.badbudget.erikartymiuk.badbudget">
+
+    <application
+        android:name=".bbmain.BadBudgetApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity android:name=".bbmain.HomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".viewobjecttables.CashActivity"
+            android:label="@string/cash_activity_title"
+            android:parentActivityName=".bbmain.HomeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".bbmain.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".inputforms.AddAccount"
+            android:label="@string/add_account_activity_title"
+            android:parentActivityName=".viewobjecttables.CashActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".viewobjecttables.CashActivity" />
+        </activity>
+        <activity
+            android:name=".bbmain.PredictActivity"
+            android:label="@string/predict_activity_title"
+            android:parentActivityName=".bbmain.HomeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".bbmain.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".viewobjecttables.SavingsActivity"
+            android:label="@string/savings_activity_title"
+            android:parentActivityName=".bbmain.HomeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".bbmain.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".inputforms.AddSavingsActivity"
+            android:label="@string/add_savings_activity_title"
+            android:parentActivityName=".viewobjecttables.SavingsActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".viewobjecttables.SavingsActivity" />
+        </activity>
+        <activity
+            android:name=".viewobjecttables.DebtsActivity"
+            android:label="@string/debts_activity_title"
+            android:parentActivityName=".bbmain.HomeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".bbmain.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".viewobjecttables.GainsActivity"
+            android:label="@string/gains_activity_title"
+            android:parentActivityName=".bbmain.HomeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".bbmain.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".viewobjecttables.LossesActivity"
+            android:label="@string/losses_activity_title"
+            android:parentActivityName=".bbmain.HomeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".bbmain.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".viewobjecttables.BudgetSetActivity"
+            android:label="@string/budget_activity_title"
+            android:parentActivityName=".bbmain.HomeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".bbmain.HomeActivity" />
+        </activity>
+
+        <activity
+            android:name=".bbmain.TrackActivity"
+            android:label="@string/budget_tracker_title"
+            android:parentActivityName=".bbmain.HomeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".bbmain.HomeActivity" />
+        </activity>
+
+        <activity android:name=".viewobjecttables.CreditCardsActivity"
+            android:label="@string/credit_cards_activity_title"
+            android:parentActivityName=".viewobjecttables.DebtsActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".viewobjecttables.DebtsActivity" />
+        </activity>
+
+        <activity android:name=".viewobjecttables.LoansActivity"
+            android:label="@string/loans_activity_title"
+            android:parentActivityName=".viewobjecttables.DebtsActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".viewobjecttables.DebtsActivity" />
+        </activity>
+
+        <activity android:name=".viewobjecttables.MiscActivity"
+            android:label="@string/misc_activity_title"
+            android:parentActivityName=".viewobjecttables.DebtsActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".viewobjecttables.DebtsActivity" />
+        </activity>
+
+        <activity
+            android:name=".inputforms.AddCreditCardActivity"
+            android:label="@string/add_cc_title"
+            android:parentActivityName=".viewobjecttables.CreditCardsActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".viewobjecttables.CreditCardsActivity" />
+        </activity>
+
+        <activity
+            android:name=".inputforms.AddLoanActivity"
+            android:label="@string/add_loan_title"
+            android:parentActivityName=".viewobjecttables.LoansActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".viewobjecttables.LoansActivity" />
+        </activity>
+        <activity
+            android:name=".inputforms.AddMiscActivity"
+            android:label="@string/add_misc_title"
+            android:parentActivityName=".viewobjecttables.MiscActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".viewobjecttables.MiscActivity" />
+        </activity>
+
+        <activity
+            android:name=".inputforms.AddCreditCardPayment"
+            android:label="@string/add_cc_title"
+            android:parentActivityName=".viewobjecttables.CreditCardsActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".viewobjecttables.CreditCardsActivity" />
+        </activity>
+
+        <activity
+            android:name=".inputforms.AddLoanPayment"
+            android:label="@string/add_loan_title"
+            android:parentActivityName=".viewobjecttables.LoansActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".viewobjecttables.LoansActivity" />
+        </activity>
+
+        <activity
+            android:name=".inputforms.AddMiscPayment"
+            android:label="@string/add_misc_title"
+            android:parentActivityName=".viewobjecttables.MiscActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".viewobjecttables.MiscActivity" />
+        </activity>
+
+        <activity android:name=".inputforms.AddGainActivity"
+            android:label="@string/add_gain_activity_title"
+            android:parentActivityName=".viewobjecttables.GainsActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".viewobjecttables.GainsActivity" />
+        </activity>
+
+        <activity android:name=".inputforms.AddLossActivity"
+            android:label="@string/add_loss_activity_title"
+            android:parentActivityName=".viewobjecttables.LossesActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".viewobjecttables.LossesActivity" />
+        </activity>
+
+        <activity android:name=".inputforms.AddBudgetItemActivity"
+            android:label="@string/add_budget_item_activity_title"
+            android:parentActivityName=".viewobjecttables.BudgetSetActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".viewobjecttables.BudgetSetActivity" />
+        </activity>
+
+        <activity android:name=".inputforms.BudgetPrefsActivity"
+            android:label="@string/budget_prefs_title"
+            android:parentActivityName=".viewobjecttables.BudgetSetActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".viewobjecttables.BudgetSetActivity" />
+        </activity>
+
+        <activity android:name=".inputforms.TrackerItem"
+            android:label="@string/tracker_item_activity_title"
+            android:parentActivityName=".bbmain.TrackActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".bbmain.TrackActivity" />
+        </activity>
+
+        <activity android:name=".bbmain.TrackHistoryActivity"
+            android:label="@string/tracker_history_activity_title"
+            android:parentActivityName=".bbmain.TrackActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".bbmain.TrackActivity" />
+        </activity>
+
+        <activity android:name=".bbmain.DetailedLookHomeActivity"
+            android:label="@string/detailed_look_home_activity_title"
+            android:parentActivityName=".bbmain.PredictActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".bbmain.PredictActivity" />
+        </activity>
+
+        <activity android:name=".bbmain.DetailedLookCashTable"
+        android:label="@string/detailed_look_cash_activity_title"
+        android:parentActivityName=".bbmain.DetailedLookHomeActivity"
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="stateHidden">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".bbmain.DetailedLookHomeActivity" />
+        </activity>
+
+        <activity android:name=".bbmain.DetailedLookCashHistoryActivity"
+            android:label=""
+            android:parentActivityName=".bbmain.DetailedLookCashTable"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".bbmain.DetailedLookCashTable" />
+        </activity>
+
+        <activity android:name=".bbmain.DetailedLookDebtsTable"
+            android:label="@string/detailed_look_debts_activity_title"
+            android:parentActivityName=".bbmain.DetailedLookHomeActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".bbmain.DetailedLookHomeActivity" />
+        </activity>
+
+        <activity android:name=".bbmain.DetailedLookDebtHistoryActivity"
+            android:label=""
+            android:parentActivityName=".bbmain.DetailedLookDebtsTable"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".bbmain.DetailedLookDebtsTable" />
+        </activity>
+
+        <activity android:name=".bbmain.BudgetHistoryActivity"
+            android:label=""
+            android:parentActivityName=".bbmain.HomeActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".bbmain.HomeActivity" />
+        </activity>
+
+        <activity android:name=".inputforms.GlobalSettingsActivity"
+            android:label="@string/delete_budget_activity_title"
+            android:parentActivityName=".bbmain.HomeActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".bbmain.HomeActivity" />
+        </activity>
+
+</application>
+
+</manifest>

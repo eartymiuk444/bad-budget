@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Layout for the Budget Set Activity - much like the Cash Accounts,
+ and SavingsAccounts activity with a table and a button to add more
+ money budget items. -->
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".viewobjecttables.BudgetSetActivity">
+
+    <!--
+    The Budget Table modeled after the cash accounts table.
+    -->
+    <TableLayout
+        android:id="@+id/budgetTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <TableRow android:gravity="center">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/cell_height"
+                android:layout_weight="1"
+                android:background="@drawable/bordertbl"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="@dimen/table_padding"
+                android:text="@string/budget_column_1"
+                android:textSize="@dimen/cell_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/cell_height"
+                android:layout_weight="1"
+                android:background="@drawable/bordertbl"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="@dimen/table_padding"
+                android:text="@string/budget_column_2"
+                android:textSize="@dimen/cell_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/cell_height"
+                android:layout_weight="1"
+                android:background="@drawable/borderfull"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="@dimen/table_padding"
+                android:text="@string/budget_column_3"
+                android:textSize="@dimen/cell_text_size"
+                android:textStyle="bold" />
+        </TableRow>
+
+    </TableLayout>
+
+    <!-- Budget new item button -->
+    <android.widget.Button
+        android:id="@+id/addLossButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/budgetTable"
+        android:layout_centerHorizontal="true"
+        android:onClick="budgetNewItemClick"
+        android:text="@string/budget_add" />
+
+</RelativeLayout>

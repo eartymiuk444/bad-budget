@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Cash accounts activity layout. Displays to the user in a table format all of their
+cash accounts including savings. Also includes a button to add an account.
+-->
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".viewobjecttables.CashActivity">
+
+    <!--
+    Table for all the accounts. Every cell uses a border with only the top, left, and
+    bottom drawn except for the last column which has all borders. This table is added to
+    dynamically.
+    -->
+    <TableLayout
+        android:id="@+id/cashAccountsTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <TableRow android:gravity="center">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/cell_height"
+                android:layout_weight="1"
+                android:background="@drawable/bordertbl"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="@dimen/table_padding"
+                android:text="@string/cash_table_account"
+                android:textSize="@dimen/cell_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/cell_height"
+                android:layout_weight="1"
+                android:background="@drawable/bordertbl"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="@dimen/table_padding"
+                android:text="@string/cash_table_amount"
+                android:textSize="@dimen/cell_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/cell_height"
+                android:layout_weight="1"
+                android:background="@drawable/bordertbl"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="@dimen/table_padding"
+                android:text="@string/cash_table_savings"
+                android:textSize="@dimen/cell_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/cell_height"
+                android:layout_weight="1"
+                android:background="@drawable/borderfull"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="@dimen/table_padding"
+                android:text="@string/cash_table_quicklook"
+                android:textSize="@dimen/cell_text_size"
+                android:textStyle="bold" />
+        </TableRow>
+    </TableLayout>
+
+    <!-- Add accounts button -->
+    <android.widget.Button
+        android:id="@+id/addAccountButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cashAccountsTable"
+        android:layout_centerHorizontal="true"
+        android:onClick="addAccountClick"
+        android:text="@string/add_account_text" />
+</RelativeLayout>

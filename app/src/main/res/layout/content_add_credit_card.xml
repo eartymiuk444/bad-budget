@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ Layout for the add credit card activity. Modeled after the add account activity.
+ -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:fitsSystemWindows="true"
+    tools:context=".inputforms.AddCreditCardActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="6">
+
+        <!-- Card Name Prompt and User Input-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/cardNamePrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_cc_card_name"
+                android:textSize="@dimen/standard_text_size"
+                android:textStyle="bold"
+                />
+            <EditText
+                android:id="@+id/inputCardName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_cc_card_name_hint"
+                android:textSize="@dimen/standard_text_size"
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:layout_below="@+id/cardNamePrompt"
+                />
+        </RelativeLayout>
+
+        <!-- Current Debt Prompt and User Input -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/currentDebtPrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_cc_current_debt"
+                android:textSize="@dimen/standard_text_size"
+                android:textStyle="bold"
+                />
+            <EditText
+                android:id="@+id/inputCurrentDebt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_cc_current_debt_hint"
+                android:textSize="@dimen/standard_text_size"
+                android:inputType="numberDecimal|numberSigned"
+                android:imeOptions="actionDone"
+                android:layout_below="@+id/currentDebtPrompt"
+                />
+        </RelativeLayout>
+
+        <!-- Interest Rate Prompt and User Input -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/interestRatePrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_cc_interest_rate"
+                android:textSize="@dimen/standard_text_size"
+                android:textStyle="bold"
+                />
+            <EditText
+                android:id="@+id/inputInterestRate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_cc_interest_rate_hint"
+                android:textSize="@dimen/standard_text_size"
+                android:inputType="numberDecimal|numberSigned"
+                android:imeOptions="actionDone"
+                android:layout_below="@+id/interestRatePrompt"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            >
+
+            <!-- Quicklook Checkbox -->
+            <CheckBox android:id="@+id/addCCQuicklookCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:text="@string/add_cc_quicklook_prompt"
+                android:textSize="@dimen/standard_text_size"
+                android:textStyle="bold"/>
+
+            <!-- Setup Payment Button -->
+            <CheckBox android:id="@+id/setupPaymentCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addCCQuicklookCheckbox"
+                android:text="@string/add_cc_setup_payment_prompt"
+                android:textSize="@dimen/standard_text_size"
+                android:textStyle="bold"
+                android:onClick="paymentCheckboxClicked"
+                />
+
+            <LinearLayout
+                android:id="@+id/addCreditCardButtons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/setupPaymentCheckbox"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <!-- Submit Button to Add Credit Card -->
+                <android.widget.Button
+                    android:id="@+id/submitButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/add_cc_submit"
+                    android:textSize="@dimen/standard_text_size"
+                    android:onClick="submitClick"
+                    />
+
+                <!-- Cancel Button for Undo Decision to Add Credit Card -->
+                <android.widget.Button
+                    android:id="@+id/cancelButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/add_cc_cancel"
+                    android:textSize="@dimen/standard_text_size"
+                    android:onClick="cancelClick"
+                    />
+
+                <!-- Delete Button for when the user is editing an existing credit card -->
+                <android.widget.Button
+                    android:id="@+id/deleteButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/delete_add_edit_string"
+                    android:textSize="@dimen/standard_text_size"
+                    android:onClick="deleteClick"
+                    android:enabled="false"
+                    android:visibility="invisible"
+                    android:background="@color/deleteButtonColor"
+                    />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+</ScrollView>
+</RelativeLayout>

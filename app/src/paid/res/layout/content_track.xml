@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Tracker activity layout. Displays to the user all of their
+budget items with the current value remaining
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".bbmain.TrackActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/tracker_padding_small"
+        android:paddingTop="@dimen/tracker_padding_small">
+
+        <!-- Tracker History Button -->
+        <android.widget.Button
+            android:id="@+id/trackerHistoryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="end"
+            android:onClick="historyButtonClick"
+            android:text="@string/budget_tracker_history" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/trackerHistoryButton"
+            android:layout_alignParentTop="true">
+
+            <LinearLayout
+                android:id="@+id/trackerLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/single_tracker_margin_side"
+                android:layout_marginRight="@dimen/single_tracker_margin_side"
+                android:orientation="vertical"></LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

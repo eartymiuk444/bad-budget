@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Layout for setting the plus, minus, remaining amount, and accumulates value
+ for a budget item we are tracking
+ -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:fitsSystemWindows="true"
+    tools:context=".inputforms.TrackerItem">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:weightSum="12">
+
+            <!-- Budget Item Name/Description Prompt -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2">
+                <TextView
+                    android:id="@+id/trackerItemDescriptionPrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tracker_item_description_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:id="@+id/trackerItemDescriptionInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/tracker_item_description_hint"
+                    android:textSize="@dimen/standard_text_size"
+                    android:layout_below="@+id/trackerItemDescriptionPrompt"
+                    android:paddingTop="@dimen/padding_generic"
+                    android:paddingBottom="@dimen/padding_generic"
+                    />
+            </RelativeLayout>
+
+            <!-- Budget Remain Amount Prompt and User Input -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2">
+                <TextView
+                    android:id="@+id/trackerItemRemainAmountPrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tracker_item_remain_amount_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    />
+                <EditText
+                    android:id="@+id/trackerItemRemainAmountInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/tracker_item_remain_amount_hint"
+                    android:textSize="@dimen/standard_text_size"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:imeOptions="actionDone"
+                    android:layout_below="@+id/trackerItemRemainAmountPrompt"
+                    />
+            </RelativeLayout>
+
+            <!-- Budget Plus & Minus Amount Prompt and User Input -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2">
+                <TextView
+                    android:id="@+id/trackerItemPlusMinusAmountPrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tracker_item_plus_minus_amount_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    />
+                <EditText
+                    android:id="@+id/trackerItemPlusMinusAmountInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/tracker_item_plus_minus_amount_hint"
+                    android:textSize="@dimen/standard_text_size"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:imeOptions="actionDone"
+                    android:layout_below="@+id/trackerItemPlusMinusAmountPrompt"
+                    />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/trackerItemButtons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <!-- Submit Button to Set Tracker Fields -->
+                <android.widget.Button
+                    android:id="@+id/submitButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/tracker_item_submit"
+                    android:textSize="@dimen/standard_text_size"
+                    android:onClick="submitClick"
+                    />
+
+                <!-- Cancel Button for Undo Decision to Add Budget Item -->
+                <android.widget.Button
+                    android:id="@+id/cancelButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/tracker_item_cancel"
+                    android:textSize="@dimen/standard_text_size"
+                    android:onClick="cancelClick"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

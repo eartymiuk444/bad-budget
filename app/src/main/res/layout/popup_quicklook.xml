@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Quicklook popup window. Contains a title with the date followed by a scrollable list of each
+user object that they have indicated as a quicklook object, to be added dynamically. Then it
+has a button always on the bottom of the popup which directs the user to a more detailed look
+at the events that took place during the prediction window. Also on the bottom of the screen
+is a small expander area that the user can click and drag to resize the popup.
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/quicklook_popup_width"
+    android:layout_height="@dimen/quicklook_popup_height"
+    android:weightSum="5"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    tools:context=".bbmain.PredictActivity">
+
+    <!-- Quicklook Title (Date + QL) - Top of Screen -->
+    <LinearLayout
+        android:id="@+id/quicklookPopupLinearLayoutTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/predict_padding_small"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true">
+        <TextView
+            android:id="@+id/quicklookPopupDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/popup_quicklook_date_placeholder"
+            android:textSize="@dimen/smaller_text_size"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/quicklookPopupTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/popup_quicklook_title_suffix"
+            android:textSize="@dimen/smaller_text_size"
+            android:gravity="center"
+            />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/quicklookPopupBottomLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        >
+
+        <android.widget.Button
+            android:id="@+id/quicklookPopupDetailedLook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/popup_quicklook_detailed_look"
+            android:textSize="@dimen/smaller_text_size"
+            android:layout_gravity="start"
+            android:onClick="popupQuicklookDetailedLookClick"
+            />
+
+        <Button
+            android:id="@+id/quicklookExpandImage"
+            android:layout_height="@dimen/quicklook_popup_expand_image_size"
+            android:layout_width="@dimen/quicklook_popup_expand_image_size"
+            android:background="@color/colorPrimaryDark"
+            android:layout_gravity="bottom|end"
+            />
+
+    </FrameLayout>
+
+    <!-- Everything besides the title, button, and expander is scrollable
+     This is placed below the frame layout in this file as we need to
+     refer to the scroll view being above the bottom layout -->
+    <ScrollView
+        android:id="@+id/quicklookPopupScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/quicklookPopupBottomLinearLayout"
+        android:layout_below="@id/quicklookPopupLinearLayoutTitle"
+        >
+
+        <LinearLayout
+            android:id="@+id/quicklookLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

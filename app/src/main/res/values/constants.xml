@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="predict_years">150</integer>
+    <integer name="initial_predict_span">5</integer>
+    <integer name="predict_jump">10</integer>
+
+    <integer name="weekly_index">2</integer>
+    <integer name="monthly_index">4</integer>
+</resources>

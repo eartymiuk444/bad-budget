@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Layout for the add Loan payment activity. Similar to the add savings activity.
+ -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:fitsSystemWindows="true"
+    tools:context=".inputforms.AddLoanPayment">
+
+    <!-- Everything besides the title is scrollable -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <!-- Scrollable screen separated into  2 Linear Layouts, The Basic Debt Info, and the payment information-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/add_payment_padding">
+
+                <!-- Debt Name/Description-->
+                <TextView
+                    android:id="@+id/addLoanPaymentDebtPrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_loan_payment_debt_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    />
+                <EditText
+                    android:id="@+id/addLoanPaymentDebtHint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/add_loan_payment_debt_hint"
+                    android:textSize="@dimen/standard_text_size"
+                    android:inputType="text"
+                    android:imeOptions="actionDone"
+                    />
+
+                <!--  Current Value/Debt Amount -->
+                <TextView
+                    android:id="@+id/addLoanPaymentCurrentValuePrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_loan_payment_value_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    />
+                <EditText
+                    android:id="@+id/addLoanPaymentCurrentValueHint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/add_loan_payment_value_hint"
+                    android:textSize="@dimen/standard_text_size"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:imeOptions="actionDone"
+                    />
+
+                <!--  Interest Rate -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/addLoanPaymentInterestRatePrompt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_loan_payment_interest_rate_prompt"
+                        android:textSize="@dimen/standard_text_size"
+                        android:textStyle="bold"
+                        />
+                    <EditText
+                        android:id="@+id/addLoanPaymentInterestRateHint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/add_loan_payment_interest_rate_hint"
+                        android:textSize="@dimen/standard_text_size"
+                        android:inputType="numberDecimal|numberSigned"
+                        android:imeOptions="actionDone"
+                        />
+
+                    <!-- Simple interest checkbox and principal input field-->
+                    <CheckBox android:id="@+id/simpleInterestCheckbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_loan_simple_interest"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:textStyle="bold"
+                        android:onClick="simpleInterestCheckboxClicked"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+                        <TextView
+                            android:id="@+id/principalPrompt"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/add_loan_simple_interest_principal"
+                            android:textSize="@dimen/smaller_text_size"
+                            android:textStyle="normal"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            />
+                        <EditText
+                            android:id="@+id/principalInput"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:hint="@string/add_loan_simple_interest_not_applicable"
+                            android:textSize="@dimen/smaller_text_size"
+                            android:gravity="center_vertical"
+                            android:padding="@dimen/add_payment_small_padding"
+                            android:inputType="numberDecimal|numberSigned"
+                            android:imeOptions="actionDone"
+                            android:layout_weight="1"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Quicklook Checkbox -->
+                <CheckBox android:id="@+id/addLoanPaymentQuicklookCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_loan_payment_quicklook_checkbox"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
+
+            <!-- Second section, is all of the payment information. Includes a title,
+             and then each input field is one line with a prompt on the same line. Two of
+             the lines also include a checkbox (for payoff and ongoing designations) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/add_payment_padding">
+
+                <!-- Payment Section Title -->
+                <TextView
+                    android:id="@+id/addLoanPaymentPaymentPrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_loan_payment_payment_prompt"
+                    android:textSize="@dimen/larger_text_size"
+                    android:textStyle="bold"
+                    />
+
+                <!-- Payment frequency field -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+                    <TextView
+                        android:id="@+id/addLoanPaymentFrequencyPrompt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/add_loan_payment_frequency_prompt"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:textStyle="bold"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1"
+                        />
+                    <Spinner
+                        android:id="@+id/addLoanPaymentFrequencySpinner"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:gravity="center_vertical"
+                        android:entries="@array/add_loan_payment_frequency_array"
+                        android:padding="@dimen/add_payment_small_padding"
+                        android:layout_weight="1"
+                        />
+                </LinearLayout>
+
+                <!-- Payment amount field, includes payoff checkbox -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+                    <TextView
+                        android:id="@+id/addLoanPaymentAmountPrompt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/add_loan_payment_amount_prompt"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:textStyle="bold"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1"
+                        />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:weightSum="5"
+                        >
+                        <EditText
+                            android:id="@+id/addLoanPaymentAmountHint"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:hint="@string/add_loan_payment_amount_hint"
+                            android:textSize="@dimen/smaller_text_size"
+                            android:inputType="numberDecimal|numberSigned"
+                            android:imeOptions="actionDone"
+                            android:gravity="center_vertical"
+                            android:enabled="true"
+                            android:layout_weight="4"
+                            />
+
+                        <CheckBox android:id="@+id/addLoanPaymentAmountPayoff"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:checked="false"
+                            android:onClick="payoffCheckboxChecked"
+                            android:layout_weight="1"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+                <!-- Source Account field -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+                    <TextView
+                        android:id="@+id/addLoanPaymentSourcePrompt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/add_loan_payment_source_accout_prompt"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:textStyle="bold"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1"
+                        />
+                    <Spinner
+                        android:id="@+id/addLoanPaymentSourceSpinner"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/add_payment_small_padding"
+                        android:layout_weight="1"
+                        />
+                </LinearLayout>
+
+                <!-- next date field -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+                    <TextView
+                        android:id="@+id/addLoanPaymentNextPrompt"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/add_loan_payment_next_prompt"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:textStyle="bold"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1"
+                        />
+                    <TextView
+                        android:id="@+id/addLoanPaymentNextInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/add_loan_payment_date_hint"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:gravity="center_vertical"
+                        android:clickable="true"
+                        android:onClick="nextDateClicked"
+                        android:padding="@dimen/add_payment_small_padding"
+                        android:layout_weight="1"
+                        />
+                </LinearLayout>
+
+                <!-- End date field, includes ongoing checkbox -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+                    <TextView
+                        android:id="@+id/addLoanPaymentEndPrompt"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/add_loan_payment_end_prompt"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:textStyle="bold"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/add_payment_small_padding"
+                        android:weightSum="5"
+                        >
+                        <TextView
+                            android:id="@+id/addLoanPaymentInputEnd"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:hint="@string/add_loan_payment_date_hint"
+                            android:textSize="@dimen/smaller_text_size"
+                            android:gravity="center_vertical"
+                            android:clickable="true"
+                            android:onClick="endDateClicked"
+                            android:layout_weight="4"
+                            />
+                        <CheckBox android:id="@+id/addLoanPaymentOngoingCheckbox"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:checked="false"
+                            android:onClick="ongoingCheckboxChecked"
+                            android:layout_weight="1"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Goal Date Field, includes checkbox to enable disable setting goal date
+                then a goal date input if the checkbox is checked -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+
+                    <TextView
+                        android:id="@+id/addLoanPaymentGoalPrompt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_loan_payment_goal_prompt"
+                        android:textSize="@dimen/standard_text_size"
+                        android:textStyle="bold"
+                        android:paddingTop="@dimen/add_payment_padding"
+                        android:paddingBottom="@dimen/add_payment_small_padding"
+                        />
+
+                    <CheckBox android:id="@+id/addLoanPaymentSetGoal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_loan_payment_set_goal_prompt"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:textStyle="bold"
+                        android:onClick="setGoalChecked"/>
+
+                    <!-- Goal Date field -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+                        <TextView
+                            android:id="@+id/addLoanPaymentGoalDatePrompt"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="@string/add_loan_payment_goal_date_prompt"
+                            android:textSize="@dimen/smaller_text_size"
+                            android:textStyle="bold"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            />
+                        <TextView
+                            android:id="@+id/addLoanPaymentInputGoal"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:hint="@string/add_loan_payment_date_hint"
+                            android:textSize="@dimen/smaller_text_size"
+                            android:gravity="center_vertical"
+                            android:onClick="goalDateClicked"
+                            android:padding="@dimen/add_payment_small_padding"
+                            android:layout_weight="1"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Fourth and final section are the three buttons (clean, submit, and cancel) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/add_payment_small_padding"
+                android:weightSum="3"
+                >
+
+                <android.widget.Button
+                    android:id="@+id/addLoanPaymentCleanButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/add_loan_payment_clean_button"
+                    android:textSize="@dimen/standard_text_size"
+                    android:onClick="addLoanPaymentCleanClick"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/add_payment_small_padding"
+                android:weightSum="3">
+
+                <!-- Submit button -->
+                <android.widget.Button
+                    android:id="@+id/addLoanPaymentSubmitButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/add_loan_payment_submit_button"
+                    android:textSize="@dimen/standard_text_size"
+                    android:onClick="addLoanPaymentSubmitClick"
+                    />
+
+                <!-- Cancel Button -->
+                <android.widget.Button
+                    android:id="@+id/addLoanPaymentCancelButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/add_loan_payment_cancel_button"
+                    android:textSize="@dimen/standard_text_size"
+                    android:onClick="addLoanPaymentCancelClick"
+                    />
+
+                <!-- Delete Button for when the user is editing an existing account -->
+                <android.widget.Button
+                    android:id="@+id/deleteButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/delete_add_edit_string"
+                    android:textSize="@dimen/standard_text_size"
+                    android:onClick="deleteClick"
+                    android:enabled="false"
+                    android:visibility="invisible"
+                    android:background="@color/deleteButtonColor"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -1,0 +1,26 @@
+<!-- Toolbar menu -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Budget Select -->
+    <item android:id="@+id/action_budget_select"
+        android:title="@string/toolbar_budget_select_title"
+        android:icon="@drawable/ic_local_atm_black_24px"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+
+    <!-- Tracker -->
+    <item android:id="@+id/action_tracker"
+        android:title="@string/toolbar_tracker_title"
+        android:icon="@drawable/ic_exposure_black_24dp"
+        android:visible="false"
+        app:showAsAction="ifRoom"/>
+
+    <!-- Predict Date Picker -->
+    <item android:id="@+id/action_predict_date_picker"
+        android:title="@string/toolbar_predict_date_picker"
+        android:visible="false"
+        app:showAsAction="always"/>
+
+</menu>
