@@ -152,4 +152,15 @@ public class HomeActivity extends BadBudgetBaseActivity {
         Intent intent = new Intent(this, PredictActivity.class);
         startActivity(intent);
     }
+
+    /**
+     * Method called when the summary button on the home page is clicked. Will start the summary view
+     * which will display summary stats of all the bad budget data.
+     * @param view - view the click originated from, should be the button
+     */
+    public void summaryButtonClick(View view)
+    {
+        Intent intent = new Intent(this, SummaryActivity.class);
+        startActivity(intent);
+    }
 }

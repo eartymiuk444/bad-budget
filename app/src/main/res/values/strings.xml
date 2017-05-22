@@ -9,6 +9,7 @@
     <string name="budget_button_text">Budget</string>
     <string name="track_button_text">Track</string>
     <string name="predict_button_text">Predict</string>
+    <string name="summary_button_text">Summary</string>
 
     <!-- Cash Table Strings -->
     <string name="cash_activity_title">Cash Accounts</string>
@@ -698,6 +699,9 @@
     <string name="user_description_dialog_cancel">Cancel</string>
     <string name="user_description_dialog_ok">OK</string>
     <string name="user_description_optional_description">Description (Optional)</string>
+
+    <!-- Summary Activity Strings -->
+    <string name="summary_activity_title">Summary</string>
 
 
 </resources>

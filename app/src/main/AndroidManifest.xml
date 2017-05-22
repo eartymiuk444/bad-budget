@@ -331,6 +331,17 @@
                 android:value=".bbmain.HomeActivity" />
         </activity>
 
-</application>
+        <activity android:name=".bbmain.SummaryActivity"
+            android:label="@string/summary_activity_title"
+            android:parentActivityName=".bbmain.HomeActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".bbmain.HomeActivity" />
+        </activity>
+
+
+    </application>
 
 </manifest>

@@ -153,7 +153,7 @@ at the bottom is the track button.
         </RelativeLayout>
     </LinearLayout>
 
-    <!-- Predict Button Bottom of Screen -->
+    <!-- Predict Button & Summary Button Bottom of Screen -->
     <LinearLayout
         android:id="@+id/predictButtonLayout"
         android:layout_width="match_parent"
@@ -162,13 +162,6 @@ at the bottom is the track button.
         android:weightSum="2"
         android:layout_alignParentBottom="true">
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_weight="0.5">
-        </Space>
-
         <android.widget.Button
             android:id="@+id/predictButton"
             android:layout_width="0dp"
@@ -176,17 +169,26 @@ at the bottom is the track button.
             android:layout_weight="1"
             android:layout_marginTop="@dimen/home_margins_vertical"
             android:layout_marginBottom="@dimen/home_margins_vertical"
+            android:layout_marginRight="@dimen/home_margins_horizontal"
             android:text="@string/predict_button_text"
             android:textSize="@dimen/button_text_size"
             android:onClick="predictButtonClick"
             android:background="@drawable/homebuttons"
             />
 
-        <Space
-            android:layout_width="wrap_content"
+        <android.widget.Button
+            android:id="@+id/summaryButton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5">
-        </Space>
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/home_margins_vertical"
+            android:layout_marginBottom="@dimen/home_margins_vertical"
+            android:layout_marginLeft="@dimen/home_margins_horizontal"
+            android:text="@string/summary_button_text"
+            android:textSize="@dimen/button_text_size"
+            android:onClick="summaryButtonClick"
+            android:background="@drawable/homebuttons"
+            />
 
     </LinearLayout>
 

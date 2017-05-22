@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".bbmain.SummaryActivity">
+
+    <Spinner
+        android:id="@+id/summaryFrequencySpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:padding="@dimen/padding_generic"
+        >
+    </Spinner>
+        
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/summaryFrequencySpinner"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="3"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_generic">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    >
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/summaryGain"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Gain"
+                        android:textSize="@dimen/standard_text_size"
+                        />
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/summaryGainAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="0.00"
+                        android:textSize="@dimen/standard_text_size"
+                        />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    >
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/summaryLoss"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Loss"
+                        android:textSize="@dimen/standard_text_size"
+                        />
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/summaryLossAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="0.00"
+                        android:textSize="@dimen/standard_text_size"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    >
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/summaryGainLoss"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Gain - Loss"
+                        android:textSize="@dimen/standard_text_size"
+                        />
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/summaryGainLossAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="0.00"
+                        android:textSize="@dimen/standard_text_size"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="4"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_generic">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    >
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/summaryContribution"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Contribution"
+                        android:textSize="@dimen/standard_text_size"
+                        />
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/summaryContributionAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="0.00"
+                        android:textSize="@dimen/standard_text_size"
+                        />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    >
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/summaryPayment"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Payment"
+                        android:textSize="@dimen/standard_text_size"
+                        />
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/summaryPaymentAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="0.00"
+                        android:textSize="@dimen/standard_text_size"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    >
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/summaryMoneyOut"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Money Out"
+                        android:textSize="@dimen/standard_text_size"
+                        />
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/summaryMoneyOutAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="0.00"
+                        android:textSize="@dimen/standard_text_size"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    >
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/summaryGainOut"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Gain - Out"
+                        android:textSize="@dimen/standard_text_size"
+                        />
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:id="@+id/summaryGainOutAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="0.00"
+                        android:textSize="@dimen/standard_text_size"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</RelativeLayout>
