@@ -6,4 +6,5 @@
 
     <integer name="weekly_index">2</integer>
     <integer name="monthly_index">4</integer>
+    <integer name="monthly_summary_index">3</integer>
 </resources>

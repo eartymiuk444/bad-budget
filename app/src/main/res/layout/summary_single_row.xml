@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_weight="1"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:orientation="horizontal"
+    android:weightSum="3"
+    android:paddingStart="@dimen/generic_padding_medium"
+    android:paddingLeft="@dimen/generic_padding_medium"
+    android:paddingEnd="@dimen/generic_padding_medium"
+    android:paddingRight="@dimen/generic_padding_medium"
+    >
+
+    <TextView
+        android:layout_weight="1"
+        android:id="@+id/summarySingleFirst"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/summary_activity_single_placeholder"
+        android:textSize="@dimen/standard_text_size"
+        />
+
+    <TextView
+        android:layout_weight="1"
+        android:id="@+id/summarySingleSecond"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/summary_activity_amount_placeholder"
+        android:textSize="@dimen/standard_text_size"
+        />
+</LinearLayout>

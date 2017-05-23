@@ -703,5 +703,24 @@
     <!-- Summary Activity Strings -->
     <string name="summary_activity_title">Summary</string>
 
+    <string-array name="summary_frequency_array">
+        <item>@string/daily</item>
+        <item>@string/weekly</item>
+        <item>@string/bi_weekly</item>
+        <item>@string/monthly</item>
+        <item>@string/yearly</item>
+    </string-array>
+
+    <string name="summary_activity_gains">Gains</string>
+    <string name="summary_activity_losses">Losses</string>
+    <string name="summary_activity_contributions">Contributions</string>
+    <string name="summary_activity_payments">Payments</string>
+    <string name="summary_activity_net_flow">Net Flow</string>
+    <string name="summary_activity_cash_flow">Cash Flow</string>
+    <string name="summary_activity_debt_flow">Debt Flow</string>
+    <string name="summary_activity_source_losses">Sources Flow</string>
+    <string name="summary_activity_amount_placeholder">0.00</string>
+
+    <string name="summary_activity_single_placeholder">Placeholder</string>
 
 </resources>

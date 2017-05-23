@@ -125,6 +125,11 @@ public class FlavorSpecific {
                 adView.setAdUnitId(activity.getString(R.string.bb_detailed_look_debts_history_ad));
                 break;
             }
+            case R.layout.content_summary:
+            {
+                adView.setAdUnitId(activity.getString(R.string.bb_summary_ad));
+                break;
+            }
         }
 
         adContainer.addView(adView);

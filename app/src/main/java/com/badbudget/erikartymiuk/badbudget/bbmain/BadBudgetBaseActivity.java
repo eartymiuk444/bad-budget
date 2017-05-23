@@ -1,5 +1,6 @@
 package com.badbudget.erikartymiuk.badbudget.bbmain;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -20,31 +21,49 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.badbudget.erikartymiuk.badbudget.R;
 import com.badbudget.erikartymiuk.badbudget.inputforms.BudgetPrefsActivity;
+import com.badbudget.erikartymiuk.badbudget.inputforms.DateInputActivity;
+import com.badbudget.erikartymiuk.badbudget.inputforms.DatePickerFragment;
 import com.badbudget.erikartymiuk.badbudget.inputforms.GlobalSettingsActivity;
+import com.erikartymiuk.badbudgetlogic.main.Prediction;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * The abstract base activity class for our bad budget activities. Provides setup of the navigation
  * drawer and the support action bar. Gives options for enabling budget select, enabling tracker in
- * the toolbar, setting the navbar title, setting the toolbar title, and enabling up navigation,
+ * the toolbar, enabling a date picker in the toolbar, setting the navbar title, setting the toolbar title,
+ * and enabling up navigation.
  *
  * Created by Erik Artymiuk on 11/29/2016.
  */
-abstract public class BadBudgetBaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SelectBudgetCaller, UpdateTaskCaller
+abstract public class BadBudgetBaseActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener, SelectBudgetCaller,
+                    UpdateTaskCaller, DateInputActivity
 {
     private ActionBarDrawerToggle mToggle;
 
     private boolean trackerToolbarEnabled;
     private boolean budgetSelectEnabled;
+    private boolean datePickerEnabled;
+
+    private Date savedChosenDay;
+    private Date currentChosenDay;
+
+    private static final String BASE_DATE_PICKER_TAG = "BASE_DATE_PICKER_TAG";
+    private static final String BASE_CHOSEN_DATE_KEY = "CHOSEN_DATE";
 
     /**
      * On resume for every bad budget base activity. Displays a progress dialog and runs
      * an updateTask to get the bad budget data up to the current date. Extending classes
-     * should implement updateTaskCompleted as the callback for when the update task has finished,
-     * and should update any necessary views that may have changed.
+     * should override the updateTaskCompleted as the callback for when the update task has finished,
+     * and should call super and then update any necessary views that may have changed.
      */
     protected void onResume()
     {
@@ -62,6 +81,32 @@ abstract public class BadBudgetBaseActivity extends AppCompatActivity implements
     }
 
     /**
+     * Method called upon completion of the update task run in onResume. Checks if our today date comes
+     * after our chosen date and if it does updates the chosen date to be today's date. Extending classes
+     * should override this method and call super first, followed by updating any of its views that may change
+     * upon an update.
+     *
+     * @param updated - unused
+     */
+    public void updateTaskCompleted(boolean updated) {
+        Date today = ((BadBudgetApplication)getApplication()).getToday();
+        if (Prediction.numDaysBetween(currentChosenDay, today) > 0)
+        {
+            setCurrentChosenDay(today);
+        }
+    }
+
+    /**
+     * Called prior to this activity being destroyed, saves any necessary state to restore upon
+     * the users return.
+     * @param outState - where to store the saved state.
+     */
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        outState.putSerializable(BASE_CHOSEN_DATE_KEY, currentChosenDay);
+    }
+
+    /**
      * On create for the base bad budget activity. Sets the content view and sets up the toolbar and navigation drawer.
      * @param savedInstanceState - unused
      */
@@ -75,6 +120,10 @@ abstract public class BadBudgetBaseActivity extends AppCompatActivity implements
         Toolbar myToolbar = (Toolbar) findViewById(R.id.bad_budget_toolbar);
         setSupportActionBar(myToolbar);
 
+        if (savedInstanceState != null)
+        {
+            this.savedChosenDay = (Date) savedInstanceState.getSerializable(BASE_CHOSEN_DATE_KEY);
+        }
         //Navigation Drawer setup
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_base_layout);
         mToggle = new ActionBarDrawerToggle(this, drawer, myToolbar, R.string.nav_drawer_opening, R.string.nav_drawer_closing);
@@ -107,6 +156,26 @@ abstract public class BadBudgetBaseActivity extends AppCompatActivity implements
 
         Button budgetSelectButton = (Button) headView.findViewById(R.id.nav_drawer_select_budget_icon);
         budgetSelectButton.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Called by derived classes to enable the date picker action in the toolbar. Chosen date is initially set as
+     * application's today date or the saved current chosen date if the activity was destroyed and is being
+     * recreated.
+     */
+    protected void enableDatePickerToolbar()
+    {
+        datePickerEnabled = true;
+
+        if (savedChosenDay == null)
+        {
+            Date today = ((BadBudgetApplication)getApplication()).getToday();
+            setCurrentChosenDay(today);
+        }
+        else
+        {
+            setCurrentChosenDay(savedChosenDay);
+        }
     }
 
     /**
@@ -193,9 +262,10 @@ abstract public class BadBudgetBaseActivity extends AppCompatActivity implements
     }
 
     /**
-     * Overridden method for when an item is clicked in our toolbar. The two potential actions
-     * are budget select and the tracker. The budget select action displays to the user the budget
-     * select dialog and the tracker action starts the budget tracker activity
+     * Overridden method for when an item is clicked in our toolbar. Three potential actions
+     * are budget select, the tracker, and the date picker. The budget select action displays to the user the budget
+     * select dialog, the tracker action starts the budget tracker activity, and the date picker pulls up
+     * a date picker dialog and allows the user to select a chosen date.
      *
      * @param item - the menu item that was pressed
      * @return boolean Return false to allow normal menu processing to
@@ -222,6 +292,11 @@ abstract public class BadBudgetBaseActivity extends AppCompatActivity implements
                 startActivity(intent);
                 return true;
             }
+            case R.id.action_date_picker:
+            {
+                this.dateClicked(BASE_DATE_PICKER_TAG);
+                return true;
+            }
             default:
             {
                 // If we got here, the user's action was not recognized.
@@ -229,6 +304,75 @@ abstract public class BadBudgetBaseActivity extends AppCompatActivity implements
                 return super.onOptionsItemSelected(item);
             }
         }
+    }
+
+    /**
+     * Method call when the user clicks the date in the toolbar indicating they would like to select a date.
+     * Displays a date picker dialog with today's date set to the application's today date and the chosen
+     * date set as this activities currently chosen date.
+     * @param tag - Identifying tag for the date picker dialog
+     */
+    public void dateClicked(String tag)
+    {
+        Bundle args = new Bundle();
+        args.putInt(DatePickerFragment.RETURN_CODE_KEY, -1);
+
+        Date today = ((BadBudgetApplication)getApplication()).getToday();
+        Calendar todayCal = Calendar.getInstance();
+        todayCal.setTime(today);
+
+        Calendar currentChosenCal = Calendar.getInstance();
+        currentChosenCal.setTime(currentChosenDay);
+
+        args.putInt(DatePickerFragment.TODAY_YEAR_KEY, todayCal.get(Calendar.YEAR));
+        args.putInt(DatePickerFragment.TODAY_MONTH_KEY, todayCal.get(Calendar.MONTH));
+        args.putInt(DatePickerFragment.TODAY_DAY_KEY, todayCal.get(Calendar.DAY_OF_MONTH));
+
+        args.putInt(DatePickerFragment.CURRENT_CHOSEN_YEAR_KEY, currentChosenCal.get(Calendar.YEAR));
+        args.putInt(DatePickerFragment.CURRENT_CHOSEN_MONTH_KEY, currentChosenCal.get(Calendar.MONTH));
+        args.putInt(DatePickerFragment.CURRENT_CHOSEN_DAY_KEY, currentChosenCal.get(Calendar.DAY_OF_MONTH));
+
+        DatePickerFragment datePickerFragment = new DatePickerFragment();
+        datePickerFragment.setArguments(args);
+        datePickerFragment.show(getSupportFragmentManager(), tag);
+    }
+
+    /**
+     * Method called when the user selects a date in the date picker dialog, displayed after clicking the
+     * date picker action in the toolbar.
+     * @param year - the year set
+     * @param month - the month set
+     * @param day - the day set
+     * @param returnCode - unused (a code if passed into the DatePickerFragment is passed back when the date is set)
+     */
+    public void dateSet(int year, int month, int day, int returnCode)
+    {
+        Calendar tempCalendar = new GregorianCalendar(year, month, day);
+        Date date = tempCalendar.getTime();
+        setCurrentChosenDay(date);
+    }
+
+    /**
+     * This method is called to set the current chosen date, both programmatically and after
+     * the user selects the date in the dialog. Invalidates the options menu so that the title
+     * in the toolbar for the date is updated. Derived classes can override this method to
+     * take action when the current chosen date is set but should call super first.
+     * @param date - the date to set our current chosen day to.
+     */
+    public void setCurrentChosenDay(Date date)
+    {
+        currentChosenDay = date;
+        supportInvalidateOptionsMenu();
+    }
+
+    /**
+     * Gets the current chosen day.
+     * @return - the currently chosen day
+     * @return - the currently chosen day
+     */
+    public Date getCurrentChosenDay()
+    {
+        return this.currentChosenDay;
     }
 
     /**
@@ -326,8 +470,9 @@ abstract public class BadBudgetBaseActivity extends AppCompatActivity implements
     }
 
     /**
-     * Called on initial toolbar setup and when the toolbar is invalidated. Checks if the tracker
-     * and/or the budget select icons should be made visible in the toolbar.
+     * Called on initial toolbar setup and when the toolbar is invalidated. Checks if the tracker,
+     * the budget select, and/or date picker icons should be made visible in the toolbar. If the date
+     * picker should be visible, its title is set to the currently selected date.
      * @param menu - the toolbar menu
      * @return true so that the menu is always displayed.
      */
@@ -338,6 +483,12 @@ abstract public class BadBudgetBaseActivity extends AppCompatActivity implements
         {
             MenuItem trackerActionItem = menu.findItem(R.id.action_tracker);
             trackerActionItem.setVisible(true);
+        }
+        if (datePickerEnabled)
+        {
+            MenuItem datePickerActionItem = menu.findItem(R.id.action_date_picker);
+            datePickerActionItem.setVisible(true);
+            datePickerActionItem.setTitle(BadBudgetApplication.dateString(currentChosenDay));
         }
         if (budgetSelectEnabled)
         {

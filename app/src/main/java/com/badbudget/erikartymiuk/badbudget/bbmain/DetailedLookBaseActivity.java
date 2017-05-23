@@ -296,7 +296,7 @@ public abstract class DetailedLookBaseActivity extends AppCompatActivity impleme
 
         // Handle toolbar items
         switch (item.getItemId()) {
-            case R.id.action_predict_date_picker:
+            case R.id.action_date_picker:
             {
                 dateClicked(DL_DATE_PICKER_TAG);
                 return true;
@@ -398,7 +398,7 @@ public abstract class DetailedLookBaseActivity extends AppCompatActivity impleme
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
 
-        mDatePickerActionItem = menu.findItem(R.id.action_predict_date_picker);
+        mDatePickerActionItem = menu.findItem(R.id.action_date_picker);
         mDatePickerActionItem.setVisible(true);
         mDatePickerActionItem.setTitle(BadBudgetApplication.dateString(currentChosenDay));
 

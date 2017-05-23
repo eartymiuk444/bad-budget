@@ -10,17 +10,17 @@
         android:visible="false"
         app:showAsAction="ifRoom" />
 
+    <!-- Predict Date Picker -->
+    <item android:id="@+id/action_date_picker"
+        android:title="@string/toolbar_predict_date_picker"
+        android:visible="false"
+        app:showAsAction="always"/>
+
     <!-- Tracker -->
     <item android:id="@+id/action_tracker"
         android:title="@string/toolbar_tracker_title"
         android:icon="@drawable/ic_exposure_black_24dp"
         android:visible="false"
         app:showAsAction="ifRoom"/>
-
-    <!-- Predict Date Picker -->
-    <item android:id="@+id/action_predict_date_picker"
-        android:title="@string/toolbar_predict_date_picker"
-        android:visible="false"
-        app:showAsAction="always"/>
 
 </menu>
