@@ -31,6 +31,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -54,7 +57,7 @@ public class BBDatabaseContract
     /**
      * This method extracts all the relevant user data and preferences from the BB database tables
      * using the passed budget id in the database as our specification of the budget to extract for.
-     * Sets the application wide data values of the bad budget data, tracker history, and the
+     * Sets the application wide data values of the bad budget data, tracker history, general history, and the
      * selected budget.
      * Additionally this checks if an update is necessary and runs one on the specified budget if so.
      * User input should be blocked when this runs via a progress dialog
@@ -67,6 +70,7 @@ public class BBDatabaseContract
         //Read in all the user data and create the bad budget data object
         BadBudgetData bbd = new BadBudgetData();
         List<TrackerHistoryItem> trackerHistoryItemList = new ArrayList<TrackerHistoryItem>();
+        List<TransactionHistoryItem> transactionHistoryItems = new ArrayList<>();
 
         //First we will extract all the accounts (regular and savings) from our accounts table.
         extractAccountsFromDataBase(writeableDB, bbd, budgetId);
@@ -86,14 +90,18 @@ public class BBDatabaseContract
         //Get our list of tracker history items
         extractTrackerHistoryItems(writeableDB, trackerHistoryItemList, budgetId);
 
+        //Get our list of general history items
+        extractGeneralHistoryItems(writeableDB, transactionHistoryItems, budgetId);
+
         //Check when our last update was and update both in memory and our db if necessary
-        checkLastUpdate(writeableDB, bbd, application.getToday(), trackerHistoryItemList, budgetId, (Boolean)objArr[0]);
+        checkLastUpdate(writeableDB, bbd, application.getToday(), trackerHistoryItemList, transactionHistoryItems, budgetId, (Boolean)objArr[0]);
 
         application.setAutoUpdateSelectedBudget((Boolean)objArr[0]);
         application.setRemainAmountActionSelectedBudget((RemainAmountAction)objArr[1]);
 
         application.setBadBudgetUserData(bbd);
         application.setTrackerHistoryItems(trackerHistoryItemList);
+        application.setGeneralHistoryItems(transactionHistoryItems);
         application.setSelectedBudgetId(budgetId);
     }
 
@@ -319,6 +327,90 @@ public class BBDatabaseContract
     }
 
     /**
+     * Extracts all general history items from our database and inserts them into the passed list
+     * to be set as the application's list of transaction history items
+     * @param db - the database to extract the general history items from
+     * @param transactionHistoryItemList - the applications list (or soon to be list) of general history items to be populated.
+     *
+     */
+    private static void extractGeneralHistoryItems(SQLiteDatabase db, List<TransactionHistoryItem> transactionHistoryItemList, int budgetId)
+    {
+        String[] projection = {
+                GeneralHistoryItems.COLUMN_DESTINATION_ACTION,
+                GeneralHistoryItems.COLUMN_DESTINATION_ORIGINAL,
+                GeneralHistoryItems.COLUMN_DESTINATION_UPDATED,
+                GeneralHistoryItems.COLUMN_SOURCE_ACTION,
+                GeneralHistoryItems.COLUMN_SOURCE_ORIGINAL,
+                GeneralHistoryItems.COLUMN_SOURCE_UPDATED,
+                GeneralHistoryItems.COLUMN_TRANSACTION_AMOUNT,
+                GeneralHistoryItems.COLUMN_TRANSACTION_DATE,
+                GeneralHistoryItems.COLUMN_TRANSACTION_DESTINATION,
+                GeneralHistoryItems.COLUMN_TRANSACTION_SOURCE,
+                GeneralHistoryItems.COLUMN_DESTINATION_CAN_SHOW_CHANGE,
+                GeneralHistoryItems.COLUMN_SOURCE_CAN_SHOW_CHANGE,
+        };
+
+
+        //Going to select all the general history items with our query, sorted
+        //by date, the where clause (including its args), group by, and having
+        //statements are null.
+        Cursor cursor = db.query(
+                GeneralHistoryItems.TABLE_NAME + "_" + budgetId,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        int destinationActionIndex = cursor.getColumnIndexOrThrow(GeneralHistoryItems.COLUMN_DESTINATION_ACTION);
+        int destinationOriginalIndex = cursor.getColumnIndexOrThrow(GeneralHistoryItems.COLUMN_DESTINATION_ORIGINAL);
+        int destinationUpdatedIndex = cursor.getColumnIndexOrThrow(GeneralHistoryItems.COLUMN_DESTINATION_UPDATED);
+        int sourceActionIndex = cursor.getColumnIndexOrThrow(GeneralHistoryItems.COLUMN_SOURCE_ACTION);
+        int sourceOriginalIndex = cursor.getColumnIndexOrThrow(GeneralHistoryItems.COLUMN_SOURCE_ORIGINAL);
+        int sourceUpdatedIndex = cursor.getColumnIndexOrThrow(GeneralHistoryItems.COLUMN_SOURCE_UPDATED);
+        int transactionAmountIndex = cursor.getColumnIndexOrThrow(GeneralHistoryItems.COLUMN_TRANSACTION_AMOUNT);
+        int transactionDateIndex = cursor.getColumnIndexOrThrow(GeneralHistoryItems.COLUMN_TRANSACTION_DATE);
+        int transactionDestinationIndex = cursor.getColumnIndexOrThrow(GeneralHistoryItems.COLUMN_TRANSACTION_DESTINATION);
+        int transactionSourceIndex = cursor.getColumnIndexOrThrow(GeneralHistoryItems.COLUMN_TRANSACTION_SOURCE);
+        int destinationCanShowChangeIndex = cursor.getColumnIndexOrThrow(GeneralHistoryItems.COLUMN_DESTINATION_CAN_SHOW_CHANGE);
+        int sourceCanShowChangeIndex = cursor.getColumnIndexOrThrow(GeneralHistoryItems.COLUMN_SOURCE_CAN_SHOW_CHANGE);
+
+        while (cursor.moveToNext())
+        {
+            String destinationActionString = cursor.getString(destinationActionIndex);
+            double destinationOriginal = cursor.getDouble(destinationOriginalIndex);
+            double destinationUpdated = cursor.getDouble(destinationUpdatedIndex);
+            String sourceActionString = cursor.getString(sourceActionIndex);
+            double sourceOriginal = cursor.getDouble(sourceOriginalIndex);
+            double sourceUpdated = cursor.getDouble(sourceUpdatedIndex);
+            double transactionAmount = cursor.getDouble(transactionAmountIndex);
+            Date transactionDate = dbStringToDate(cursor.getString(transactionDateIndex));
+            String transactionDestination = cursor.getString(transactionDestinationIndex);
+            String transactionSource = cursor.getString(transactionSourceIndex);
+            boolean destinationCanShowChange = dbIntegerToBoolean(cursor.getInt(destinationCanShowChangeIndex));
+            boolean sourceCanShowChange = dbIntegerToBoolean(cursor.getInt(sourceCanShowChangeIndex));
+
+            TransactionHistoryItem transactionHistoryItem = new TransactionHistoryItem(transactionDate, transactionAmount, sourceActionString,
+                    transactionSource, sourceOriginal, sourceUpdated, destinationActionString, transactionDestination, destinationOriginal,
+                    destinationUpdated, sourceCanShowChange, destinationCanShowChange);
+            transactionHistoryItemList.add(transactionHistoryItem);
+        }
+
+        Comparator<TransactionHistoryItem> comparator = new Comparator<TransactionHistoryItem>() {
+            @Override
+            public int compare(TransactionHistoryItem lhs, TransactionHistoryItem rhs) {
+                Date lhsDate = lhs.getTransactionDate();
+                Date rhsDate = rhs.getTransactionDate();
+
+                return Prediction.numDaysBetween(lhsDate, rhsDate);
+            }
+        };
+        Collections.sort(transactionHistoryItemList, comparator);
+    }
+
+    /**
      * This method checks the passed today date against the last update date in the database. If
      * the last update was in the past then it runs an update up to and including today (for in memory
      * and in the database). If it is is the future it sets the last update date back to today. If
@@ -331,7 +423,9 @@ public class BBDatabaseContract
      * @param today - today's date and the date that this method is checking to see if the bbd db data is up to date with
      *
      */
-    private static void checkLastUpdate(SQLiteDatabase db, BadBudgetData bbd, Date today, List<TrackerHistoryItem> trackerHistoryItems, int budgetId, boolean autoUpdate)
+    private static void checkLastUpdate(SQLiteDatabase db, BadBudgetData bbd, Date today,
+                                        List<TrackerHistoryItem> trackerHistoryItems, List<TransactionHistoryItem> transactionHistoryItems,
+                                        int budgetId, boolean autoUpdate)
     {
         String[] projection = {
                 BBMetaData.COLUMN_LAST_UPDATE
@@ -375,9 +469,10 @@ public class BBDatabaseContract
                     }
 
                     List<TrackerHistoryItem> newTrackerHistoryItems = updateTrackerHistoryItemsMemory(bbd, trackerHistoryItems, lastUpdate, today);
+                    List<TransactionHistoryItem> newTransactionHistoryItems = updateGeneralHistoryItemsMemory(bbd, transactionHistoryItems, lastUpdate, today);
 
                     //Need to update DB too, both the updated bad budget objects, and any new history items
-                    updateFullDatabase(db, bbd, newTrackerHistoryItems, budgetId);
+                    updateFullDatabase(db, bbd, newTrackerHistoryItems, newTransactionHistoryItems, budgetId);
                 }
                 //Update to today unconditionally
                 db.update(BBMetaData.TABLE_NAME + "_" + budgetId, metaValues, null, null);
@@ -438,6 +533,51 @@ public class BBDatabaseContract
     }
 
     /**
+     * Method that takes the bbd object, the current in memory general history items, the last update, and today's date; and
+     * adds to the general history items in memory (the most recent are added to the beginning of the list)
+     * any newly created transactions that occurred during the prediction that
+     * was called prior to calling this method that was used to update from lastUpdate to today. Returns a list of the newly
+     * added items.
+     * @param bbd the bad budget data
+     * @param appGeneralHistoryItems the current in memory general history items
+     * @param lastUpdate - the last update date that we are running an update from
+     * @param today - today's date that we are running an update to
+     * @return a list of the newly added history items in order from least recent to most recent
+     */
+    public static List<TransactionHistoryItem> updateGeneralHistoryItemsMemory(BadBudgetData bbd, List<TransactionHistoryItem> appGeneralHistoryItems, Date lastUpdate, Date today)
+    {
+        int numDays = Prediction.numDaysBetween(lastUpdate, today);
+        List<TransactionHistoryItem> newTransactionHistoryItems = new ArrayList<>();
+
+        for (int i = 0; i <= numDays; i++) {
+            for (MoneyOwed currDebt : bbd.getDebts()) {
+                List<TransactionHistoryItem> transactionHistoryItems = currDebt.getPredictData(i).transactionHistory();
+                if (transactionHistoryItems != null) {
+                    for (TransactionHistoryItem transactionHistoryItem : transactionHistoryItems) {
+                        if (!newTransactionHistoryItems.contains(transactionHistoryItem)) {
+                            newTransactionHistoryItems.add(transactionHistoryItem);
+                            appGeneralHistoryItems.add(0, transactionHistoryItem);
+                        }
+                    }
+                }
+            }
+            for (Account currAccount : bbd.getAccounts()) {
+                List<TransactionHistoryItem> transactionHistoryItems = currAccount.getPredictData(i).transactionHistory();
+                if (transactionHistoryItems != null) {
+                    for (TransactionHistoryItem transactionHistoryItem : transactionHistoryItems) {
+                        if (!newTransactionHistoryItems.contains(transactionHistoryItem)) {
+                            newTransactionHistoryItems.add(transactionHistoryItem);
+                            appGeneralHistoryItems.add(0, transactionHistoryItem);
+                        }
+                    }
+                }
+            }
+        }
+
+        return newTransactionHistoryItems;
+    }
+
+    /**
      * Using the passed bad budget data object this method fully updates every object in our database.
      * Also part of this update is adding of new trackerHistoryItems as trackers may reset on update and thus new
      * entries in the history must be made.
@@ -447,7 +587,7 @@ public class BBDatabaseContract
      * @param bbd - the bad budget data in memory that we wish to persist in our database
      * @param newTrackerHistoryItems - a list of new tracker history items that need to be added to our database
      */
-    public static void updateFullDatabase(SQLiteDatabase db, BadBudgetData bbd, List<TrackerHistoryItem> newTrackerHistoryItems, int budgetId)
+    public static void updateFullDatabase(SQLiteDatabase db, BadBudgetData bbd, List<TrackerHistoryItem> newTrackerHistoryItems, List<TransactionHistoryItem> newTransactionHistoryItems, int budgetId)
     {
         for (Account currAccount : bbd.getAccounts()) {
             if (!(currAccount instanceof SavingsAccount)) {
@@ -596,6 +736,27 @@ public class BBDatabaseContract
 
             db.insert(BBDatabaseContract.TrackerHistoryItems.TABLE_NAME + "_" + budgetId, null, trackerHistoryItemValues);
         }
+
+        /* add any new general history items to persistent storage */
+        for (TransactionHistoryItem transactionHistoryItem : newTransactionHistoryItems)
+        {
+            ContentValues transactionHistoryItemValues = new ContentValues();
+            transactionHistoryItemValues.put(GeneralHistoryItems.COLUMN_DESTINATION_ACTION, transactionHistoryItem.getDestinationActionString());
+            transactionHistoryItemValues.put(GeneralHistoryItems.COLUMN_DESTINATION_ORIGINAL, transactionHistoryItem.getDestinationOriginal());
+            transactionHistoryItemValues.put(GeneralHistoryItems.COLUMN_DESTINATION_UPDATED, transactionHistoryItem.getDestinationUpdated());
+            transactionHistoryItemValues.put(GeneralHistoryItems.COLUMN_SOURCE_ACTION, transactionHistoryItem.getSourceActionString());
+            transactionHistoryItemValues.put(GeneralHistoryItems.COLUMN_SOURCE_ORIGINAL, transactionHistoryItem.getSourceOriginal());
+            transactionHistoryItemValues.put(GeneralHistoryItems.COLUMN_SOURCE_UPDATED, transactionHistoryItem.getSourceUpdated());
+            transactionHistoryItemValues.put(GeneralHistoryItems.COLUMN_TRANSACTION_AMOUNT, transactionHistoryItem.getTransactionAmount());
+            transactionHistoryItemValues.put(GeneralHistoryItems.COLUMN_TRANSACTION_DATE, dbDateToString(transactionHistoryItem.getTransactionDate()));
+            transactionHistoryItemValues.put(GeneralHistoryItems.COLUMN_TRANSACTION_DESTINATION, transactionHistoryItem.getTransactionDestination());
+            transactionHistoryItemValues.put(GeneralHistoryItems.COLUMN_TRANSACTION_SOURCE, transactionHistoryItem.getTransactionSource());
+            transactionHistoryItemValues.put(GeneralHistoryItems.COLUMN_DESTINATION_CAN_SHOW_CHANGE, dbBooleanToInteger(transactionHistoryItem.isDestinationCanShowChange()));
+            transactionHistoryItemValues.put(GeneralHistoryItems.COLUMN_SOURCE_CAN_SHOW_CHANGE, dbBooleanToInteger(transactionHistoryItem.isSourceCanShowChange()));
+
+            db.insert(GeneralHistoryItems.TABLE_NAME + "_" + budgetId, null, transactionHistoryItemValues);
+        }
+
     }
 
     /**
@@ -1707,6 +1868,48 @@ public class BBDatabaseContract
         /* Default timestamp column and how to sort tracker history items using that column*/
         public static final String COLUMN_CREATED_AT = "CREATED_AT";
         public static final String SORT_ORDER_DESC = "DESC";
+    }
+
+    /**
+     * Schema for general history items
+     */
+    public static class GeneralHistoryItems implements BaseColumns
+    {
+        public static final String TABLE_NAME = "generalHistoryItems";
+
+        /* Columns */
+        public static final String COLUMN_DESTINATION_ACTION = "destinationAction";
+        public static final String COLUMN_DESTINATION_ORIGINAL = "destinationOriginal";
+        public static final String COLUMN_DESTINATION_UPDATED = "destinationUpdated";
+
+        public static final String COLUMN_SOURCE_ACTION = "sourceAction";
+        public static final String COLUMN_SOURCE_ORIGINAL = "sourceOriginal";
+        public static final String COLUMN_SOURCE_UPDATED = "sourceUpdated";
+
+        public static final String COLUMN_TRANSACTION_AMOUNT = "transactionAmount";
+        public static final String COLUMN_TRANSACTION_DATE = "transactionDate";
+        public static final String COLUMN_TRANSACTION_DESTINATION = "transactionDestination";
+        public static final String COLUMN_TRANSACTION_SOURCE = "transactionSource";
+
+        public static final String COLUMN_DESTINATION_CAN_SHOW_CHANGE = "destinationCanShowChange";
+        public static final String COLUMN_SOURCE_CAN_SHOW_CHANGE = "sourceCanShowChange";
+
+        /* Column types */
+        public static final String DESTINATION_ACTION_TYPE = INTEGER_TYPE;
+        public static final String DESTINATION_ORIGINAL_TYPE = REAL_TYPE;
+        public static final String DESTINATION_UPDATED_TYPE = REAL_TYPE;
+
+        public static final String SOURCE_ACTION_TYPE = INTEGER_TYPE;
+        public static final String SOURCE_ORIGINAL_TYPE = REAL_TYPE;
+        public static final String SOURCE_UPDATED_TYPE = REAL_TYPE;
+
+        public static final String TRANSACTION_AMOUNT_TYPE = REAL_TYPE;
+        public static final String TRANSACTION_DATE_TYPE = TEXT_TYPE;
+        public static final String TRANSACTION_DESTINATION_TYPE = TEXT_TYPE;
+        public static final String TRANSACTION_SOURCE_TYPE = TEXT_TYPE;
+
+        public static final String DESTINATION_CAN_SHOW_CHANGE_TYPE = BOOLEAN_TYPE;
+        public static final String SOURCE_CAN_SHOW_CHANGE_TYPE = BOOLEAN_TYPE;
     }
 
     /**

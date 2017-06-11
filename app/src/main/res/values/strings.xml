@@ -723,4 +723,8 @@
 
     <string name="summary_activity_single_placeholder">Placeholder</string>
 
+    <!-- History Activity Strings -->
+    <string name="history_activity_title">History</string>
+    <string name="general_history_clear_all">Clear All</string>
+
 </resources>

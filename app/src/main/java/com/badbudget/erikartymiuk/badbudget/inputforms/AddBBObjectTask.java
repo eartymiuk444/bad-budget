@@ -18,6 +18,7 @@ import com.erikartymiuk.badbudgetlogic.main.MoneyLoss;
 import com.erikartymiuk.badbudgetlogic.main.MoneyOwed;
 import com.erikartymiuk.badbudgetlogic.main.Prediction;
 import com.erikartymiuk.badbudgetlogic.main.SavingsAccount;
+import com.erikartymiuk.badbudgetlogic.predictdataclasses.TransactionHistoryItem;
 
 import java.util.Date;
 import java.util.List;
@@ -224,8 +225,10 @@ public class AddBBObjectTask extends AsyncTask<Void, Void, Void>
             List<TrackerHistoryItem> newTrackerHistoryItems =
                     BBDatabaseContract.updateTrackerHistoryItemsMemory(application.getBadBudgetUserData(),
                             application.getTrackerHistoryItems(), application.getToday(), application.getToday());
+            List<TransactionHistoryItem> newTransactionHistoryItems = BBDatabaseContract.updateGeneralHistoryItemsMemory(application.getBadBudgetUserData(),
+                    application.getGeneralHistoryItems(), application.getToday(), application.getToday());
 
-            BBDatabaseContract.updateFullDatabase(writableDB, application.getBadBudgetUserData(), newTrackerHistoryItems, application.getSelectedBudgetId());
+            BBDatabaseContract.updateFullDatabase(writableDB, application.getBadBudgetUserData(), newTrackerHistoryItems, newTransactionHistoryItems, application.getSelectedBudgetId());
         }
     }
 

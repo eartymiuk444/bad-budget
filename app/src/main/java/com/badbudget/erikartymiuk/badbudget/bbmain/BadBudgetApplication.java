@@ -14,6 +14,7 @@ import com.badbudget.erikartymiuk.bbmain.FlavorSpecific;
 import com.erikartymiuk.badbudgetlogic.budget.RemainAmountAction;
 import com.erikartymiuk.badbudgetlogic.main.BadBudgetData;
 import com.erikartymiuk.badbudgetlogic.main.Frequency;
+import com.erikartymiuk.badbudgetlogic.predictdataclasses.TransactionHistoryItem;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -199,6 +200,7 @@ public class BadBudgetApplication extends Application
     private boolean autoUpdateSelectedBudget;
     private RemainAmountAction remainAmountActionSelectedBudget;
     private List<TrackerHistoryItem> trackerHistoryItems;
+    private List<TransactionHistoryItem> transactionHistoryItems;
 
     private boolean predictBBDUpdated;
 
@@ -333,6 +335,25 @@ public class BadBudgetApplication extends Application
     public void setTrackerHistoryItems(List<TrackerHistoryItem> trackerHistoryItems)
     {
         this.trackerHistoryItems = trackerHistoryItems;
+    }
+
+    /**
+     * Get the application general history for use across activities
+     *
+     * @return the general history
+     */
+    public List<TransactionHistoryItem> getGeneralHistoryItems()
+    {
+        return this.transactionHistoryItems;
+    }
+
+    /**
+     * Sets the application's general history list
+     * @param generalHistoryItems - the list of tracker history items to use as the app's tracker history
+     */
+    public void setGeneralHistoryItems(List<TransactionHistoryItem> generalHistoryItems)
+    {
+        this.transactionHistoryItems = generalHistoryItems;
     }
 
     /**

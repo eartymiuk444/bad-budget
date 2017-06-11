@@ -13,6 +13,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.badbudget.erikartymiuk.badbudget.inputforms.AddBBObjectTask;
 import com.badbudget.erikartymiuk.badbudget.inputforms.BBObjectType;
 import com.badbudget.erikartymiuk.badbudget.inputforms.EditBBObjectTask;
+import com.erikartymiuk.badbudgetlogic.budget.BudgetItem;
 import com.erikartymiuk.badbudgetlogic.budget.RemainAmountAction;
 import com.erikartymiuk.badbudgetlogic.main.Account;
 import com.erikartymiuk.badbudgetlogic.main.BadBudgetInvalidValueException;
@@ -39,8 +40,8 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
     /* Application context of this database open helper's singleton instance */
     private Application context;
 
-    /* Initial database version number */
-    private static final int DATABASE_VERSION = 1;
+    /* Current database version number */
+    private static final int DATABASE_VERSION = 2;
     /* Bad budget database name */
     private static final String DATABASE_NAME = "BBDatabase.db";
     /* First Budget Name */
@@ -212,6 +213,32 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
             BBDatabaseContract.TrackerHistoryItems.ORIGINAL_BUDGET_AMOUNT_TYPE,
             BBDatabaseContract.TrackerHistoryItems.UPDATED_BUDGET_AMOUNT_TYPE};
 
+    private static final String[] GENERAL_HISTORY_ITEM_COLUMNS = {BBDatabaseContract.GeneralHistoryItems.COLUMN_DESTINATION_ACTION,
+            BBDatabaseContract.GeneralHistoryItems.COLUMN_DESTINATION_ORIGINAL,
+            BBDatabaseContract.GeneralHistoryItems.COLUMN_DESTINATION_UPDATED,
+            BBDatabaseContract.GeneralHistoryItems.COLUMN_SOURCE_ACTION,
+            BBDatabaseContract.GeneralHistoryItems.COLUMN_SOURCE_ORIGINAL,
+            BBDatabaseContract.GeneralHistoryItems.COLUMN_SOURCE_UPDATED,
+            BBDatabaseContract.GeneralHistoryItems.COLUMN_TRANSACTION_AMOUNT,
+            BBDatabaseContract.GeneralHistoryItems.COLUMN_TRANSACTION_DATE,
+            BBDatabaseContract.GeneralHistoryItems.COLUMN_TRANSACTION_DESTINATION,
+            BBDatabaseContract.GeneralHistoryItems.COLUMN_TRANSACTION_SOURCE,
+            BBDatabaseContract.GeneralHistoryItems.COLUMN_DESTINATION_CAN_SHOW_CHANGE,
+            BBDatabaseContract.GeneralHistoryItems.COLUMN_SOURCE_CAN_SHOW_CHANGE};
+
+    private static final String[] GENERAL_HISTORY_ITEM_COLUMN_TYPES = {BBDatabaseContract.GeneralHistoryItems.DESTINATION_ACTION_TYPE,
+            BBDatabaseContract.GeneralHistoryItems.DESTINATION_ORIGINAL_TYPE,
+            BBDatabaseContract.GeneralHistoryItems.DESTINATION_UPDATED_TYPE,
+            BBDatabaseContract.GeneralHistoryItems.SOURCE_ACTION_TYPE,
+            BBDatabaseContract.GeneralHistoryItems.SOURCE_ORIGINAL_TYPE,
+            BBDatabaseContract.GeneralHistoryItems.SOURCE_UPDATED_TYPE,
+            BBDatabaseContract.GeneralHistoryItems.TRANSACTION_AMOUNT_TYPE,
+            BBDatabaseContract.GeneralHistoryItems.TRANSACTION_DATE_TYPE,
+            BBDatabaseContract.GeneralHistoryItems.TRANSACTION_DESTINATION_TYPE,
+            BBDatabaseContract.GeneralHistoryItems.TRANSACTION_SOURCE_TYPE,
+            BBDatabaseContract.GeneralHistoryItems.DESTINATION_CAN_SHOW_CHANGE_TYPE,
+            BBDatabaseContract.GeneralHistoryItems.SOURCE_CAN_SHOW_CHANGE_TYPE};
+
     private static final String[] BUDGET_META_DATA_COLUMNS = {BBDatabaseContract.BBMetaData.COLUMN_LAST_UPDATE};
     private static final String[] BUDGET_META_DATA_COLUMN_TYPES = {BBDatabaseContract.BBMetaData.LAST_UPDATE_TYPE};
 
@@ -276,21 +303,49 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
     }
 
     //TODO look into this method more, should check read only?
+    //TODO move foreing key enabling to onConfigure
     public void onOpen(SQLiteDatabase db)
     {
         db.execSQL(ENABLE_FOREIGN_KEYS);
     }
 
     /**
-     * Currently an upgrade to the database schema isn't necessary. Would need to be implemented
-     * if a change is made in any of the tables schema.
+     * In general this method handles any changes between different db versions.
+     *
+     * From version 1 to version 2 of our database we need to add the general history table to
+     * each of the existing budgets in our db.
      * @param db - The database
      * @param oldVersion - the old version number
      * @param newVersion - the new version number
      */
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
+        if (oldVersion == 1 && newVersion == 2) {
+            String[] projection = {
+                    BBDatabaseContract.Budgets.COLUMN_ID
+            };
 
+            String sortOrder =
+                    BBDatabaseContract.Budgets.COLUMN_ID;
+
+            Cursor cursor = db.query(
+                    BBDatabaseContract.Budgets.TABLE_NAME,
+                    projection,
+                    null,
+                    null,
+                    null,
+                    null,
+                    sortOrder
+            );
+            int idIndex = cursor.getColumnIndexOrThrow(BBDatabaseContract.Budgets.COLUMN_ID);
+
+            while (cursor.moveToNext()) {
+                int currBudgetId = cursor.getInt(idIndex);
+                String createGeneralHistoryItemTableStatement = createTableStatement(BBDatabaseContract.GeneralHistoryItems.TABLE_NAME, currBudgetId, GENERAL_HISTORY_ITEM_COLUMNS, GENERAL_HISTORY_ITEM_COLUMN_TYPES,
+                        null, null, null, false);
+                db.execSQL(createGeneralHistoryItemTableStatement);
+            }
+        }
     }
 
     /**
@@ -538,7 +593,7 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
      * id being added to the global budgets table
      * Creates all the necessary tables for a stand alone budget including tables for user
      * cash accounts (regular and savings), debts (regular, credit cards, and loans) , gains,
-     * losses, budget items, budget preferences, tracker history, and meta data.
+     * losses, budget items, budget preferences, tracker history, general history, and meta data.
      * Also initializes the budget prefs to default values, although source is not set
      * (as it cannot be in a new budget). Does not change the default budget id
      * @param writeableDB - database instance to add the new budget to
@@ -595,6 +650,9 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
         String createTrackerHistoryItemTableStatement = createTableStatement(BBDatabaseContract.TrackerHistoryItems.TABLE_NAME, nextId, TRACKER_HISTORY_ITEM_COLUMNS, TRACKER_HISTORY_ITEM_COLUMN_TYPES,
                 null, null, null, true);
 
+        String createGeneralHistoryItemTableStatement = createTableStatement(BBDatabaseContract.GeneralHistoryItems.TABLE_NAME, nextId, GENERAL_HISTORY_ITEM_COLUMNS, GENERAL_HISTORY_ITEM_COLUMN_TYPES,
+                null, null, null, false);
+
         String createBudgetMetaDataTableStatement = createTableStatement(BBDatabaseContract.BBMetaData.TABLE_NAME, nextId, BUDGET_META_DATA_COLUMNS, BUDGET_META_DATA_COLUMN_TYPES,
                 null, null, null, false);
 
@@ -605,6 +663,7 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
         writeableDB.execSQL(createBudgetPreferenceTableStatement);
         writeableDB.execSQL(createBudgetItemTableStatement);
         writeableDB.execSQL(createTrackerHistoryItemTableStatement);
+        writeableDB.execSQL(createGeneralHistoryItemTableStatement);
         writeableDB.execSQL(createBudgetMetaDataTableStatement);
 
         /* Insert the default preferences into the budget preferences tables - no source is set */
@@ -651,6 +710,7 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
 
         writeableDB.execSQL(constructCopyStatment(BBDatabaseContract.BudgetItems.TABLE_NAME, existingBudgetId, newBudgetId));
         writeableDB.execSQL(constructCopyStatment(BBDatabaseContract.TrackerHistoryItems.TABLE_NAME, existingBudgetId, newBudgetId));
+        writeableDB.execSQL(constructCopyStatment(BBDatabaseContract.GeneralHistoryItems.TABLE_NAME, existingBudgetId, newBudgetId));
         writeableDB.execSQL(constructCopyStatment(BBDatabaseContract.BBMetaData.TABLE_NAME, existingBudgetId, newBudgetId));
 
         return newBudgetId;
@@ -689,6 +749,7 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
         String deleteBudgetItemTable = DROP_TABLE + SPACE + BBDatabaseContract.BudgetItems.TABLE_NAME + "_" + budgetId;
         String deleteBudgetPrefsTable = DROP_TABLE + SPACE + BBDatabaseContract.BudgetPreferences.TABLE_NAME + "_" + budgetId;
         String deleteTrackerHistoryTable = DROP_TABLE + SPACE + BBDatabaseContract.TrackerHistoryItems.TABLE_NAME + "_" + budgetId;
+        String deleteGeneralHistoryTable = DROP_TABLE + SPACE + BBDatabaseContract.GeneralHistoryItems.TABLE_NAME + "_" + budgetId;
         String deleteMetaDataTable = DROP_TABLE + SPACE + BBDatabaseContract.BBMetaData.TABLE_NAME + "_" + budgetId;
 
         //Need to disable foreign keys as we don't care about any conflicts as all will be resolved as all
@@ -702,6 +763,7 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
         writeableDB.execSQL(deleteBudgetItemTable);
         writeableDB.execSQL(deleteBudgetPrefsTable);
         writeableDB.execSQL(deleteTrackerHistoryTable);
+        writeableDB.execSQL(deleteGeneralHistoryTable);
         writeableDB.execSQL(deleteMetaDataTable);
 
          /* Update the global tables */

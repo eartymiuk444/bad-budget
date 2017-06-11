@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 
 import com.erikartymiuk.badbudgetlogic.main.BadBudgetData;
 import com.erikartymiuk.badbudgetlogic.main.Prediction;
+import com.erikartymiuk.badbudgetlogic.predictdataclasses.TransactionHistoryItem;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -91,7 +92,8 @@ public class UpdateTask extends AsyncTask<Void, Void, Void> {
             List<TrackerHistoryItem> newTrackerHistoryItems =
                     BBDatabaseContract.updateTrackerHistoryItemsMemory(bbd,
                             application.getTrackerHistoryItems(), setToday, actualToday);
-            BBDatabaseContract.updateFullDatabase(db, bbd, newTrackerHistoryItems, application.getSelectedBudgetId());
+            List<TransactionHistoryItem> newTransactionHistoryItems = BBDatabaseContract.updateGeneralHistoryItemsMemory(bbd, application.getGeneralHistoryItems(), setToday, actualToday);
+            BBDatabaseContract.updateFullDatabase(db, bbd, newTrackerHistoryItems, newTransactionHistoryItems, application.getSelectedBudgetId());
         }
 
         //If apps today date is in future or past we update it to today

@@ -395,13 +395,13 @@ abstract public class BadBudgetBaseActivity extends AppCompatActivity
                 break;
             }
             //TODO - implement this page 3/17/2017
-            /*case R.id.nav_history:
+            case R.id.nav_history:
             {
                 Intent intent = new Intent(this,  BudgetHistoryActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 break;
-            }*/
+            }
             case R.id.nav_predict:
             {
                 Intent intent = new Intent(this,  PredictActivity.class);
