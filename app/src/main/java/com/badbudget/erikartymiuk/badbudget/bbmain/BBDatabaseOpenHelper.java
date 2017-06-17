@@ -41,11 +41,16 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
     private Application context;
 
     /* Current database version number */
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     /* Bad budget database name */
     private static final String DATABASE_NAME = "BBDatabase.db";
     /* First Budget Name */
     private static final String FIRST_BUDGET_NAME = "First Budget";
+
+    /* Possible states of EULA Agreement */
+    public static final int EULA_EXTREME_EARLY_ADOPT = 0;
+    public static final int EULA_NOT_AGREE = 1;
+    public static final int EULA_AGREED = 2;
 
     /* Constants for use in various sql statements */
     private static final String COMMA_SEP = ",";
@@ -62,6 +67,8 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
     private static final String COPY_SELECT_FROM = "SELECT * FROM";
     private static final String COPY_DELETE_FROM = "DELETE FROM";
     private static final String DROP_TABLE = "DROP TABLE";
+    private static final String ALTER_TABLE = "ALTER TABLE";
+    private static final String ADD_COLUMN = "ADD COLUMN";
 
 
     /* Create table statement constructions */
@@ -246,7 +253,8 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
             CREATE_TABLE + SPACE +
                     BBDatabaseContract.GlobalMetaData.TABLE_NAME + LEFT_PAREN +
                     BBDatabaseContract.GlobalMetaData.COLUMN_LAST_ID + SPACE + BBDatabaseContract.GlobalMetaData.LAST_ID_TYPE + COMMA_SEP +
-                    BBDatabaseContract.GlobalMetaData.COLUMN_DEFAULT_BUDGET_ID + SPACE + BBDatabaseContract.GlobalMetaData.DEFAULT_BUDGET_ID_TYPE +
+                    BBDatabaseContract.GlobalMetaData.COLUMN_DEFAULT_BUDGET_ID + SPACE + BBDatabaseContract.GlobalMetaData.DEFAULT_BUDGET_ID_TYPE + COMMA_SEP +
+                    BBDatabaseContract.GlobalMetaData.COLUMN_AGREED_EULA + SPACE + BBDatabaseContract.GlobalMetaData.AGREED_EULA_TYPE +
                     RIGHT_PAREN;
 
     private static final String BUDGETS_CREATE_TABLE =
@@ -255,6 +263,11 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
                     BBDatabaseContract.Budgets.COLUMN_ID + SPACE + BBDatabaseContract.Budgets.ID_TYPE + COMMA_SEP +
                     BBDatabaseContract.Budgets.COLUMN_NAME + SPACE + BBDatabaseContract.Budgets.NAME_TYPE +
                     RIGHT_PAREN;
+
+    private static final String ADD_EULA_COLUMN_STATEMENT = ALTER_TABLE + SPACE +
+           BBDatabaseContract.GlobalMetaData.TABLE_NAME + SPACE + ADD_COLUMN + SPACE +
+            BBDatabaseContract.GlobalMetaData.COLUMN_AGREED_EULA + SPACE +
+            BBDatabaseContract.GlobalMetaData.AGREED_EULA_TYPE;
 
     /**
      * Constructor for the BBDatabaseOpenHelper class. This is set to private as these objects
@@ -290,11 +303,14 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
      */
     public void onCreate(SQLiteDatabase writeableDB)
     {
+        System.out.println(GLOBAL_META_DATA_CREATE_TABLE);
         writeableDB.execSQL(GLOBAL_META_DATA_CREATE_TABLE);
         writeableDB.execSQL(BUDGETS_CREATE_TABLE);
 
         ContentValues globalMetaDataValues = new ContentValues();
         globalMetaDataValues.put(BBDatabaseContract.GlobalMetaData.COLUMN_LAST_ID, 0);
+        globalMetaDataValues.put(BBDatabaseContract.GlobalMetaData.COLUMN_AGREED_EULA, EULA_NOT_AGREE);
+
         writeableDB.insert(BBDatabaseContract.GlobalMetaData.TABLE_NAME, null, globalMetaDataValues);
 
         BBDatabaseContract.setDefaultBudgetId(writeableDB, createNewBudget(writeableDB, FIRST_BUDGET_NAME));
@@ -314,13 +330,16 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
      *
      * From version 1 to version 2 of our database we need to add the general history table to
      * each of the existing budgets in our db.
+     *
+     * Version 3 of the DB adds the EULA agreement field for checking.
      * @param db - The database
      * @param oldVersion - the old version number
      * @param newVersion - the new version number
      */
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-        if (oldVersion == 1 && newVersion == 2) {
+        //Version 2 of the DB adds the General History Table (to all existing budgets)
+        if (oldVersion < 2) {
             String[] projection = {
                     BBDatabaseContract.Budgets.COLUMN_ID
             };
@@ -345,6 +364,17 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
                         null, null, null, false);
                 db.execSQL(createGeneralHistoryItemTableStatement);
             }
+        }
+
+        if (oldVersion < 3)
+        {
+            //Version 3 of the DB adds the field for checking if the user agreed to the EULA.
+            db.execSQL(ADD_EULA_COLUMN_STATEMENT);
+
+            ContentValues globalMetaDataValues = new ContentValues();
+            globalMetaDataValues.put(BBDatabaseContract.GlobalMetaData.COLUMN_AGREED_EULA, EULA_EXTREME_EARLY_ADOPT);
+
+            db.update(BBDatabaseContract.GlobalMetaData.TABLE_NAME, globalMetaDataValues, null, null);
         }
     }
 

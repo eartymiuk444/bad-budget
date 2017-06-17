@@ -2,6 +2,7 @@ package com.badbudget.erikartymiuk.badbudget.bbmain;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.design.widget.NavigationView;

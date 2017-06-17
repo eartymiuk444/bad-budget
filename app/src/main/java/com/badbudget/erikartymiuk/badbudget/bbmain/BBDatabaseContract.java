@@ -106,6 +106,51 @@ public class BBDatabaseContract
     }
 
     /**
+     * Gets the current status of the response to the EULA agreement. The status on db creation
+     * is disagree. After the user clicks agree the status should be changed to agree via setEulaAgreeStatus.
+     * @param writeableDB - the writeable db
+     * @return the current status of the response to the eula agreement.
+     */
+    public static int getEulaAgreeStatus(SQLiteDatabase writeableDB)
+    {
+        String[] projection = {
+                BBDatabaseContract.GlobalMetaData.COLUMN_AGREED_EULA
+        };
+
+        Cursor cursor = writeableDB.query(
+                BBDatabaseContract.GlobalMetaData.TABLE_NAME,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+        int idIndex = cursor.getColumnIndexOrThrow(BBDatabaseContract.GlobalMetaData.COLUMN_AGREED_EULA);
+
+        int agreedEulaInt = 0;
+        while (cursor.moveToNext()) {
+            agreedEulaInt = cursor.getInt(idIndex);
+        }
+
+        return agreedEulaInt;
+    }
+
+    /**
+     * Sets the response to the eula agreement status. When the user click agree on the eula popup
+     * this method should be called with a status of EULA_AGREE.
+     * @param writeableDB - the writeable DB
+     * @param status - the status to set the response of the eula agreement to (EULA_AGREE, EULA_DISAGREE)
+     */
+    public static void setEulaAgreeStatus(SQLiteDatabase writeableDB, int status)
+    {
+        ContentValues globalMetaDataValues = new ContentValues();
+        globalMetaDataValues.put(BBDatabaseContract.GlobalMetaData.COLUMN_AGREED_EULA, status);
+
+        writeableDB.insert(BBDatabaseContract.GlobalMetaData.TABLE_NAME, null, globalMetaDataValues);
+    }
+
+    /**
      * Private helper method that extracts the auto update and remain amount action from our database
      * for our remaining budget preferences. These are not extracted with the others as auto update
      * isn't set as part of the budget object and the remain amount action is set on a budget item basis
@@ -1949,5 +1994,8 @@ public class BBDatabaseContract
 
         public static final String COLUMN_DEFAULT_BUDGET_ID = "defaultBudgetId";
         public static final String DEFAULT_BUDGET_ID_TYPE = INTEGER_TYPE;
+
+        public static final String COLUMN_AGREED_EULA = "agreedEULA";
+        public static final String AGREED_EULA_TYPE = INTEGER_TYPE;
     }
 }

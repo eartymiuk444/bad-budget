@@ -1,6 +1,11 @@
 package com.badbudget.erikartymiuk.badbudget.bbmain;
 
+import android.app.AlertDialog;
+import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 
@@ -47,8 +52,36 @@ public class HomeActivity extends BadBudgetBaseActivity {
         enableBudgetSelect();
         enableTrackerToolbar();
 
-        HomeActivitySetupTask setupTask = new HomeActivitySetupTask(this);
-        setupTask.execute();
+        final HomeActivitySetupTask setupTask = new HomeActivitySetupTask(this);
+
+        int agreedEulaInt = BBDatabaseContract.getEulaAgreeStatus(BBDatabaseOpenHelper.getInstance(this).getWritableDatabase());
+        if (agreedEulaInt == BBDatabaseOpenHelper.EULA_AGREED || agreedEulaInt == BBDatabaseOpenHelper.EULA_EXTREME_EARLY_ADOPT)
+        {
+            setupTask.execute();
+        }
+        else
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.eula_agreement)
+                    .setPositiveButton(R.string.eula_agree, new DialogInterface.OnClickListener()
+                    {
+                        public void onClick(DialogInterface dialog, int id)
+                        {
+                            BBDatabaseContract.setEulaAgreeStatus(
+                                    BBDatabaseOpenHelper.getInstance(HomeActivity.this)
+                                            .getWritableDatabase(), BBDatabaseOpenHelper.EULA_AGREED);
+                            setupTask.execute();
+                        }
+                    })
+                    .setNegativeButton(R.string.eula_cancel, new DialogInterface.OnClickListener()
+                    {
+                        public void onClick(DialogInterface dialog, int id)
+                        {
+                            HomeActivity.this.finish();
+                        }
+                    }).setCancelable(false);
+            builder.create().show();
+        }
     }
 
     /**

@@ -727,4 +727,41 @@
     <string name="history_activity_title">History</string>
     <string name="general_history_clear_all">Clear All</string>
 
+    <!-- EULA Strings -->
+    <string name="eula_agreement">\n<b>License Agreement</b>
+
+        \n\n<b>Bad Budget and Bad Budget (Free) (“SOFTWARE”) End-User License (“LICENSE”)</b>
+
+        \n\nAll copyrights to this SOFTWARE are exclusively owned by the author – Erik Artymiuk.
+
+        \n\n<b>License</b>
+        \nThe user is granted a revocable, non-exclusive, non-transferable, limited license to download,
+        install and use the SOFTWARE solely for the user’s personal, non-commercial
+        purposes strictly in accordance with the terms of this agreement.
+
+        \n\n<b>Restrictions</b>
+        \nYou may not use, copy, emulate, clone, rent, lease, sell, modify, decompile, disassemble,
+        otherwise reverse engineer, or transfer the licensed program, or any subset of the licensed program,
+        except as provided for in this agreement. You shall not violate any applicable laws,
+        rules or regulations in connection with your access or use of the SOFTWARE.
+        Any such unauthorized use shall result in immediate and automatic termination of this LICENSE
+        and may result in criminal and/or civil prosecution. All rights not expressly granted here are
+        reserved by Erik Artymiuk.
+
+        \n\n<b>Limitations of Warranties and Liability</b>
+        \nTHIS SOFTWARE IS DISTRIBUTED “AS IS.” NO WARRANTY OF ANY KIND IS EXPRESSED OR IMPLIED.
+        YOU USE AT YOUR OWN RISK. THE AUTHOR WILL NOT BE LIABLE FOR DATA LOSS, DAMAGES, LOSS OF PROFITS
+        OR ANY OTHER KIND OF LOSS WHILE USING OR MISUSING THIS SOFTWARE.
+
+        \n\nInstalling and using this SOFTWARE signifies acceptance of these terms and conditions of the LICENSE.
+
+        \n\nIf you do not agree with the terms of this LICENSE you must remove the SOFTWARE from your storage devices and cease to use the product.
+
+        \n\nErik Artymiuk (bbbadbudget@gmail.com)
+
+    </string>
+
+    <string name="eula_agree">Agree</string>
+    <string name="eula_cancel">Cancel</string>
+
 </resources>
