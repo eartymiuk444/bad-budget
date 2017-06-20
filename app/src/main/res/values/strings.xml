@@ -124,6 +124,9 @@
     <string name="popup_quicklook_title_suffix"> - Quicklook</string>
     <string name="popup_quicklook_detailed_look">Detailed Look</string>
     <string name="popup_quicklook_date_placeholder">Date</string>
+    <string name="popup_quicklook_net_cash">Net Cash</string>
+    <string name="popup_quicklook_net_debt">Net Debt</string>
+    <string name="popup_quicklook_net_worth">Net Worth</string>
 
     <!-- Application Strings -->
     <string name="one_time">One-Time</string>

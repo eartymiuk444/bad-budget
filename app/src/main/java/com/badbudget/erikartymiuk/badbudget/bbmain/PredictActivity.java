@@ -542,12 +542,16 @@ public class PredictActivity extends BadBudgetChildActivity implements
         //Search through our bbd for any quicklook items
         BadBudgetData bbd = ((BadBudgetApplication) this.getApplication()).getBadBudgetUserData();
 
+        double netCash = 0;
+        double netDebt = 0;
+
         //Look through all cash accounts (including savings accounts)
         for (Account currAccount : bbd.getAccounts())
         {
+            PredictDataAccount pda = currAccount.getPredictData(Prediction.numDaysBetween(application.getToday(), currentSelectedCal.getTime()));
+            netCash += pda.value();
             if (currAccount.quickLook())
             {
-                PredictDataAccount pda = currAccount.getPredictData(Prediction.numDaysBetween(application.getToday(), currentSelectedCal.getTime()));
                 String name = currAccount.name();
                 String value = BadBudgetApplication.roundedDoubleBB(pda.value()); //The value is the value we show on quicklook for accounts
                 addRowToLinearLayout(linearLayout, name, value);
@@ -557,13 +561,18 @@ public class PredictActivity extends BadBudgetChildActivity implements
         //Look through all debts
         for (MoneyOwed currDebt : bbd.getDebts())
         {
+            PredictDataMoneyOwed pdmo = currDebt.getPredictData(Prediction.numDaysBetween(application.getToday(), currentSelectedCal.getTime()));
+            netDebt += pdmo.value();
             if (currDebt.quicklook()) {
-                PredictDataMoneyOwed pdmo = currDebt.getPredictData(Prediction.numDaysBetween(application.getToday(), currentSelectedCal.getTime()));
                 String name = currDebt.name();
                 String value = BadBudgetApplication.roundedDoubleBB(pdmo.value());
                 addRowToLinearLayout(linearLayout, name, value);
             }
         }
+
+        addRowToLinearLayout(linearLayout, getString(R.string.popup_quicklook_net_cash), BadBudgetApplication.roundedDoubleBB(netCash));
+        addRowToLinearLayout(linearLayout, getString(R.string.popup_quicklook_net_debt), BadBudgetApplication.roundedDoubleBB(netDebt));
+        addRowToLinearLayout(linearLayout, getString(R.string.popup_quicklook_net_worth), BadBudgetApplication.roundedDoubleBB(netCash - netDebt));
 
         //Update the date in the title
         TextView title = (TextView) quicklookPopup.getContentView().findViewById(R.id.quicklookPopupDate);
