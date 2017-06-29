@@ -49,6 +49,13 @@ public class DetailedLookDebtsTable extends DetailedLookBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        BadBudgetApplication application = ((BadBudgetApplication)this.getApplication());
+        if (application.getBadBudgetUserData() == null)
+        {
+            this.finish();
+            return;
+        }
+
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.detailed_look_base_linear_layout);
         LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.content_detailed_look_debts, linearLayout, true);

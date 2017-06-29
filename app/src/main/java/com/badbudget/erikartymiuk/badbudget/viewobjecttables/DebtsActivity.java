@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.badbudget.erikartymiuk.badbudget.R;
+import com.badbudget.erikartymiuk.badbudget.bbmain.BadBudgetApplication;
 import com.badbudget.erikartymiuk.badbudget.bbmain.BadBudgetBaseActivity;
 import com.badbudget.erikartymiuk.badbudget.bbmain.BadBudgetChildActivity;
 import com.badbudget.erikartymiuk.badbudget.bbmain.PredictActivity;
@@ -46,6 +47,14 @@ public class DebtsActivity extends BadBudgetChildActivity {
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        BadBudgetApplication application = ((BadBudgetApplication)this.getApplication());
+        if (application.getBadBudgetUserData() == null)
+        {
+            this.finish();
+            return;
+        }
+
         setContent(R.layout.content_debts);
     }
 

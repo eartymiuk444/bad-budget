@@ -84,6 +84,13 @@ public class TrackHistoryActivity extends BadBudgetChildActivity implements Upda
     {
         super.onCreate(savedInstanceState);
 
+        BadBudgetApplication application = ((BadBudgetApplication)this.getApplication());
+        if (application.getBadBudgetUserData() == null)
+        {
+            this.finish();
+            return;
+        }
+
         setContent(R.layout.content_tracker_history);
 
         groupingsSpinner = (Spinner) findViewById(R.id.trackerHistoryGroupingsSpinner);

@@ -160,6 +160,14 @@ public class AddSavingsActivity extends BadBudgetChildActivity
      */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        BadBudgetApplication application = ((BadBudgetApplication)this.getApplication());
+        if (application.getBadBudgetUserData() == null)
+        {
+            this.finish();
+            return;
+        }
+
         setContent(R.layout.content_add_savings);
 
         setup();

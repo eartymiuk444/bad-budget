@@ -114,6 +114,13 @@ abstract public class BadBudgetBaseActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
 
+        BadBudgetApplication application = ((BadBudgetApplication)this.getApplication());
+        if (application.getBadBudgetUserData() == null)
+        {
+            this.finish();
+            return;
+        }
+
         setContentView(R.layout.activity_bad_budget_base);
 
         //Toolbar setup

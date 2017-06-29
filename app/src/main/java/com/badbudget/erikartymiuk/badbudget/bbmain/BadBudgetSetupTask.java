@@ -25,20 +25,20 @@ import java.util.Map;
  * user data with the default budget and sets the applications budget id to name map.
  *
  */
-public class HomeActivitySetupTask extends AsyncTask<Void, Void, Void> {
+public class BadBudgetSetupTask extends AsyncTask<Void, Void, Void> {
 
     private static final String PROGRESS_DIALOG_MESSAGE = "Loading Budget...";
 
-    private HomeActivity contextActivity;
+    private SplashActivity contextActivity;
     private ProgressDialog progressDialog;
 
     /**
-     * Constructor for HomeActivitySetupTask, require the HomeActivity context in which
+     * Constructor for SetupTask, require the SplashActivity context in which
      * this task will run, for getting a db connection, the application, and for presenting
      * a progress dialog as the budget data is loaded
      * @param context - the HomeActivity that will start this task
      */
-    public HomeActivitySetupTask(HomeActivity context)
+    public BadBudgetSetupTask(SplashActivity context)
     {
         super();
         this.contextActivity = context;
@@ -65,7 +65,7 @@ public class HomeActivitySetupTask extends AsyncTask<Void, Void, Void> {
 
     /**
      * Executed on the UI Thread prior to the background thread executing. Creates and shows a progress
-     * dialog using the HomeActivity this task was created with.
+     * dialog using the SplashActivity this task was created with.
      */
     protected void onPreExecute()
     {
@@ -80,13 +80,13 @@ public class HomeActivitySetupTask extends AsyncTask<Void, Void, Void> {
     }
 
     /**
-     * Calls back the HomeActivity indicating that a budget was selected and then dismisses the
+     * Calls back the SplashActivity indicating that a budget was selected and then dismisses the
      * progress dialog.
      * @param result - unused.
      */
     protected void onPostExecute(Void result)
     {
-        contextActivity.budgetSelected();
         progressDialog.dismiss();
+        contextActivity.setupTaskComplete();
     }
 }

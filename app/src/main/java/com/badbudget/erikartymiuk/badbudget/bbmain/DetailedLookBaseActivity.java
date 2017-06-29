@@ -59,7 +59,13 @@ public abstract class DetailedLookBaseActivity extends AppCompatActivity impleme
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        BadBudgetApplication application = ((BadBudgetApplication) this.getApplication());
+        BadBudgetApplication application = ((BadBudgetApplication)this.getApplication());
+        if (application.getBadBudgetUserData() == null)
+        {
+            this.finish();
+            return;
+        }
+
         if (application.getPredictBBDUpdated())
         {
             Intent returnIntent = new Intent();

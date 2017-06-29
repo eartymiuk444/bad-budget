@@ -54,6 +54,14 @@ public class SummaryActivity extends BadBudgetChildActivity implements AdapterVi
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        BadBudgetApplication application = ((BadBudgetApplication)this.getApplication());
+        if (application.getBadBudgetUserData() == null)
+        {
+            this.finish();
+            return;
+        }
+
         setContent(R.layout.content_summary);
 
         Spinner frequencySpinner = (Spinner)findViewById(R.id.summaryFrequencySpinner);

@@ -62,6 +62,14 @@ public class BudgetSetActivity extends BadBudgetTableActivity implements BBOpera
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        BadBudgetApplication application = ((BadBudgetApplication)this.getApplication());
+        if (application.getBadBudgetUserData() == null)
+        {
+            this.finish();
+            return;
+        }
+
         setContent(R.layout.content_budget_set);
         populateTable(savedInstanceState);
     }

@@ -462,6 +462,12 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
                     null, false, BadBudgetApplication.SAMPLE_BUDGET_ITEMS_PLUS_MINUS[i]);
             writeableDB.insert(BBDatabaseContract.BudgetItems.TABLE_NAME + "_" + BBDatabaseContract.getDefaultBudgetId(writeableDB), null, values);
         }
+
+        ContentValues metaValues = new ContentValues();
+        metaValues.put(BBDatabaseContract.BBMetaData.COLUMN_LAST_UPDATE, BBDatabaseContract.dbDateToString(app.getToday()));
+        writeableDB.insert(BBDatabaseContract.BBMetaData.TABLE_NAME + "_" +
+                BBDatabaseContract.getDefaultBudgetId(writeableDB), null, metaValues);
+
     }
 
     /**

@@ -19,6 +19,12 @@ abstract public class BadBudgetChildActivity extends BadBudgetBaseActivity {
         super.onCreate(savedInstanceState);
 
         BadBudgetApplication application = ((BadBudgetApplication)this.getApplication());
+        if (application.getBadBudgetUserData() == null)
+        {
+            this.finish();
+            return;
+        }
+
         String title = application.getBudgetMapIDToName().get(application.getSelectedBudgetId());
         this.setNavBarTitle(title);
         this.enableTrackerToolbar();

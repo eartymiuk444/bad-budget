@@ -24,6 +24,14 @@ abstract public class BadBudgetTableActivity extends BadBudgetChildActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        BadBudgetApplication application = ((BadBudgetApplication)this.getApplication());
+        if (application.getBadBudgetUserData() == null)
+        {
+            this.finish();
+            return;
+        }
+
         super.setContent(R.layout.activity_bad_budget_table);
     }
 

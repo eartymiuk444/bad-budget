@@ -40,48 +40,30 @@ public class HomeActivity extends BadBudgetBaseActivity {
     }
 
     /**
-     * The on create method for the home activity will create and show the user a progress
-     * spinner as it loads all the user's budget data into memory.
+     * The on create method for the home activity.
      * @param savedInstanceState - unused
      */
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
+        BadBudgetApplication application = ((BadBudgetApplication)this.getApplication());
+        if (application.getBadBudgetUserData() == null)
+        {
+            Intent intent = new Intent(this, SplashActivity.class);
+            startActivity(intent);
+
+            this.finish();
+            return;
+        }
+
         setContent(R.layout.content_home);
         enableBudgetSelect();
         enableTrackerToolbar();
 
-        final HomeActivitySetupTask setupTask = new HomeActivitySetupTask(this);
-
-        int agreedEulaInt = BBDatabaseContract.getEulaAgreeStatus(BBDatabaseOpenHelper.getInstance(this).getWritableDatabase());
-        if (agreedEulaInt == BBDatabaseOpenHelper.EULA_AGREED || agreedEulaInt == BBDatabaseOpenHelper.EULA_EXTREME_EARLY_ADOPT)
-        {
-            setupTask.execute();
-        }
-        else
-        {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.eula_agreement)
-                    .setPositiveButton(R.string.eula_agree, new DialogInterface.OnClickListener()
-                    {
-                        public void onClick(DialogInterface dialog, int id)
-                        {
-                            BBDatabaseContract.setEulaAgreeStatus(
-                                    BBDatabaseOpenHelper.getInstance(HomeActivity.this)
-                                            .getWritableDatabase(), BBDatabaseOpenHelper.EULA_AGREED);
-                            setupTask.execute();
-                        }
-                    })
-                    .setNegativeButton(R.string.eula_cancel, new DialogInterface.OnClickListener()
-                    {
-                        public void onClick(DialogInterface dialog, int id)
-                        {
-                            HomeActivity.this.finish();
-                        }
-                    }).setCancelable(false);
-            builder.create().show();
-        }
+        String title = application.getBudgetMapIDToName().get(application.getSelectedBudgetId());
+        this.setToolbarTitle(title);
+        this.setNavBarTitle(title);
     }
 
     /**
