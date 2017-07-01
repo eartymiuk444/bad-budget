@@ -721,7 +721,7 @@
     <string name="summary_activity_net_flow">Net Flow</string>
     <string name="summary_activity_cash_flow">Cash Flow</string>
     <string name="summary_activity_debt_flow">Debt Flow</string>
-    <string name="summary_activity_source_losses">Sources Flow</string>
+    <string name="summary_activity_source_losses">Sources Losses</string>
     <string name="summary_activity_amount_placeholder">0.00</string>
 
     <string name="summary_activity_single_placeholder">Placeholder</string>
