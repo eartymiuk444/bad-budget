@@ -214,6 +214,8 @@ public class BadBudgetApplication extends Application
     {
         super.onCreate();
 
+        badBudgetUserData = null;
+
         today = Calendar.getInstance().getTime();
 
         if (BuildConfig.FREE_VERSION)

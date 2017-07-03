@@ -17,7 +17,7 @@ import com.badbudget.erikartymiuk.badbudget.R;
 
 public class SplashActivity extends AppCompatActivity
 {
-    private static final long SPLASH_DISPLAY_TIME = 100;
+    private static final long SPLASH_DISPLAY_TIME = 500;
 
     /**
      * On create for the SplashActivity. First checks the database to see if the user accepted the Eula.
@@ -28,6 +28,28 @@ public class SplashActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        /*
+        This check is to handle launchers where rather than resuming or recreating the activity that
+        was running when the user left the application tries to start the launcher activity on top
+        of the last activity.
+
+        (See
+         https://issuetracker.google.com/issues/36907463,
+         https://stackoverflow.com/questions/19545889/app-restarts-rather-than-resumes,
+         https://stackoverflow.com/questions/4341600/how-to-prevent-multiple-instances-of-an-activity-when-it-is-launched-with-differ/,
+         https://issuetracker.google.com/issues/36941942).
+
+        This should prevent another instance of that activity from being created and added to the stack.
+         */
+        if (!isTaskRoot()
+                && getIntent().hasCategory(Intent.CATEGORY_LAUNCHER)
+                && getIntent().getAction() != null
+                && getIntent().getAction().equals(Intent.ACTION_MAIN)) {
+
+            finish();
+            return;
+        }
 
         final BadBudgetSetupTask setupTask = new BadBudgetSetupTask(this);
 
@@ -75,7 +97,7 @@ public class SplashActivity extends AppCompatActivity
                 SplashActivity.this.startActivity(intent);
                 SplashActivity.this.finish();
 
-                overridePendingTransition(android.R.anim.fade_in , android.R.anim.fade_out);
+                overridePendingTransition(0, android.R.anim.fade_out);
             }
         },SPLASH_DISPLAY_TIME);
     }
