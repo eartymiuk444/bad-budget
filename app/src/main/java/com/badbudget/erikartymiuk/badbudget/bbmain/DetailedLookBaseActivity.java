@@ -170,6 +170,7 @@ public abstract class DetailedLookBaseActivity extends AppCompatActivity impleme
                 {
                     mDatePickerActionItem.setTitle(BadBudgetApplication.dateString(currentChosenDay));
                 }
+                updateHistoryViews();
             }
             else if (resultCode == RESULT_CANCELED)
             {

@@ -10,6 +10,7 @@
     <string name="track_button_text">Track</string>
     <string name="predict_button_text">Predict</string>
     <string name="summary_button_text">Summary</string>
+    <string name="transfers_button_text">Transfers</string>
 
     <!-- Cash Table Strings -->
     <string name="cash_activity_title">Cash Accounts</string>
@@ -721,7 +722,7 @@
     <string name="summary_activity_net_flow">Net Flow</string>
     <string name="summary_activity_cash_flow">Cash Flow</string>
     <string name="summary_activity_debt_flow">Debt Flow</string>
-    <string name="summary_activity_source_losses">Sources Losses</string>
+    <string name="summary_activity_source_losses">Sources Money Out</string>
     <string name="summary_activity_amount_placeholder">0.00</string>
 
     <string name="summary_activity_single_placeholder">Placeholder</string>
@@ -766,5 +767,43 @@
 
     <string name="eula_agree">Agree</string>
     <string name="eula_cancel">Cancel</string>
+
+    <!-- Transfers Activity Strings -->
+    <string name="transfers_activity_title">Transfers</string>
+    <string name="transfers_table_transfer">Transfers</string>
+    <string name="transfers_table_amount">Amount</string>
+    <string name="transfers_table_source">Source</string>
+    <string name="transfers_table_destination">Destination</string>
+    <string name="add_transfers_text">Add Transfers</string>
+
+    <!-- Add Transfer Activity Strings -->
+    <string name="add_transfer_activity_title">Add Transfer</string>
+    <string name="add_transfer_activity_edit_title">Edit Transfer</string>
+    <string name="add_transfer_description_prompt">Description</string>
+    <string name="add_transfer_description_hint">Description...</string>
+    <string name="add_transfer_source_prompt">Source</string>
+    <string name="add_transfer_source_hint">Source...</string>
+    <string name="add_transfer_destination_prompt">Destination</string>
+    <string name="add_transfer_destination_hint">Destination...</string>
+    <string name="add_transfer_amount_prompt">Amount</string>
+    <string name="add_transfer_amount_hint">Amount...</string>
+    <string name="add_transfer_frequency_prompt">Frequency</string>
+    <string name="add_transfer_next_prompt">Next Transfer</string>
+    <string name="add_transfer_next_hint">Set Date</string>
+    <string name="add_transfer_end_prompt">End Date</string>
+    <string name="add_transfer_end_hint">Set Date</string>
+    <string name="add_transfer_submit_button">Submit</string>
+    <string name="add_transfer_cancel_button">Cancel</string>
+    <string name="add_transfer_delete_button">Delete</string>
+    <string name="add_transfer_use_contribution_message">To transfer from account to savings account use a contribution.</string>
+
+    <string-array name="add_transfer_frequency_array">
+        <item>@string/one_time</item>
+        <item>@string/daily</item>
+        <item>@string/weekly</item>
+        <item>@string/bi_weekly</item>
+        <item>@string/monthly</item>
+        <item>@string/yearly</item>
+    </string-array>
 
 </resources>

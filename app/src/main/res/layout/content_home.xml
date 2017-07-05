@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-Home Page Layout, has the title on top, the predict button on the bottom,
-a row between the two with two columns. In the first column at the top
-is the cash button and below that is the debt button. In the center of the
-first column is the gain and losses bottom. At the bottom of the first column
-is the budget button. In the second column at the top is the savings bottom and
-at the bottom is the track button.
+Home Page Layout
 -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Single row with 2 columns -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -20,176 +17,193 @@ at the bottom is the track button.
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.badbudget.erikartymiuk.badbudget.bbmain.HomeActivity"
+    android:weightSum="2"
     >
 
-    <!-- Single Row w/ 2 Columns -->
+    <!-- Column 1-->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/predictButtonLayout"
-        android:orientation="horizontal">
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:weightSum="10"
+        android:orientation="vertical"
+        android:layout_marginRight="@dimen/generic_padding_medium"
+        android:layout_marginEnd="@dimen/generic_padding_medium"
+        >
 
-        <!-- Column 1 -->
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginRight="@dimen/home_margins_horizontal"
-            android:orientation="vertical">
-
-            <!-- Cash Button -->
+            <!-- Slot 1 Cash Button -->
             <android.widget.Button
                 android:id="@+id/cashButton"
+                android:text="@string/cash_button_text"
+                android:onClick="cashButtonClick"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_marginTop="@dimen/home_margins_vertical"
                 android:layout_marginBottom="@dimen/home_margins_vertical"
-                android:text="@string/cash_button_text"
                 android:textSize="@dimen/button_text_size"
-                android:onClick="cashButtonClick"
                 android:background="@drawable/homebuttons"
-
                 />
 
-            <!-- Debts Button -->
+            <!-- Slot 2 Debts Button -->
             <android.widget.Button
                 android:id="@+id/debtsButton"
+                android:text="@string/debts_button_text"
+                android:onClick="debtsButtonClick"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/cashButton"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_marginTop="@dimen/home_margins_vertical"
                 android:layout_marginBottom="@dimen/home_margins_vertical"
-                android:text="@string/debts_button_text"
                 android:textSize="@dimen/button_text_size"
-                android:onClick="debtsButtonClick"
                 android:background="@drawable/homebuttons"
                 />
 
-            <!-- Gains and Losses Buttons - Center Vertically in Screen -->
-            <LinearLayout
+            <!-- Slots 3 & 4 -->
+            <android.support.v4.widget.Space
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:orientation="vertical">
-                <!-- Gains Button -->
-                <android.widget.Button
-                    android:id="@+id/gainsButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/home_margins_vertical"
-                    android:layout_marginBottom="@dimen/home_margins_vertical"
-                    android:text="@string/gains_button_text"
-                    android:textSize="@dimen/button_text_size"
-                    android:onClick="gainsButtonClick"
-                    android:background="@drawable/homebuttons"
-                    />
+                android:layout_height="0dp"
+                android:layout_weight="2"/>
 
-                <!-- Losses Button -->
-                <android.widget.Button
-                    android:id="@+id/lossesButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/home_margins_vertical"
-                    android:layout_marginBottom="@dimen/home_margins_vertical"
-                    android:text="@string/losses_button_text"
-                    android:textSize="@dimen/button_text_size"
-                    android:onClick="lossesButtonClick"
-                    android:background="@drawable/homebuttons"
-                    />
-            </LinearLayout>
+            <!-- Slot 5 Gains Button -->
+            <android.widget.Button
+                android:id="@+id/gainsButton"
+                android:text="@string/gains_button_text"
+                android:onClick="gainsButtonClick"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/home_margins_vertical"
+                android:layout_marginBottom="@dimen/home_margins_vertical"
+                android:textSize="@dimen/button_text_size"
+                android:background="@drawable/homebuttons"
+                />
 
-            <!-- Budget (Set) Button -->
+            <!-- Slot 6 Losses Button -->
+            <android.widget.Button
+                android:id="@+id/lossesButton"
+                android:text="@string/losses_button_text"
+                android:onClick="lossesButtonClick"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/home_margins_vertical"
+                android:layout_marginBottom="@dimen/home_margins_vertical"
+                android:textSize="@dimen/button_text_size"
+                android:background="@drawable/homebuttons"
+                />
+
+            <!-- Slots 7 & 8 -->
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"/>
+
+            <!-- Slot 9 Budget (Set) Button -->
             <android.widget.Button
                 android:id="@+id/budgetButton"
+                android:text="@string/budget_button_text"
+                android:onClick="budgetButtonClick"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_marginTop="@dimen/home_margins_vertical"
                 android:layout_marginBottom="@dimen/home_margins_vertical"
-                android:text="@string/budget_button_text"
                 android:textSize="@dimen/button_text_size"
-                android:onClick="budgetButtonClick"
                 android:background="@drawable/homebuttons"
                 />
 
-        </RelativeLayout>
+            <!-- Slot 10 Predict Button -->
+            <android.widget.Button
+                android:id="@+id/predictButton"
+                android:text="@string/predict_button_text"
+                android:onClick="predictButtonClick"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/home_margins_vertical"
+                android:layout_marginBottom="@dimen/home_margins_vertical"
+                android:textSize="@dimen/button_text_size"
+                android:background="@drawable/homebuttons"
+                />
+
+        </LinearLayout>
 
         <!-- Column 2 -->
-        <RelativeLayout
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginLeft="@dimen/home_margins_horizontal"
+            android:weightSum="10"
             android:orientation="vertical">
 
-            <!-- Savings Button -->
+            <!-- Slot 1 Savings Button -->
             <android.widget.Button
                 android:id="@+id/savingsButton"
+                android:text="@string/savings_button_text"
+                android:onClick="savingsButtonClick"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_marginTop="@dimen/home_margins_vertical"
                 android:layout_marginBottom="@dimen/home_margins_vertical"
-                android:text="@string/savings_button_text"
                 android:textSize="@dimen/button_text_size"
-                android:onClick="savingsButtonClick"
                 android:background="@drawable/homebuttons"
                 />
 
-            <!-- Track Button -->
+            <!-- Slots 2, 3 & 4 -->
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"/>
+
+            <!-- Slot 5 Transfers Button -->
+            <android.widget.Button
+                android:id="@+id/transfersButton"
+                android:text="@string/transfers_button_text"
+                android:onClick="transfersButtonClick"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/home_margins_vertical"
+                android:layout_marginBottom="@dimen/home_margins_vertical"
+                android:textSize="@dimen/button_text_size"
+                android:background="@drawable/homebuttons"
+                />
+
+            <!-- Slots 6, 7 & 8 -->
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"/>
+
+            <!-- Slot 9 Track Button -->
             <android.widget.Button
                 android:id="@+id/trackButton"
+                android:text="@string/track_button_text"
+                android:onClick="trackButtonClick"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_marginTop="@dimen/home_margins_vertical"
                 android:layout_marginBottom="@dimen/home_margins_vertical"
-                android:text="@string/track_button_text"
                 android:textSize="@dimen/button_text_size"
-                android:onClick="trackButtonClick"
                 android:background="@drawable/homebuttons"
                 />
-        </RelativeLayout>
-    </LinearLayout>
 
-    <!-- Predict Button & Summary Button Bottom of Screen -->
-    <LinearLayout
-        android:id="@+id/predictButtonLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:layout_alignParentBottom="true">
+            <!-- Slot 10 Summary Button -->
+            <android.widget.Button
+                android:id="@+id/summaryButton"
+                android:text="@string/summary_button_text"
+                android:onClick="summaryButtonClick"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/home_margins_vertical"
+                android:layout_marginBottom="@dimen/home_margins_vertical"
+                android:textSize="@dimen/button_text_size"
+                android:background="@drawable/homebuttons"
+                />
+        </LinearLayout>
 
-        <android.widget.Button
-            android:id="@+id/predictButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="@dimen/home_margins_vertical"
-            android:layout_marginBottom="@dimen/home_margins_vertical"
-            android:layout_marginRight="@dimen/home_margins_horizontal"
-            android:text="@string/predict_button_text"
-            android:textSize="@dimen/button_text_size"
-            android:onClick="predictButtonClick"
-            android:background="@drawable/homebuttons"
-            />
-
-        <android.widget.Button
-            android:id="@+id/summaryButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginTop="@dimen/home_margins_vertical"
-            android:layout_marginBottom="@dimen/home_margins_vertical"
-            android:layout_marginLeft="@dimen/home_margins_horizontal"
-            android:text="@string/summary_button_text"
-            android:textSize="@dimen/button_text_size"
-            android:onClick="summaryButtonClick"
-            android:background="@drawable/homebuttons"
-            />
-
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

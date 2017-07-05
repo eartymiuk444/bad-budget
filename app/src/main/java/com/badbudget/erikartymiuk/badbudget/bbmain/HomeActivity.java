@@ -16,6 +16,7 @@ import com.badbudget.erikartymiuk.badbudget.viewobjecttables.CashActivity;
 import com.badbudget.erikartymiuk.badbudget.viewobjecttables.GainsActivity;
 import com.badbudget.erikartymiuk.badbudget.viewobjecttables.LossesActivity;
 import com.badbudget.erikartymiuk.badbudget.viewobjecttables.SavingsActivity;
+import com.badbudget.erikartymiuk.badbudget.viewobjecttables.TransfersActivity;
 
 /**
  * Home activity class for the home page of the bad budget application.
@@ -130,6 +131,17 @@ public class HomeActivity extends BadBudgetBaseActivity {
     public void lossesButtonClick(View view)
     {
         Intent intent = new Intent(this, LossesActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Method called when the transfers button is clicked. Navigates user to
+     * page with a table listing all the transfers currently associated with their account.
+     * @param view - the source of the click
+     */
+    public void transfersButtonClick(View view)
+    {
+        Intent intent = new Intent(this, TransfersActivity.class);
         startActivity(intent);
     }
 

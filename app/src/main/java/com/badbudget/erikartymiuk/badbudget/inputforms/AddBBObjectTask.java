@@ -16,6 +16,7 @@ import com.erikartymiuk.badbudgetlogic.main.BadBudgetData;
 import com.erikartymiuk.badbudgetlogic.main.MoneyGain;
 import com.erikartymiuk.badbudgetlogic.main.MoneyLoss;
 import com.erikartymiuk.badbudgetlogic.main.MoneyOwed;
+import com.erikartymiuk.badbudgetlogic.main.MoneyTransfer;
 import com.erikartymiuk.badbudgetlogic.main.Prediction;
 import com.erikartymiuk.badbudgetlogic.main.SavingsAccount;
 import com.erikartymiuk.badbudgetlogic.predictdataclasses.TransactionHistoryItem;
@@ -163,6 +164,13 @@ public class AddBBObjectTask extends AsyncTask<Void, Void, Void>
                 bbd.addLoss((MoneyLoss)bbObject);
                 todayUpdate(((MoneyLoss)bbObject).nextLoss());
 
+                break;
+            }
+            case TRANSFER:
+            {
+                writableDB.insert(BBDatabaseContract.Transfers.TABLE_NAME + "_" + ((BadBudgetApplication)this.contextActivity.getApplication()).getSelectedBudgetId(), null, this.values);
+                bbd.addTransfer((MoneyTransfer)bbObject);
+                todayUpdate(((MoneyTransfer)bbObject).getNextTransfer());
                 break;
             }
             case BUDGETITEM:

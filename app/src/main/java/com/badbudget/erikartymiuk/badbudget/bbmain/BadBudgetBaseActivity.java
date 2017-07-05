@@ -82,7 +82,7 @@ abstract public class BadBudgetBaseActivity extends AppCompatActivity
 
     /**
      * Method called upon completion of the update task run in onResume. Checks if our today date comes
-     * after our chosen date and if it does updates the chosen date to be today's date. Extending classes
+     * after our chosen date (if enabled) and if it does updates the chosen date to be today's date. Extending classes
      * should override this method and call super first, followed by updating any of its views that may change
      * upon an update.
      *
@@ -90,7 +90,7 @@ abstract public class BadBudgetBaseActivity extends AppCompatActivity
      */
     public void updateTaskCompleted(boolean updated) {
         Date today = ((BadBudgetApplication)getApplication()).getToday();
-        if (Prediction.numDaysBetween(currentChosenDay, today) > 0)
+        if (datePickerEnabled && Prediction.numDaysBetween(currentChosenDay, today) > 0)
         {
             setCurrentChosenDay(today);
         }

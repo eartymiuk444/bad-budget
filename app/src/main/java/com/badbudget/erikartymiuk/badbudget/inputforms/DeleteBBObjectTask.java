@@ -139,6 +139,14 @@ public class DeleteBBObjectTask extends AsyncTask<Void, Void, Void>
                 bbd.deleteLossWithDescription(identifier);
                 break;
             }
+            case TRANSFER:
+            {
+                writableDB.delete(BBDatabaseContract.Transfers.TABLE_NAME + "_" + ((BadBudgetApplication)this.contextActivity.getApplication()).getSelectedBudgetId(),
+                        BBDatabaseContract.Transfers.COLUMN_DESCRIPTION + "=?",
+                        whereArgs);
+                bbd.deleteTransferWithDescription(identifier);
+                break;
+            }
             case BUDGETITEM:
             {
                 writableDB.delete(BBDatabaseContract.BudgetItems.TABLE_NAME + "_" + ((BadBudgetApplication)this.contextActivity.getApplication()).getSelectedBudgetId(),

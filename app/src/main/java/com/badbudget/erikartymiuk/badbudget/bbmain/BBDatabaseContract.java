@@ -19,6 +19,7 @@ import com.erikartymiuk.badbudgetlogic.main.Loan;
 import com.erikartymiuk.badbudgetlogic.main.MoneyGain;
 import com.erikartymiuk.badbudgetlogic.main.MoneyLoss;
 import com.erikartymiuk.badbudgetlogic.main.MoneyOwed;
+import com.erikartymiuk.badbudgetlogic.main.MoneyTransfer;
 import com.erikartymiuk.badbudgetlogic.main.Payment;
 import com.erikartymiuk.badbudgetlogic.main.Prediction;
 import com.erikartymiuk.badbudgetlogic.main.SavingsAccount;
@@ -80,6 +81,8 @@ public class BBDatabaseContract
         extractGainsFromDataBase(writeableDB, bbd, budgetId);
         //Next all the user losses
         extractLossesFromDataBase(writeableDB, bbd, budgetId);
+        //All the user transfers
+        extractTransfersFromDataBase(writeableDB, bbd, budgetId);
 
         //Need to extract auto update and remain amount action separate from the other budget prefs
         Object[] objArr = getAutoUpdateAndRemainAction(writeableDB, budgetId);
@@ -748,6 +751,20 @@ public class BBDatabaseContract
             db.update(BBDatabaseContract.Losses.TABLE_NAME + "_" + budgetId, values, strFilter, new String[] {currLoss.expenseDescription()});
         }
 
+        for (MoneyTransfer currTransfer : bbd.getTransfers())
+        {
+            ContentValues values = new ContentValues();
+            values.put(Transfers.COLUMN_DESCRIPTION, currTransfer.getTransferDescription());
+            values.put(Transfers.COLUMN_SOURCE, currTransfer.getSource().name());
+            values.put(Transfers.COLUMN_DESTINATION, currTransfer.getDestination().name());
+            values.put(Transfers.COLUMN_AMOUNT, currTransfer.getAmount());
+            values.put(Transfers.COLUMN_NEXT_TRANSFER, BBDatabaseContract.dbDateToString(currTransfer.getNextTransfer()));
+            values.put(Transfers.COLUMN_END_DATE, BBDatabaseContract.dbDateToString(currTransfer.getEndDate()));
+
+            String strFilter = Transfers.COLUMN_DESCRIPTION + "=?";
+            db.update(Transfers.TABLE_NAME + "_" + budgetId, values, strFilter, new String[] {currTransfer.getTransferDescription()});
+        }
+
         for (BudgetItem currItem : bbd.getBudget().getAllBudgetItems().values())
         {
             ContentValues values = new ContentValues();
@@ -1021,6 +1038,70 @@ public class BBDatabaseContract
             catch (BadBudgetInvalidValueException e)
             {
                 //TODO - handle?
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Private helper to extract all transfers from the bad budget database and place them into the in memory
+     * bad budget data object.
+     * @param db - the database to extract the losses from
+     * @param bbd - the in memory bad budget data object to place the extracted losses in
+     */
+    private static void extractTransfersFromDataBase(SQLiteDatabase db, BadBudgetData bbd, int budgetId)
+    {
+        String[] projection = {
+                Transfers.COLUMN_DESCRIPTION,
+                Transfers.COLUMN_SOURCE,
+                Transfers.COLUMN_DESTINATION,
+                Transfers.COLUMN_AMOUNT,
+                Transfers.COLUMN_FREQUENCY,
+                Transfers.COLUMN_NEXT_TRANSFER,
+                Transfers.COLUMN_END_DATE
+        };
+
+        String sortOrder =
+                Transfers.COLUMN_DESCRIPTION;
+
+        //Going to select all the transfers with our query, sorted
+        //alphabetically by description. The where clause (including its args), group by, and having
+        //statements are null.
+        Cursor cursor = db.query(
+                Transfers.TABLE_NAME + "_" + budgetId,
+                projection,
+                null,
+                null,
+                null,
+                null,
+                sortOrder
+        );
+
+        int descriptionColumnIndex = cursor.getColumnIndex(Transfers.COLUMN_DESCRIPTION);
+        int sourceColumnIndex = cursor.getColumnIndexOrThrow(Transfers.COLUMN_SOURCE);
+        int destinationColumnIndex = cursor.getColumnIndexOrThrow(Transfers.COLUMN_DESTINATION);
+        int amountColumnIndex = cursor.getColumnIndexOrThrow(Transfers.COLUMN_AMOUNT);
+        int frequencyColumnIndex = cursor.getColumnIndexOrThrow(Transfers.COLUMN_FREQUENCY);
+        int nextTransferColumnIndex = cursor.getColumnIndexOrThrow(Transfers.COLUMN_NEXT_TRANSFER);
+        int endDateColumnIndex = cursor.getColumnIndexOrThrow(Transfers.COLUMN_END_DATE);
+
+        while (cursor.moveToNext())
+        {
+            String description = cursor.getString(descriptionColumnIndex);
+            Account source = bbd.getAccountWithName(cursor.getString(sourceColumnIndex));
+            Account destination = bbd.getAccountWithName(cursor.getString(destinationColumnIndex));
+            double amount = cursor .getDouble(amountColumnIndex);
+            Frequency frequency = dbIntegerToFrequency(cursor.getInt(frequencyColumnIndex));
+            Date nextDate = dbStringToDate(cursor.getString(nextTransferColumnIndex));
+            Date endDate = dbStringToDate(cursor.getString(endDateColumnIndex));
+
+            try {
+                MoneyTransfer transfer = new MoneyTransfer(description, source, destination, amount, frequency, nextDate, endDate);
+                bbd.addTransfer(transfer);
+            }
+            catch (BadBudgetInvalidValueException e)
+            {
+                //TODO - decide how/if to handle
                 e.printStackTrace();
             }
         }
@@ -1817,6 +1898,34 @@ public class BBDatabaseContract
          * the accounts table or the debts table (only as a credit card) This will need
          * to be implemented in code when determining what to display to the user
          * in the dropdown for the source of a loss */
+    }
+
+    /**
+     * Schema for the user's transfers data
+     */
+    public static class Transfers implements BaseColumns
+    {
+        public static final String TABLE_NAME = "transfers";
+
+        /* Columns */
+        public static final String COLUMN_DESCRIPTION = "description";
+        public static final String COLUMN_SOURCE = "source";
+        public static final String COLUMN_DESTINATION = "destination";
+
+        public static final String COLUMN_AMOUNT = "amount";
+        public static final String COLUMN_FREQUENCY = "frequency";
+        public static final String COLUMN_NEXT_TRANSFER = "nextTransfer";
+        public static final String COLUMN_END_DATE = "endDate";
+
+        /* Column types */
+        public static final String DESCRIPTION_TYPE = TEXT_TYPE;
+        public static final String SOURCE_TYPE = TEXT_TYPE;
+        public static final String DESTINATION_TYPE = TEXT_TYPE;
+
+        public static final String AMOUNT_TYPE = REAL_TYPE;
+        public static final String FREQUENCY_TYPE = INTEGER_TYPE;
+        public static final String NEXT_DATE_TYPE = DATE_TYPE;
+        public static final String END_DATE_TYPE = DATE_TYPE;
     }
 
     /**

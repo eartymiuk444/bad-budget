@@ -9,6 +9,6 @@ package com.badbudget.erikartymiuk.badbudget.inputforms;
 public enum BBObjectType {
     ACCOUNT, ACCOUNT_SAVINGSACCOUNT,
     DEBT, DEBT_CREDITCARD, DEBT_LOAN, DEBT_MISC,
-    GAIN, LOSS,
+    GAIN, LOSS, TRANSFER,
     BUDGETITEM
 }

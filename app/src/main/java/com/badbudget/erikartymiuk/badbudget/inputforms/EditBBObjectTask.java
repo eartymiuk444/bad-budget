@@ -20,6 +20,7 @@ import com.erikartymiuk.badbudgetlogic.main.Loan;
 import com.erikartymiuk.badbudgetlogic.main.MoneyGain;
 import com.erikartymiuk.badbudgetlogic.main.MoneyLoss;
 import com.erikartymiuk.badbudgetlogic.main.MoneyOwed;
+import com.erikartymiuk.badbudgetlogic.main.MoneyTransfer;
 import com.erikartymiuk.badbudgetlogic.main.Payment;
 import com.erikartymiuk.badbudgetlogic.main.Prediction;
 import com.erikartymiuk.badbudgetlogic.main.SavingsAccount;
@@ -116,6 +117,9 @@ public class EditBBObjectTask extends AsyncTask<Void, Void, Void>
                 break;
             case LOSS:
                 this.identifier = ((MoneyLoss)this.bbObject).expenseDescription();
+                break;
+            case TRANSFER:
+                this.identifier = ((MoneyTransfer)this.bbObject).getTransferDescription();
                 break;
             case BUDGETITEM:
                 this.identifier = ((BudgetItem)this.bbObject).expenseDescription();
@@ -396,6 +400,25 @@ public class EditBBObjectTask extends AsyncTask<Void, Void, Void>
                     writableDB.update(BBDatabaseContract.Losses.TABLE_NAME + "_" + ((BadBudgetApplication)this.contextActivity.getApplication()).getSelectedBudgetId(), values, strFilter, new String[] {editLoss.expenseDescription()});
 
                     todayUpdate(((MoneyLoss)bbObject).nextLoss());
+
+                    break;
+                }
+                case TRANSFER:
+                {
+                    MoneyTransfer wrapperTransfer = (MoneyTransfer)bbObject;
+                    MoneyTransfer editTransfer = bbd.getTransferWithDescription(wrapperTransfer.getTransferDescription());
+
+                    editTransfer.setSource(wrapperTransfer.getSource());
+                    editTransfer.setDestination(wrapperTransfer.getDestination());
+                    editTransfer.setAmount(wrapperTransfer.getAmount());
+                    editTransfer.setFrequency(wrapperTransfer.getFrequency());
+                    editTransfer.setNextTransfer(wrapperTransfer.getNextTransfer());
+                    editTransfer.setEndDate(wrapperTransfer.getEndDate());
+
+                    String strFilter = BBDatabaseContract.Transfers.COLUMN_DESCRIPTION + "=?";
+                    writableDB.update(BBDatabaseContract.Transfers.TABLE_NAME + "_" + ((BadBudgetApplication)this.contextActivity.getApplication()).getSelectedBudgetId(), values, strFilter, new String[] {editTransfer.getTransferDescription()});
+
+                    todayUpdate(((MoneyTransfer)bbObject).getNextTransfer());
 
                     break;
                 }

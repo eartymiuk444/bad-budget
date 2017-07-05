@@ -92,6 +92,15 @@
                 android:value=".bbmain.HomeActivity" />
         </activity>
         <activity
+            android:name=".viewobjecttables.TransfersActivity"
+            android:label="@string/transfers_activity_title"
+            android:parentActivityName=".bbmain.HomeActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".bbmain.HomeActivity" />
+        </activity>
+        <activity
             android:name=".viewobjecttables.BudgetSetActivity"
             android:label="@string/budget_activity_title"
             android:parentActivityName=".bbmain.HomeActivity"
@@ -343,6 +352,16 @@
                 android:value=".bbmain.HomeActivity" />
         </activity>
 
+        <activity
+            android:name=".inputforms.AddTransferActivity"
+            android:label="@string/add_transfer_activity_title"
+            android:parentActivityName=".viewobjecttables.TransfersActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".viewobjecttables.TransfersActivity" />
+        </activity>
 
     </application>
 

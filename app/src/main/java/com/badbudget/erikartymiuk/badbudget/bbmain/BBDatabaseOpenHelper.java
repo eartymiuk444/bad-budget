@@ -41,7 +41,7 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
     private Application context;
 
     /* Current database version number */
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     /* Bad budget database name */
     private static final String DATABASE_NAME = "BBDatabase.db";
     /* First Budget Name */
@@ -161,6 +161,21 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
             BBDatabaseContract.Losses.END_DATE_TYPE,
             BBDatabaseContract.Losses.SOURCE_TYPE};
 
+    private static final String[] TRANSFER_COLUMNS = {BBDatabaseContract.Transfers.COLUMN_DESCRIPTION,
+            BBDatabaseContract.Transfers.COLUMN_SOURCE,
+            BBDatabaseContract.Transfers.COLUMN_DESTINATION,
+            BBDatabaseContract.Transfers.COLUMN_AMOUNT,
+            BBDatabaseContract.Transfers.COLUMN_FREQUENCY,
+            BBDatabaseContract.Transfers.COLUMN_NEXT_TRANSFER,
+            BBDatabaseContract.Transfers.COLUMN_END_DATE};
+
+    private static final String[] TRANSFER_COLUMN_TYPES = {BBDatabaseContract.Transfers.DESCRIPTION_TYPE,
+            BBDatabaseContract.Transfers.SOURCE_TYPE,
+            BBDatabaseContract.Transfers.DESTINATION_TYPE,
+            BBDatabaseContract.Transfers.AMOUNT_TYPE,
+            BBDatabaseContract.Transfers.FREQUENCY_TYPE,
+            BBDatabaseContract.Transfers.NEXT_DATE_TYPE,
+            BBDatabaseContract.Transfers.END_DATE_TYPE};
 
     private static final String[] BUDGET_PREFERENCE_COLUMNS = {BBDatabaseContract.BudgetPreferences.COLUMN_BUDGET_SOURCE,
             BBDatabaseContract.BudgetPreferences.COLUMN_AUTO_RESET,
@@ -375,6 +390,36 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
             globalMetaDataValues.put(BBDatabaseContract.GlobalMetaData.COLUMN_AGREED_EULA, EULA_EXTREME_EARLY_ADOPT);
 
             db.update(BBDatabaseContract.GlobalMetaData.TABLE_NAME, globalMetaDataValues, null, null);
+        }
+
+        if (oldVersion < 4)
+        {
+            //Version 4 of the DB adds the transfers table (to all existing budgets)
+            String[] projection = {
+                    BBDatabaseContract.Budgets.COLUMN_ID
+            };
+
+            String sortOrder =
+                    BBDatabaseContract.Budgets.COLUMN_ID;
+
+            Cursor cursor = db.query(
+                    BBDatabaseContract.Budgets.TABLE_NAME,
+                    projection,
+                    null,
+                    null,
+                    null,
+                    null,
+                    sortOrder
+            );
+            int idIndex = cursor.getColumnIndexOrThrow(BBDatabaseContract.Budgets.COLUMN_ID);
+
+            while (cursor.moveToNext()) {
+                int currBudgetId = cursor.getInt(idIndex);
+                String createTransfersTableStatement = createTableStatement(BBDatabaseContract.Transfers.TABLE_NAME,
+                        currBudgetId, TRANSFER_COLUMNS, TRANSFER_COLUMN_TYPES,
+                        null, null, null, false);
+                db.execSQL(createTransfersTableStatement);
+            }
         }
     }
 
@@ -629,7 +674,7 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
      * id being added to the global budgets table
      * Creates all the necessary tables for a stand alone budget including tables for user
      * cash accounts (regular and savings), debts (regular, credit cards, and loans) , gains,
-     * losses, budget items, budget preferences, tracker history, general history, and meta data.
+     * losses, transfers, budget items, budget preferences, tracker history, general history, and meta data.
      * Also initializes the budget prefs to default values, although source is not set
      * (as it cannot be in a new budget). Does not change the default budget id
      * @param writeableDB - database instance to add the new budget to
@@ -677,6 +722,9 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
         String createLossTableStatement = createTableStatement(BBDatabaseContract.Losses.TABLE_NAME, nextId, LOSS_COLUMNS, LOSS_COLUMN_TYPES,
                 null, null, null, false);
 
+        String createTransferTableStatement = createTableStatement(BBDatabaseContract.Transfers.TABLE_NAME, nextId, TRANSFER_COLUMNS, TRANSFER_COLUMN_TYPES,
+                null, null, null, false);
+
         String createBudgetPreferenceTableStatement = createTableStatement(BBDatabaseContract.BudgetPreferences.TABLE_NAME, nextId, BUDGET_PREFERENCE_COLUMNS, BUDGET_PREFERENCE_COLUMN_TYPES,
                 null, null, null, false);
 
@@ -696,6 +744,7 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
         writeableDB.execSQL(createDebtTableStatement);
         writeableDB.execSQL(createGainTableStatement);
         writeableDB.execSQL(createLossTableStatement);
+        writeableDB.execSQL(createTransferTableStatement);
         writeableDB.execSQL(createBudgetPreferenceTableStatement);
         writeableDB.execSQL(createBudgetItemTableStatement);
         writeableDB.execSQL(createTrackerHistoryItemTableStatement);
@@ -739,6 +788,7 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
         writeableDB.execSQL(constructCopyStatment(BBDatabaseContract.Debts.TABLE_NAME, existingBudgetId, newBudgetId));
         writeableDB.execSQL(constructCopyStatment(BBDatabaseContract.Gains.TABLE_NAME, existingBudgetId, newBudgetId));
         writeableDB.execSQL(constructCopyStatment(BBDatabaseContract.Losses.TABLE_NAME, existingBudgetId, newBudgetId));
+        writeableDB.execSQL(constructCopyStatment(BBDatabaseContract.Transfers.TABLE_NAME, existingBudgetId, newBudgetId));
 
         String sqlDeleteDefaultBudgetPreferences = COPY_DELETE_FROM + " " + BBDatabaseContract.BudgetPreferences.TABLE_NAME + "_" + newBudgetId;
         writeableDB.execSQL(sqlDeleteDefaultBudgetPreferences);
@@ -782,6 +832,7 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
         String deleteDebtTable = DROP_TABLE + SPACE + BBDatabaseContract.Debts.TABLE_NAME + "_" + budgetId;
         String deleteGainTable = DROP_TABLE + SPACE + BBDatabaseContract.Gains.TABLE_NAME + "_" + budgetId;
         String deleteLossTable = DROP_TABLE + SPACE + BBDatabaseContract.Losses.TABLE_NAME + "_" + budgetId;
+        String deleteTransferTable = DROP_TABLE + SPACE + BBDatabaseContract.Transfers.TABLE_NAME + "_" + budgetId;
         String deleteBudgetItemTable = DROP_TABLE + SPACE + BBDatabaseContract.BudgetItems.TABLE_NAME + "_" + budgetId;
         String deleteBudgetPrefsTable = DROP_TABLE + SPACE + BBDatabaseContract.BudgetPreferences.TABLE_NAME + "_" + budgetId;
         String deleteTrackerHistoryTable = DROP_TABLE + SPACE + BBDatabaseContract.TrackerHistoryItems.TABLE_NAME + "_" + budgetId;
@@ -796,6 +847,7 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
         writeableDB.execSQL(deleteDebtTable);
         writeableDB.execSQL(deleteGainTable);
         writeableDB.execSQL(deleteLossTable);
+        writeableDB.execSQL(deleteTransferTable);
         writeableDB.execSQL(deleteBudgetItemTable);
         writeableDB.execSQL(deleteBudgetPrefsTable);
         writeableDB.execSQL(deleteTrackerHistoryTable);

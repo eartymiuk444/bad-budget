@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Transfers activity layout. Displays to the user in a table format all of their
+transers. Also includes a button to add a transfer.
+-->
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".viewobjecttables.TransfersActivity">
+
+    <!--
+    Table for all the transfers. Every cell uses a border with only the top, left, and
+    bottom drawn except for the last column which has all borders. This table is added to
+    dynamically.
+    -->
+    <TableLayout
+        android:id="@+id/transfersTable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <TableRow android:gravity="center">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/cell_height"
+                android:layout_weight="1"
+                android:background="@drawable/bordertbl"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="@dimen/table_padding"
+                android:text="@string/transfers_table_transfer"
+                android:textSize="@dimen/cell_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/cell_height"
+                android:layout_weight="1"
+                android:background="@drawable/bordertbl"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="@dimen/table_padding"
+                android:text="@string/transfers_table_amount"
+                android:textSize="@dimen/cell_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/cell_height"
+                android:layout_weight="1"
+                android:background="@drawable/bordertbl"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="@dimen/table_padding"
+                android:text="@string/transfers_table_source"
+                android:textSize="@dimen/cell_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/cell_height"
+                android:layout_weight="1"
+                android:background="@drawable/borderfull"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="@dimen/table_padding"
+                android:text="@string/transfers_table_destination"
+                android:textSize="@dimen/cell_text_size"
+                android:textStyle="bold" />
+        </TableRow>
+    </TableLayout>
+
+    <!-- Add transfers button -->
+    <android.widget.Button
+        android:id="@+id/addAccountButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/transfersTable"
+        android:layout_centerHorizontal="true"
+        android:onClick="addTransferClick"
+        android:text="@string/add_transfers_text" />
+</RelativeLayout>

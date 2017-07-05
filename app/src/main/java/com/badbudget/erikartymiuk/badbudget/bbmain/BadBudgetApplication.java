@@ -192,6 +192,10 @@ public class BadBudgetApplication extends Application
     public static final String BUDGET_DESCRIPTION_KEY = "BUDGET_DESCRIPTION";
     public static final String USER_DESCRIPTION_KEY = "USER_DESCRIPTION";
 
+    /* Codes to identify which date is being set in the callback dateSet (TODO - currently only used in AddTransferActivity 7/9/2017*/
+    public static final int NEXT_DATE_SET_CODE = 0;
+    public static final int END_DATE_SET_CODE = 1;
+
     /* Application Global Variables */
     private int selectedBudgetId = -1;   //Currently selected budget id
     private Map<Integer, String> budgetMapIDToName;

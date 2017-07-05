@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+ Layout for the Add Transfers Activity.
+ -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:fitsSystemWindows="true"
+    tools:context=".inputforms.AddTransferActivity">
+
+    <!-- Everything besides the title is scrollable -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <!-- Description Prompt -->
+            <TextView
+                android:id="@+id/addTransferDescriptionPrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_transfer_description_prompt"
+                android:textSize="@dimen/standard_text_size"
+                android:textStyle="bold"
+                android:padding="@dimen/padding_generic"
+                />
+            <!-- Description Hint/Entry -->
+            <EditText
+                android:id="@+id/addTransferDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_transfer_description_hint"
+                android:textSize="@dimen/standard_text_size"
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:padding="@dimen/padding_generic"
+                />
+
+            <!-- Source -->
+            <LinearLayout android:id="@+id/addTransferSourceLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:padding="@dimen/padding_generic"
+                >
+
+                <TextView
+                    android:id="@+id/addTransferSourcePrompt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/add_transfer_source_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    />
+
+                <Spinner
+                    android:id="@+id/addTransferSource"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/standard_text_size"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    />
+            </LinearLayout>
+
+            <!-- Destination -->
+            <LinearLayout android:id="@+id/addTransferDestinationLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:padding="@dimen/padding_generic"
+                >
+
+                <TextView
+                    android:id="@+id/addTransferDestinationPrompt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/add_transfer_destination_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    />
+
+                <Spinner
+                    android:id="@+id/addTransferDestination"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/standard_text_size"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    />
+            </LinearLayout>
+
+            <!-- Amount -->
+            <LinearLayout android:id="@+id/addTransferAmountLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:padding="@dimen/padding_generic"
+                >
+
+                <TextView
+                    android:id="@+id/addTransferAmountPrompt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/add_transfer_amount_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    />
+
+                <EditText
+                    android:id="@+id/addTransferAmount"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:hint="@string/add_transfer_amount_hint"
+                    android:textSize="@dimen/standard_text_size"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:imeOptions="actionDone"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    />
+            </LinearLayout>
+
+            <!-- Frequency -->
+            <LinearLayout android:id="@+id/addTransferFrequencyLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:padding="@dimen/padding_generic"
+                >
+
+                <TextView
+                    android:id="@+id/addTransferFrequencyPrompt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/add_transfer_frequency_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    />
+
+                <Spinner
+                    android:id="@+id/addTransferFrequency"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/standard_text_size"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:entries="@array/add_transfer_frequency_array"
+                    />
+            </LinearLayout>
+
+            <!-- Next Date -->
+            <LinearLayout android:id="@+id/addTransferNextLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:padding="@dimen/padding_generic"
+
+                >
+
+                <TextView
+                    android:id="@+id/addTransferNextPrompt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/add_transfer_next_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    />
+
+                <TextView
+                    android:id="@+id/addTransferNextDate"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:hint="@string/add_transfer_next_hint"
+                    android:textSize="@dimen/standard_text_size"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:onClick="nextDateClicked"
+                    android:layout_weight="1"
+                    android:padding="@dimen/padding_generic"
+                    />
+            </LinearLayout>
+
+            <!-- End Date -->
+            <LinearLayout android:id="@+id/addSavingsEndLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:padding="@dimen/padding_generic"
+                >
+                <TextView
+                    android:id="@+id/addTransferEndDatePrompt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/add_transfer_end_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        >
+
+                        <TextView
+                            android:id="@+id/addTransferEndDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:hint="@string/add_transfer_end_hint"
+                            android:textSize="@dimen/standard_text_size"
+                            android:gravity="center_vertical"
+                            android:clickable="true"
+                            android:onClick="endDateClicked"
+                            android:padding="@dimen/padding_generic"
+                            />
+
+                        <CheckBox android:id="@+id/addTransferOngoingCheckbox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:checked="false"
+                            android:onClick="ongoingCheckboxChecked"
+                            />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            <!-- Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:padding="@dimen/padding_generic"
+                >
+
+                <android.widget.Button
+                    android:id="@+id/addTransferSubmitButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/add_transfer_submit_button"
+                    android:textSize="@dimen/standard_text_size"
+                    android:onClick="submitClick"
+                    />
+
+                <!-- Cancel Button for Undo Decision -->
+                <android.widget.Button
+                    android:id="@+id/addTransferCancelButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/add_transfer_cancel_button"
+                    android:textSize="@dimen/standard_text_size"
+                    android:onClick="cancelClick"
+                    />
+                <!-- Delete Button for when the user is editing an existing transfer -->
+                <android.widget.Button
+                    android:id="@+id/deleteButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/add_transfer_delete_button"
+                    android:textSize="@dimen/standard_text_size"
+                    android:onClick="deleteClick"
+                    android:enabled="false"
+                    android:visibility="invisible"
+                    android:background="@color/deleteButtonColor"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

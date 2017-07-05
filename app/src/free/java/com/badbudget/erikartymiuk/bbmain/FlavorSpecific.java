@@ -130,6 +130,9 @@ public class FlavorSpecific {
                 adView.setAdUnitId(activity.getString(R.string.bb_summary_ad));
                 break;
             }
+            case R.layout.content_transfers:
+                adView.setAdUnitId(activity.getString(R.string.bb_transfers_table_ad));
+                break;
         }
 
         adContainer.addView(adView);
