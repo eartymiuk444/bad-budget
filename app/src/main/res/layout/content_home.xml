@@ -63,7 +63,16 @@ Home Page Layout
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2"/>
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/home_margins_vertical"
+                android:layout_marginBottom="@dimen/home_margins_vertical"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/home_margins_vertical"
+                android:layout_marginBottom="@dimen/home_margins_vertical"/>
 
             <!-- Slot 5 Gains Button -->
             <android.widget.Button
@@ -97,7 +106,16 @@ Home Page Layout
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2"/>
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/home_margins_vertical"
+                android:layout_marginBottom="@dimen/home_margins_vertical"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/home_margins_vertical"
+                android:layout_marginBottom="@dimen/home_margins_vertical"/>
 
             <!-- Slot 9 Budget (Set) Button -->
             <android.widget.Button
@@ -135,7 +153,8 @@ Home Page Layout
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:weightSum="10"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <!-- Slot 1 Savings Button -->
             <android.widget.Button
@@ -155,7 +174,23 @@ Home Page Layout
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3"/>
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/home_margins_vertical"
+                android:layout_marginBottom="@dimen/home_margins_vertical"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/home_margins_vertical"
+                android:layout_marginBottom="@dimen/home_margins_vertical"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/home_margins_vertical"
+                android:layout_marginBottom="@dimen/home_margins_vertical"/>
 
             <!-- Slot 5 Transfers Button -->
             <android.widget.Button
@@ -175,7 +210,23 @@ Home Page Layout
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3"/>
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/home_margins_vertical"
+                android:layout_marginBottom="@dimen/home_margins_vertical"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/home_margins_vertical"
+                android:layout_marginBottom="@dimen/home_margins_vertical"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="@dimen/home_margins_vertical"
+                android:layout_marginBottom="@dimen/home_margins_vertical"/>
 
             <!-- Slot 9 Track Button -->
             <android.widget.Button
