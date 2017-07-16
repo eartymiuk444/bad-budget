@@ -17,7 +17,12 @@ import com.erikartymiuk.badbudgetlogic.budget.BudgetItem;
 import com.erikartymiuk.badbudgetlogic.budget.RemainAmountAction;
 import com.erikartymiuk.badbudgetlogic.main.Account;
 import com.erikartymiuk.badbudgetlogic.main.BadBudgetInvalidValueException;
+import com.erikartymiuk.badbudgetlogic.main.CreditCard;
+import com.erikartymiuk.badbudgetlogic.main.DebtType;
 import com.erikartymiuk.badbudgetlogic.main.Frequency;
+import com.erikartymiuk.badbudgetlogic.main.Loan;
+import com.erikartymiuk.badbudgetlogic.main.MoneyOwed;
+import com.erikartymiuk.badbudgetlogic.main.Payment;
 import com.erikartymiuk.badbudgetlogic.main.Source;
 
 import java.util.Calendar;
@@ -41,7 +46,7 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
     private Application context;
 
     /* Current database version number */
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     /* Bad budget database name */
     private static final String DATABASE_NAME = "BBDatabase.db";
     /* First Budget Name */
@@ -419,6 +424,89 @@ public class BBDatabaseOpenHelper extends SQLiteOpenHelper
                         currBudgetId, TRANSFER_COLUMNS, TRANSFER_COLUMN_TYPES,
                         null, null, null, false);
                 db.execSQL(createTransfersTableStatement);
+            }
+        }
+
+        if (oldVersion < 5) {
+            //Version 5 of the DB ensures that for simple interest loans the principal is less than or equal to the debt amount (for all debts in all budgets
+            //- this is needed to fixup the database after the fix for simple interest loans was rolled out)
+            String[] projection = {
+                    BBDatabaseContract.Budgets.COLUMN_ID
+            };
+
+            String sortOrder =
+                    BBDatabaseContract.Budgets.COLUMN_ID;
+
+            Cursor cursor = db.query(
+                    BBDatabaseContract.Budgets.TABLE_NAME,
+                    projection,
+                    null,
+                    null,
+                    null,
+                    null,
+                    sortOrder
+            );
+            int idIndex = cursor.getColumnIndexOrThrow(BBDatabaseContract.Budgets.COLUMN_ID);
+
+            //For each budget we need to check all of its loans
+            while (cursor.moveToNext()) {
+                int currBudgetId = cursor.getInt(idIndex);
+
+                String[] debtProjection = {
+                        BBDatabaseContract.Debts.COLUMN_NAME,
+                        BBDatabaseContract.Debts.COLUMN_AMOUNT,
+                        BBDatabaseContract.Debts.COLUMN_DEBT_TYPE,
+                        BBDatabaseContract.Debts.COLUMN_SIMPLE_INTEREST,
+                        BBDatabaseContract.Debts.COLUMN_PRINCIPLE
+                };
+
+                //Going to select all the debts with our query, sorted
+                //alphabetically by name.
+                Cursor debtCursor = db.query(
+                        BBDatabaseContract.Debts.TABLE_NAME + "_" + currBudgetId,
+                        debtProjection,
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                );
+
+                int nameColumnIndex = debtCursor.getColumnIndexOrThrow(BBDatabaseContract.Debts.COLUMN_NAME);
+                int debtColumnIndex = debtCursor.getColumnIndexOrThrow(BBDatabaseContract.Debts.COLUMN_AMOUNT);
+                int typeColumnIndex = debtCursor.getColumnIndexOrThrow(BBDatabaseContract.Debts.COLUMN_DEBT_TYPE);
+
+                int simpleInterestColumnIndex = debtCursor.getColumnIndexOrThrow(BBDatabaseContract.Debts.COLUMN_SIMPLE_INTEREST);
+                int principleColumnIndex = debtCursor.getColumnIndexOrThrow(BBDatabaseContract.Debts.COLUMN_PRINCIPLE);
+
+                while (debtCursor.moveToNext()) {
+
+                    String name = debtCursor.getString(nameColumnIndex);
+                    double value = debtCursor.getDouble(debtColumnIndex);
+                    DebtType debtType = BBDatabaseContract.dbIntegerToDebtType(debtCursor.getInt(typeColumnIndex));
+
+                    switch (debtType) {
+                        case Loan: {
+                            boolean simpleInterest = BBDatabaseContract.dbIntegerToBoolean(debtCursor.getInt(simpleInterestColumnIndex));
+                            if (simpleInterest)
+                            {
+                                double principle = debtCursor.getDouble(principleColumnIndex);
+                                if (principle > value)
+                                {
+                                    //update db values so that principle is equal to value & make sure goal is not set
+                                    ContentValues values = new ContentValues();
+                                    values.put(BBDatabaseContract.Debts.COLUMN_PRINCIPLE, value);
+                                    values.putNull(BBDatabaseContract.Debts.COLUMN_PAYMENT_GOAL_DATE);
+
+                                    String strFilter = BBDatabaseContract.Debts.COLUMN_NAME + "=?";
+                                    db.update(BBDatabaseContract.Debts.TABLE_NAME + "_" + currBudgetId, values, strFilter, new String[] {name});
+                                }
+                            }
+
+                            break;
+                        }
+                    }
+                }
             }
         }
     }

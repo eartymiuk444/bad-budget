@@ -302,6 +302,7 @@ public class EditBBObjectTask extends AsyncTask<Void, Void, Void>
                         editLoan.setInterestRate(wrapperLoan.interestRate());
                         editLoan.setSimpleInterest(wrapperLoan.isSimpleInterest());
                         editLoan.setPrincipalBalance(wrapperLoan.getPrincipalBalance());
+                        editLoan.setInterestAmount(wrapperLoan.getInterestAmount());
 
                         editLoan.setQuicklook(wrapperLoan.quicklook());
                         //TODO - Better way to handle this. Update payment directly if it exists or create entirely new? 10/1

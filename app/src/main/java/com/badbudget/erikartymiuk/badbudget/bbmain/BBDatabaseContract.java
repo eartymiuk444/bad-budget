@@ -680,21 +680,29 @@ public class BBDatabaseContract
 
         for (MoneyOwed currDebt : bbd.getDebts())
         {
-            DebtType debtType = DebtType.Other;
+            DebtType debtType;
+            ContentValues values = new ContentValues();
+
+            values.put(BBDatabaseContract.Debts.COLUMN_NAME, currDebt.name());
+            values.put(BBDatabaseContract.Debts.COLUMN_AMOUNT, currDebt.amount());
+            values.put(BBDatabaseContract.Debts.COLUMN_QUICK_LOOK, BBDatabaseContract.dbBooleanToInteger(currDebt.quicklook()));
+
             if (currDebt instanceof CreditCard)
             {
                 debtType = DebtType.CreditCard;
+                values.put(BBDatabaseContract.Debts.COLUMN_DEBT_TYPE, BBDatabaseContract.dbDebtTypeToInteger(debtType));
+
             }
             else if (currDebt instanceof Loan)
             {
                 debtType = DebtType.Loan;
+                values.put(BBDatabaseContract.Debts.COLUMN_DEBT_TYPE, BBDatabaseContract.dbDebtTypeToInteger(debtType));
             }
-
-            ContentValues values = new ContentValues();
-            values.put(BBDatabaseContract.Debts.COLUMN_NAME, currDebt.name());
-            values.put(BBDatabaseContract.Debts.COLUMN_AMOUNT, currDebt.amount());
-            values.put(BBDatabaseContract.Debts.COLUMN_QUICK_LOOK, BBDatabaseContract.dbBooleanToInteger(currDebt.quicklook()));
-            values.put(BBDatabaseContract.Debts.COLUMN_DEBT_TYPE, BBDatabaseContract.dbDebtTypeToInteger(debtType));
+            else
+            {
+                debtType = DebtType.Other;
+                values.put(BBDatabaseContract.Debts.COLUMN_DEBT_TYPE, BBDatabaseContract.dbDebtTypeToInteger(debtType));
+            }
 
             if (currDebt.payment() != null) {
                 values.put(BBDatabaseContract.Debts.COLUMN_PAYMENT_AMOUNT, currDebt.payment().amount());
@@ -705,6 +713,16 @@ public class BBDatabaseContract
                 values.put(BBDatabaseContract.Debts.COLUMN_PAYMENT_GOAL_DATE, BBDatabaseContract.dbDateToString(currDebt.payment().goalDate()));
                 values.put(BBDatabaseContract.Debts.COLUMN_PAYMENT_ONGOING, BBDatabaseContract.dbBooleanToInteger(currDebt.payment().ongoing()));
                 values.put(BBDatabaseContract.Debts.COLUMN_PAYMENT_PAYOFF, BBDatabaseContract.dbBooleanToInteger(currDebt.payment().payOff()));
+            }
+
+            values.put(Debts.COLUMN_INTEREST_RATE, currDebt.interestRate());
+
+            if (currDebt instanceof Loan)
+            {
+                Loan currLoan = (Loan)currDebt;
+
+                values.put(Debts.COLUMN_SIMPLE_INTEREST, currLoan.isSimpleInterest());
+                values.put(Debts.COLUMN_PRINCIPLE, currLoan.getPrincipalBalance());
             }
 
             String strFilter = BBDatabaseContract.Debts.COLUMN_NAME + "=?";
@@ -1412,14 +1430,14 @@ public class BBDatabaseContract
     }
 
     /**
-     * Private helper method. Takes an integer extracted from a bad budget database and returns
+     * Takes an integer extracted from a bad budget database and returns
      * its boolean representation.
      *
      * @param dbInt - the integer representing a boolean value in our database
      * @return - true if the integer represents true in our database, false otherwise.
      *
      */
-    private static boolean dbIntegerToBoolean(int dbInt)
+    public static boolean dbIntegerToBoolean(int dbInt)
     {
         if (dbInt == BBDatabaseContract.TRUE_VALUE)
         {
