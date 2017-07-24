@@ -24,14 +24,14 @@ android {
     productFlavors {
         free {
             applicationId "com.badbudget.erikartymiuk.badbudgetfree"
-            versionCode 26
-            versionName "1.85"
+            versionCode 27
+            versionName "2.00"
             buildConfigField('boolean', 'FREE_VERSION', "true")
         }
         paid {
             applicationId "com.badbudget.erikartymiuk.badbudget"
-            versionCode 31
-            versionName "1.95"
+            versionCode 32
+            versionName "2.00"
             buildConfigField('boolean', 'FREE_VERSION', "false")
         }
     }

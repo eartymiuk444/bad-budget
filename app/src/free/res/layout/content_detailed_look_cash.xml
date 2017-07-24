@@ -79,7 +79,7 @@ cash accounts including savings, with the values on the appropriate day
                         android:gravity="center"
                         android:maxLines="1"
                         android:padding="@dimen/table_padding"
-                        android:text="@string/cash_table_savings"
+                        android:text="@string/detailed_look_savings_alt_column_3"
                         android:textSize="@dimen/cell_text_size"
                         android:textStyle="bold" />
                 </TableRow>

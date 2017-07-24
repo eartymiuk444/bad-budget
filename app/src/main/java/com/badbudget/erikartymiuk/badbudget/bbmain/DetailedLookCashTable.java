@@ -28,15 +28,18 @@ import java.util.HashMap;
 
 /**
  * Detailed look cash table activity. Displays each cash account, including savings, in a single
- * table with the value showing the value of the account on the currently chosen day.
+ * table with the value showing the value of the account on the currently chosen day. Also displays
+ * the accumulated interest up to the selected day from today's date.
  */
 public class DetailedLookCashTable extends DetailedLookBaseActivity {
 
     private HashMap<String, TextView> valueViews;
+    private HashMap<String, TextView> interestViews;
 
     /**
      * On create for the cash tables activity. Adds the cash tables content view to the base and
-     * sets up the table entries initializing the value views to the chosen date using update history
+     * sets up the table entries initializing the value views and interest views
+     * to the chosen date using update history
      * views.
      * @param savedInstanceState - unused
      */
@@ -55,6 +58,7 @@ public class DetailedLookCashTable extends DetailedLookBaseActivity {
         inflater.inflate(R.layout.content_detailed_look_cash, linearLayout, true);
 
         valueViews = new HashMap<>();
+        interestViews = new HashMap<>();
 
         TableLayout table = (TableLayout) findViewById(R.id.dlCashAccountsTable);
         BadBudgetData bbd = ((BadBudgetApplication) this.getApplication()).getBadBudgetUserData();
@@ -89,6 +93,13 @@ public class DetailedLookCashTable extends DetailedLookBaseActivity {
 
             ((BadBudgetApplication)getApplication()).tableCellSetLayoutParams(amountView, "");
 
+            TextView interestView = new TextView(this);
+            interestViews.put(currAccount.name(), interestView);
+
+            ((BadBudgetApplication)getApplication()).tableCellSetLayoutParams(interestView, "");
+            ((BadBudgetApplication)getApplication()).tableAdjustBorderForLastColumn(interestView);
+
+            /*
             TextView savingsView = new TextView(this);
             String savingsBoolString = CashActivity.SAVINGS_STRING_NO;
             if (currAccount instanceof SavingsAccount)
@@ -98,13 +109,14 @@ public class DetailedLookCashTable extends DetailedLookBaseActivity {
 
             ((BadBudgetApplication)getApplication()).tableCellSetLayoutParams(savingsView, savingsBoolString);
             ((BadBudgetApplication)getApplication()).tableAdjustBorderForLastColumn(savingsView);
+            */
 
             TableRow.LayoutParams rowLayout = new TableRow.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
             rowLayout.gravity = Gravity.CENTER;
             row.addView(descriptionView);
             row.addView(amountView);
-            row.addView(savingsView);
+            row.addView(interestView);
 
             table.addView(row);
         }
@@ -119,7 +131,8 @@ public class DetailedLookCashTable extends DetailedLookBaseActivity {
     /**
      * Updates the value views for each account in the cash table to the value it has on the current
      * chosen date. Expects a mapping between the account name and the text view in the value views
-     * map.
+     * map. Also updates the interest views to be the accumulated interest up to the chosen date from
+     * today's date to the selected date.
      */
     protected void updateHistoryViews() {
         BadBudgetData bbd = ((BadBudgetApplication) this.getApplication()).getBadBudgetUserData();
@@ -128,6 +141,16 @@ public class DetailedLookCashTable extends DetailedLookBaseActivity {
             TextView amountView = valueViews.get(a.name());
             String accountValueString = BadBudgetApplication.roundedDoubleBB(a.getPredictData(dayIndex).value());
             amountView.setText(accountValueString);
+
+            String interestString = "N/A";
+            TextView interestView = interestViews.get(a.name());
+
+            if (a instanceof SavingsAccount)
+            {
+                SavingsAccount sa = (SavingsAccount)a;
+                interestString = BadBudgetApplication.roundedDoubleBB(sa.getPredictData(dayIndex).getAccumulatedInterest());
+            }
+            interestView.setText(interestString);
         }
     }
 

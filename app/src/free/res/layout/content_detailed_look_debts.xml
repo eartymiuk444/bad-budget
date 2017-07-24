@@ -80,7 +80,7 @@ debts in a single table with the values set to the value on the appropriate day
                         android:gravity="center"
                         android:maxLines="1"
                         android:padding="@dimen/table_padding"
-                        android:text="@string/credit_cards_column_3"
+                        android:text="@string/detailed_look_credit_cards_alt_column_3"
                         android:textSize="@dimen/cell_text_size"
                         android:textStyle="bold" />
 

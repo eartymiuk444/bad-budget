@@ -35,6 +35,7 @@ import java.util.HashMap;
 public class DetailedLookDebtsTable extends DetailedLookBaseActivity {
 
     private HashMap<String, TextView> valueViews;
+    private HashMap<String, TextView> interestViews;
 
     public static final String DEBT_TYPE_CREDIT_CARD = "cc";
     public static final String DEBT_TYPE_LOAN = "loan";
@@ -61,6 +62,7 @@ public class DetailedLookDebtsTable extends DetailedLookBaseActivity {
         inflater.inflate(R.layout.content_detailed_look_debts, linearLayout, true);
 
         valueViews = new HashMap<>();
+        interestViews = new HashMap<>();
 
         TableLayout table = (TableLayout) findViewById(R.id.dlDebtAccountsTable);
         BadBudgetData bbd = ((BadBudgetApplication) this.getApplication()).getBadBudgetUserData();
@@ -95,7 +97,13 @@ public class DetailedLookDebtsTable extends DetailedLookBaseActivity {
 
             ((BadBudgetApplication)getApplication()).tableCellSetLayoutParams(debtView, "");
 
-            //Setup the payment field
+            TextView interestView = new TextView(this);
+            interestViews.put(currDebt.name(), interestView);
+
+            ((BadBudgetApplication)getApplication()).tableCellSetLayoutParams(interestView, "");
+
+            //Setup the payment field - Leaving commented code in place 7/25/2017
+            /*
             TextView paymentView = new TextView(this);
             String paymentString = getString(R.string.debt_no_payment);
 
@@ -114,6 +122,7 @@ public class DetailedLookDebtsTable extends DetailedLookBaseActivity {
                 }
             }
             ((BadBudgetApplication)this.getApplication()).tableCellSetLayoutParams(paymentView, paymentString);
+            */
 
             TextView typeView = new TextView(this);
             String typeString = DEBT_TYPE_MISC;
@@ -134,7 +143,7 @@ public class DetailedLookDebtsTable extends DetailedLookBaseActivity {
             rowLayout.gravity = Gravity.CENTER;
             row.addView(descriptionView);
             row.addView(debtView);
-            row.addView(paymentView);
+            row.addView(interestView);
             row.addView(typeView);
 
             table.addView(row);
@@ -149,7 +158,8 @@ public class DetailedLookDebtsTable extends DetailedLookBaseActivity {
 
     /**
      * Updates the values for each row in our debts table to be the value of that debt on the
-     * currently selected date.
+     * currently selected date. Also updates the interest to be the accumulated interest from the
+     * current date to the selected date.
      */
     protected void updateHistoryViews() {
         BadBudgetData bbd = ((BadBudgetApplication) this.getApplication()).getBadBudgetUserData();
@@ -158,6 +168,10 @@ public class DetailedLookDebtsTable extends DetailedLookBaseActivity {
             TextView debtView = valueViews.get(currDebt.name());
             String debtValueString = BadBudgetApplication.roundedDoubleBB(currDebt.getPredictData(dayIndex).value());
             debtView.setText(debtValueString);
+
+            TextView interestView = interestViews.get(currDebt.name());
+            String interestString = BadBudgetApplication.roundedDoubleBB(currDebt.getPredictData(dayIndex).getAccumulatedInterest());
+            interestView.setText(interestString);
         }
     }
 

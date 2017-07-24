@@ -159,6 +159,7 @@
     <string name="credit_cards_column_3">Payment</string>
     <string name="credit_cards_column_4">Quicklook?</string>
     <string name="detailed_look_credit_cards_alt_column_4">Type</string>
+    <string name="detailed_look_credit_cards_alt_column_3">Interest</string>
     <string name="credit_cards_add">Add Credit Card</string>
 
     <!-- Loans Activity Strings -->
@@ -608,6 +609,8 @@
     <string name="detailed_look_destination">to Destination (0.0 -> 1234.56)</string>
     <string name="detailed_look_transaction_amount">1234.56</string>
     <string name="detailed_look_history_date">01/01/2000</string>
+
+    <string name="detailed_look_savings_alt_column_3">Interest</string>
 
     <!-- Select Dialog Strings -->
     <string name="select_dialog_title">Select Budget</string>
