@@ -19,11 +19,14 @@ import com.badbudget.erikartymiuk.badbudget.viewobjecttables.CashActivity;
 import com.badbudget.erikartymiuk.bbmain.FlavorSpecific;
 import com.erikartymiuk.badbudgetlogic.main.Account;
 import com.erikartymiuk.badbudgetlogic.main.BadBudgetData;
+import com.erikartymiuk.badbudgetlogic.main.Frequency;
 import com.erikartymiuk.badbudgetlogic.main.Prediction;
 import com.erikartymiuk.badbudgetlogic.main.SavingsAccount;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 /**
@@ -36,11 +39,16 @@ public class DetailedLookCashTable extends DetailedLookBaseActivity {
     private HashMap<String, TextView> valueViews;
     private HashMap<String, TextView> interestViews;
 
+    private TextView totalValueView;
+    private TextView totalInterestView;
+
     /**
      * On create for the cash tables activity. Adds the cash tables content view to the base and
      * sets up the table entries initializing the value views and interest views
      * to the chosen date using update history
      * views.
+     *
+     * Sorts accounts by name.
      * @param savedInstanceState - unused
      */
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +71,14 @@ public class DetailedLookCashTable extends DetailedLookBaseActivity {
         TableLayout table = (TableLayout) findViewById(R.id.dlCashAccountsTable);
         BadBudgetData bbd = ((BadBudgetApplication) this.getApplication()).getBadBudgetUserData();
         ArrayList<Account> accounts = bbd.getAccounts();
+
+        Comparator<Account> comparator = new Comparator<Account>() {
+            @Override
+            public int compare(Account lhs, Account rhs) {
+                return lhs.name().compareTo(rhs.name());
+            }
+        };
+        Collections.sort(accounts, comparator);
 
         for (final Account currAccount : accounts)
         {
@@ -120,6 +136,10 @@ public class DetailedLookCashTable extends DetailedLookBaseActivity {
 
             table.addView(row);
         }
+
+        addEmptyRow();
+        addTotalRow();
+
         updateHistoryViews();
 
         if (BuildConfig.FREE_VERSION)
@@ -133,6 +153,8 @@ public class DetailedLookCashTable extends DetailedLookBaseActivity {
      * chosen date. Expects a mapping between the account name and the text view in the value views
      * map. Also updates the interest views to be the accumulated interest up to the chosen date from
      * today's date to the selected date.
+     *
+     * Updates the totals in the total row as well.
      */
     protected void updateHistoryViews() {
         BadBudgetData bbd = ((BadBudgetApplication) this.getApplication()).getBadBudgetUserData();
@@ -152,6 +174,98 @@ public class DetailedLookCashTable extends DetailedLookBaseActivity {
             }
             interestView.setText(interestString);
         }
+
+        totalValueView.setText(BadBudgetApplication.roundedDoubleBB(getValueTotal()));
+        totalInterestView.setText(BadBudgetApplication.roundedDoubleBB(getInterestTotal()));
+    }
+
+    /**
+     * Private helper method that adds an empty row to our table after the current row.
+     */
+    private void addEmptyRow()
+    {
+        TableLayout table = (TableLayout) findViewById(R.id.dlCashAccountsTable);
+        TableRow row = new TableRow(this);
+
+        TextView emptyView1 = new TextView(this);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(emptyView1, "", R.drawable.emptyborder);
+        TextView emptyView2 = new TextView(this);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(emptyView2, "", R.drawable.emptyborder);
+        TextView emptyView3 = new TextView(this);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(emptyView3, "", R.drawable.emptyborder);
+
+        row.addView(emptyView1);
+        row.addView(emptyView2);
+        row.addView(emptyView3);
+
+        table.addView(row);
+    }
+
+    /**
+     * Private helper method that adds the total row to the table.
+     */
+    private void addTotalRow()
+    {
+        double valueTotal = getValueTotal();
+        double interestTotal = getInterestTotal();
+
+        TableLayout table = (TableLayout) findViewById(R.id.dlCashAccountsTable);
+        TableRow row = new TableRow(this);
+
+        TextView totalView = new TextView(this);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(totalView, getString(R.string.table_total), R.drawable.bordertbl);
+
+        TextView totalValueView = new TextView(this);
+        this.totalValueView = totalValueView;
+        String valueTotalString = BadBudgetApplication.roundedDoubleBB(valueTotal);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(totalValueView, valueTotalString, R.drawable.bordertbl);
+
+        TextView totalInterestView = new TextView(this);
+        this.totalInterestView = totalInterestView;
+        String interestTotalString = BadBudgetApplication.roundedDoubleBB(interestTotal);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(totalInterestView, interestTotalString, R.drawable.borderfull);
+
+        row.addView(totalView);
+        row.addView(totalValueView);
+        row.addView(totalInterestView);
+
+        table.addView(row);
+    }
+
+    /**
+     * Private helper that returns the total value of the accounts on the currentChosenDay.
+     * @return total value of the accounts
+     */
+    private double getValueTotal()
+    {
+        double total = 0;
+        BadBudgetData bbd = ((BadBudgetApplication) this.getApplication()).getBadBudgetUserData();
+        int dayIndex = Prediction.numDaysBetween(((BadBudgetApplication)getApplication()).getToday(), currentChosenDay);
+        for (Account a : bbd.getAccounts()) {
+
+            total+=a.getPredictData(dayIndex).value();
+        }
+        return total;
+    }
+
+    /**
+     * Private helper that returns the total accumulated interest of the savings accounts on the currentChosenDay.
+     * @return - the total accumulated interest
+     */
+    private double getInterestTotal()
+    {
+        double total = 0;
+        BadBudgetData bbd = ((BadBudgetApplication) this.getApplication()).getBadBudgetUserData();
+        int dayIndex = Prediction.numDaysBetween(((BadBudgetApplication)getApplication()).getToday(), currentChosenDay);
+        for (Account a : bbd.getAccounts()) {
+
+            if (a instanceof SavingsAccount)
+            {
+                SavingsAccount sa = (SavingsAccount)a;
+                total+=sa.getPredictData(dayIndex).getAccumulatedInterest();
+            }
+        }
+        return total;
     }
 
 }

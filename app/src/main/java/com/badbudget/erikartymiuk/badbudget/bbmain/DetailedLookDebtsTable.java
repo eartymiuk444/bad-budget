@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.badbudget.erikartymiuk.badbudget.BuildConfig;
 import com.badbudget.erikartymiuk.badbudget.R;
 import com.badbudget.erikartymiuk.bbmain.FlavorSpecific;
+import com.erikartymiuk.badbudgetlogic.main.Account;
 import com.erikartymiuk.badbudgetlogic.main.BadBudgetData;
 import com.erikartymiuk.badbudgetlogic.main.CreditCard;
 import com.erikartymiuk.badbudgetlogic.main.Frequency;
@@ -23,9 +24,12 @@ import com.erikartymiuk.badbudgetlogic.main.Loan;
 import com.erikartymiuk.badbudgetlogic.main.MoneyOwed;
 import com.erikartymiuk.badbudgetlogic.main.Payment;
 import com.erikartymiuk.badbudgetlogic.main.Prediction;
+import com.erikartymiuk.badbudgetlogic.main.SavingsAccount;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 /**
@@ -37,6 +41,9 @@ public class DetailedLookDebtsTable extends DetailedLookBaseActivity {
     private HashMap<String, TextView> valueViews;
     private HashMap<String, TextView> interestViews;
 
+    private TextView totalDebtView;
+    private TextView totalInterestView;
+
     public static final String DEBT_TYPE_CREDIT_CARD = "cc";
     public static final String DEBT_TYPE_LOAN = "loan";
     public static final String DEBT_TYPE_MISC = "misc";
@@ -45,6 +52,8 @@ public class DetailedLookDebtsTable extends DetailedLookBaseActivity {
      * On create for the dl debts table activity. Adds the content for the dl debts table to the base
      * and sets up the cell entries for each debt row on the currently selected day by calling update
      * history views.
+     *
+     * Sorts debts by name
      * @param savedInstanceState - unused
      */
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +76,14 @@ public class DetailedLookDebtsTable extends DetailedLookBaseActivity {
         TableLayout table = (TableLayout) findViewById(R.id.dlDebtAccountsTable);
         BadBudgetData bbd = ((BadBudgetApplication) this.getApplication()).getBadBudgetUserData();
         ArrayList<MoneyOwed> debts = bbd.getDebts();
+
+        Comparator<MoneyOwed> comparator = new Comparator<MoneyOwed>() {
+            @Override
+            public int compare(MoneyOwed lhs, MoneyOwed rhs) {
+                return lhs.name().compareTo(rhs.name());
+            }
+        };
+        Collections.sort(debts, comparator);
 
         for (final MoneyOwed currDebt : debts)
         {
@@ -148,6 +165,10 @@ public class DetailedLookDebtsTable extends DetailedLookBaseActivity {
 
             table.addView(row);
         }
+
+        addEmptyRow();
+        addTotalRow();
+
         updateHistoryViews();
 
         if (BuildConfig.FREE_VERSION)
@@ -160,6 +181,8 @@ public class DetailedLookDebtsTable extends DetailedLookBaseActivity {
      * Updates the values for each row in our debts table to be the value of that debt on the
      * currently selected date. Also updates the interest to be the accumulated interest from the
      * current date to the selected date.
+     *
+     * Updates the total row values as well.
      */
     protected void updateHistoryViews() {
         BadBudgetData bbd = ((BadBudgetApplication) this.getApplication()).getBadBudgetUserData();
@@ -173,6 +196,101 @@ public class DetailedLookDebtsTable extends DetailedLookBaseActivity {
             String interestString = BadBudgetApplication.roundedDoubleBB(currDebt.getPredictData(dayIndex).getAccumulatedInterest());
             interestView.setText(interestString);
         }
+
+        totalDebtView.setText(BadBudgetApplication.roundedDoubleBB(getDebtTotal()));
+        totalInterestView.setText(BadBudgetApplication.roundedDoubleBB(getInterestTotal()));
+    }
+
+    /**
+     * Private helper method that adds an empty row to our table after the current row.
+     */
+    private void addEmptyRow()
+    {
+        TableLayout table = (TableLayout) findViewById(R.id.dlDebtAccountsTable);
+        TableRow row = new TableRow(this);
+
+        TextView emptyView1 = new TextView(this);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(emptyView1, "", R.drawable.emptyborder);
+        TextView emptyView2 = new TextView(this);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(emptyView2, "", R.drawable.emptyborder);
+        TextView emptyView3 = new TextView(this);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(emptyView3, "", R.drawable.emptyborder);
+        TextView emptyView4 = new TextView(this);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(emptyView4, "", R.drawable.emptyborder);
+
+        row.addView(emptyView1);
+        row.addView(emptyView2);
+        row.addView(emptyView3);
+        row.addView(emptyView4);
+
+        table.addView(row);
+    }
+
+    /**
+     * Private helper method that adds the total row to the table.
+     */
+    private void addTotalRow()
+    {
+        double debtTotal = getDebtTotal();
+        double interestTotal = getInterestTotal();
+
+        TableLayout table = (TableLayout) findViewById(R.id.dlDebtAccountsTable);
+        TableRow row = new TableRow(this);
+
+        TextView totalView = new TextView(this);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(totalView, getString(R.string.table_total), R.drawable.bordertbl);
+
+        TextView totalDebtView = new TextView(this);
+        this.totalDebtView = totalDebtView;
+        String totalDebtString = BadBudgetApplication.roundedDoubleBB(debtTotal);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(totalDebtView, totalDebtString, R.drawable.bordertbl);
+
+        TextView totalInterestView = new TextView(this);
+        this.totalInterestView = totalInterestView;
+        String totalInterestString = BadBudgetApplication.roundedDoubleBB(interestTotal);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(totalInterestView, totalInterestString, R.drawable.bordertbl);
+
+        TextView notAppView = new TextView(this);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(notAppView, "", R.drawable.borderfull);
+
+        row.addView(totalView);
+        row.addView(totalDebtView);
+        row.addView(totalInterestView);
+        row.addView(notAppView);
+
+        table.addView(row);
+    }
+
+    /**
+     * Private helper that returns the total value of the debts on the currentChosenDay.
+     * @return total value of the accounts
+     */
+    private double getDebtTotal()
+    {
+        double total = 0;
+        BadBudgetData bbd = ((BadBudgetApplication) this.getApplication()).getBadBudgetUserData();
+        int dayIndex = Prediction.numDaysBetween(((BadBudgetApplication)getApplication()).getToday(), currentChosenDay);
+        for (MoneyOwed currDebt : bbd.getDebts()) {
+
+            total+=currDebt.getPredictData(dayIndex).value();
+        }
+        return total;
+    }
+
+    /**
+     * Private helper that returns the total accumulated interest of the debts on the currentChosenDay.
+     * @return - the total accumulated interest
+     */
+    private double getInterestTotal()
+    {
+        double total = 0;
+        BadBudgetData bbd = ((BadBudgetApplication) this.getApplication()).getBadBudgetUserData();
+        int dayIndex = Prediction.numDaysBetween(((BadBudgetApplication)getApplication()).getToday(), currentChosenDay);
+        for (MoneyOwed currDebt : bbd.getDebts()) {
+
+            total+=currDebt.getPredictData(dayIndex).getAccumulatedInterest();
+        }
+        return total;
     }
 
 }
