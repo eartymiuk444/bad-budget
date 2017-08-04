@@ -658,6 +658,7 @@
     <!-- Aggregate Table Strings -->
     <string name="table_total">Total</string>
     <string name="budget_total">Budget</string>
+    <string name="interest_rate_change">Interest Change</string>
 
     <!-- Tracker Calculator Strings -->
     <string name="track_calc_pos0">C</string>

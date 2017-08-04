@@ -41,6 +41,7 @@ public class DetailedLookCashTable extends DetailedLookBaseActivity {
 
     private TextView totalValueView;
     private TextView totalInterestView;
+    private TextView changeValueView;
 
     /**
      * On create for the cash tables activity. Adds the cash tables content view to the base and
@@ -139,6 +140,7 @@ public class DetailedLookCashTable extends DetailedLookBaseActivity {
 
         addEmptyRow();
         addTotalRow();
+        addInterestChangeRateRow(Frequency.monthly);
 
         updateHistoryViews();
 
@@ -152,7 +154,8 @@ public class DetailedLookCashTable extends DetailedLookBaseActivity {
      * Updates the value views for each account in the cash table to the value it has on the current
      * chosen date. Expects a mapping between the account name and the text view in the value views
      * map. Also updates the interest views to be the accumulated interest up to the chosen date from
-     * today's date to the selected date.
+     * today's date to the selected date. Finally updates the interest change rate value with the freq
+     * going back the monthly default.
      *
      * Updates the totals in the total row as well.
      */
@@ -177,6 +180,11 @@ public class DetailedLookCashTable extends DetailedLookBaseActivity {
 
         totalValueView.setText(BadBudgetApplication.roundedDoubleBB(getValueTotal()));
         totalInterestView.setText(BadBudgetApplication.roundedDoubleBB(getInterestTotal()));
+
+        Frequency startFreq = Frequency.monthly;
+        double interestChangeRate = Prediction.analyzeInterestChangeSavings(bbd, dayIndex, startFreq);
+        String interestChangeRateString = BadBudgetApplication.constructAmountFreqString(interestChangeRate, startFreq);
+        changeValueView.setText(interestChangeRateString);
     }
 
     /**
@@ -228,6 +236,56 @@ public class DetailedLookCashTable extends DetailedLookBaseActivity {
         row.addView(totalView);
         row.addView(totalValueView);
         row.addView(totalInterestView);
+
+        table.addView(row);
+    }
+
+    /**
+     * Private helper method that adds the interest change rate row to the end of our table
+     */
+    private void addInterestChangeRateRow(Frequency freq)
+    {
+        BadBudgetData bbd = ((BadBudgetApplication) this.getApplication()).getBadBudgetUserData();
+        int dayIndex = Prediction.numDaysBetween(((BadBudgetApplication)getApplication()).getToday(), currentChosenDay);
+
+        double interestChangeRate = Prediction.analyzeInterestChangeSavings(bbd, dayIndex, freq);
+
+        TableLayout table = (TableLayout) findViewById(R.id.dlCashAccountsTable);
+        TableRow row = new TableRow(this);
+
+        TextView interestChangeRateView = new TextView(this);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(interestChangeRateView, getString(R.string.interest_rate_change), R.drawable.emptyborder);
+
+        final TextView changeValueView = new TextView(this);
+        this.changeValueView = changeValueView;
+        String interestChangeRateString = BadBudgetApplication.constructAmountFreqString(interestChangeRate, freq);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(changeValueView, interestChangeRateString, R.drawable.emptyborder);
+
+        changeValueView.setPaintFlags(changeValueView.getPaintFlags()|Paint.UNDERLINE_TEXT_FLAG);
+
+        changeValueView.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v)
+            {
+                Frequency currentToggleFreq =
+                        BadBudgetApplication.freqFromShortHand(BadBudgetApplication.extractShortHandFreq(changeValueView.getText().toString()));
+                Frequency convertToggleFreq = BadBudgetApplication.getNextToggleFreq(currentToggleFreq);
+
+                BadBudgetData bbd = ((BadBudgetApplication) DetailedLookCashTable.this.getApplication()).getBadBudgetUserData();
+                int dayIndex = Prediction.numDaysBetween(((BadBudgetApplication)getApplication()).getToday(), currentChosenDay);
+
+                double convertTotal = Prediction.analyzeInterestChangeSavings(bbd, dayIndex, convertToggleFreq);
+                changeValueView.setText(BadBudgetApplication.constructAmountFreqString(convertTotal, convertToggleFreq));
+            }
+
+        });
+
+        TextView emptyView = new TextView(this);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(emptyView, "", R.drawable.emptyborder);
+
+        row.addView(interestChangeRateView);
+        row.addView(changeValueView);
+        row.addView(emptyView);
 
         table.addView(row);
     }

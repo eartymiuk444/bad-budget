@@ -43,6 +43,7 @@ public class DetailedLookDebtsTable extends DetailedLookBaseActivity {
 
     private TextView totalDebtView;
     private TextView totalInterestView;
+    private TextView changeValueView;
 
     public static final String DEBT_TYPE_CREDIT_CARD = "cc";
     public static final String DEBT_TYPE_LOAN = "loan";
@@ -168,6 +169,7 @@ public class DetailedLookDebtsTable extends DetailedLookBaseActivity {
 
         addEmptyRow();
         addTotalRow();
+        addInterestChangeRateRow(Frequency.monthly);
 
         updateHistoryViews();
 
@@ -199,6 +201,11 @@ public class DetailedLookDebtsTable extends DetailedLookBaseActivity {
 
         totalDebtView.setText(BadBudgetApplication.roundedDoubleBB(getDebtTotal()));
         totalInterestView.setText(BadBudgetApplication.roundedDoubleBB(getInterestTotal()));
+
+        Frequency startFreq = Frequency.monthly;
+        double interestChangeRate = Prediction.analyzeInterestChangeDebts(bbd, dayIndex, startFreq);
+        String interestChangeRateString = BadBudgetApplication.constructAmountFreqString(interestChangeRate, startFreq);
+        changeValueView.setText(interestChangeRateString);
     }
 
     /**
@@ -258,6 +265,59 @@ public class DetailedLookDebtsTable extends DetailedLookBaseActivity {
         row.addView(totalInterestView);
         row.addView(notAppView);
 
+        table.addView(row);
+    }
+
+    /**
+     * Private helper method that adds the interest change rate row to the end of our table
+     */
+    private void addInterestChangeRateRow(Frequency freq)
+    {
+        BadBudgetData bbd = ((BadBudgetApplication) this.getApplication()).getBadBudgetUserData();
+        int dayIndex = Prediction.numDaysBetween(((BadBudgetApplication)getApplication()).getToday(), currentChosenDay);
+
+        double interestChangeRate = Prediction.analyzeInterestChangeDebts(bbd, dayIndex, freq);
+
+        TableLayout table = (TableLayout) findViewById(R.id.dlDebtAccountsTable);
+        TableRow row = new TableRow(this);
+
+        TextView interestChangeRateView = new TextView(this);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(interestChangeRateView, getString(R.string.interest_rate_change), R.drawable.emptyborder);
+
+        final TextView changeValueView = new TextView(this);
+        this.changeValueView = changeValueView;
+        String interestChangeRateString = BadBudgetApplication.constructAmountFreqString(interestChangeRate, freq);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(changeValueView, interestChangeRateString, R.drawable.emptyborder);
+
+        changeValueView.setPaintFlags(changeValueView.getPaintFlags()|Paint.UNDERLINE_TEXT_FLAG);
+
+        changeValueView.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v)
+            {
+                Frequency currentToggleFreq =
+                        BadBudgetApplication.freqFromShortHand(BadBudgetApplication.extractShortHandFreq(changeValueView.getText().toString()));
+                Frequency convertToggleFreq = BadBudgetApplication.getNextToggleFreq(currentToggleFreq);
+
+                BadBudgetData bbd = ((BadBudgetApplication) DetailedLookDebtsTable.this.getApplication()).getBadBudgetUserData();
+                int dayIndex = Prediction.numDaysBetween(((BadBudgetApplication)getApplication()).getToday(), currentChosenDay);
+
+                double convertTotal = Prediction.analyzeInterestChangeDebts(bbd, dayIndex, convertToggleFreq);
+                changeValueView.setText(BadBudgetApplication.constructAmountFreqString(convertTotal, convertToggleFreq));
+            }
+
+        });
+
+        TextView emptyView1 = new TextView(this);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(emptyView1, "", R.drawable.emptyborder);
+
+        TextView emptyView2 = new TextView(this);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(emptyView2, "", R.drawable.emptyborder);
+
+        row.addView(interestChangeRateView);
+        row.addView(emptyView1);
+        row.addView(changeValueView);
+        row.addView(emptyView2);
         table.addView(row);
     }
 
