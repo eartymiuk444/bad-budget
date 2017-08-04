@@ -37,7 +37,7 @@ public class LossesActivity extends BadBudgetTableActivity {
 
     private HashMap<String, TextView> valueViews;
     private HashMap<String, TextView> frequencyViews;
-    private HashMap<String, TextView> sourceViews;
+    private HashMap<String, TextView> nextLossViews;
 
     private TextView totalAmountView;
     private TextView totalFreqView;
@@ -141,11 +141,11 @@ public class LossesActivity extends BadBudgetTableActivity {
         {
             TextView valueView = valueViews.get(loss.expenseDescription());
             TextView frequencyView = frequencyViews.get(loss.expenseDescription());
-            TextView sourceView = sourceViews.get(loss.expenseDescription());
+            TextView nextLossView = nextLossViews.get(loss.expenseDescription());
 
             valueView.setText(BadBudgetApplication.roundedDoubleBB(loss.lossAmount()));
             frequencyView.setText(BadBudgetApplication.shortHandFreq(loss.lossFrequency()));
-            sourceView.setText(loss.source().name());
+            nextLossView.setText(BadBudgetApplication.dateString(loss.nextLoss()));
         }
 
         double total = getLossTotal(BadBudgetApplication.DEFAULT_TOTAL_FREQUENCY);
@@ -196,7 +196,7 @@ public class LossesActivity extends BadBudgetTableActivity {
     {
         valueViews = new HashMap<String, TextView>();
         frequencyViews = new HashMap<String, TextView>();
-        sourceViews = new HashMap<String, TextView>();
+        nextLossViews = new HashMap<String, TextView>();
 
         clickedLossesMap = new HashMap<View, MoneyLoss>();
 
@@ -289,16 +289,19 @@ public class LossesActivity extends BadBudgetTableActivity {
             }
             ((BadBudgetApplication)this.getApplication()).tableCellSetLayoutParams(frequencyView, frequencyString);
 
-            //Setup the source field.
-            TextView sourceView = new TextView(this);
-            sourceViews.put(currLoss.expenseDescription(), sourceView);
-            ((BadBudgetApplication)this.getApplication()).tableCellSetLayoutParams(sourceView, currLoss.source().name());
-            ((BadBudgetApplication)this.getApplication()).tableAdjustBorderForLastColumn(sourceView);
+            //Setup the next loss field.
+            TextView nextLossView = new TextView(this);
+            nextLossViews.put(currLoss.expenseDescription(), nextLossView);
+
+            String nextLossString = BadBudgetApplication.dateString(currLoss.nextLoss());
+
+            ((BadBudgetApplication)this.getApplication()).tableCellSetLayoutParams(nextLossView, nextLossString);
+            ((BadBudgetApplication)this.getApplication()).tableAdjustBorderForLastColumn(nextLossView);
 
             row.addView(descriptionView);
             row.addView(lossAmountView);
             row.addView(frequencyView);
-            row.addView(sourceView);
+            row.addView(nextLossView);
 
             table.addView(row);
         }
@@ -474,19 +477,13 @@ public class LossesActivity extends BadBudgetTableActivity {
         ((BadBudgetApplication)this.getApplication()).initializeTableCell(frequencyView, frequencyString, R.drawable.bordertbl);
         frequencyView.setPaintFlags(frequencyView.getPaintFlags()|Paint.UNDERLINE_TEXT_FLAG);
 
-        TextView budgetSourceView = new TextView(this);
-        String budgetSourceString = "";
-        Source budgetSource = ((BadBudgetApplication)this.getApplication()).getBadBudgetUserData().getBudget().getBudgetSource();
-        if (budgetSource != null)
-        {
-            budgetSourceString = budgetSource.name();
-        }
-        ((BadBudgetApplication)this.getApplication()).initializeTableCell(budgetSourceView, budgetSourceString, R.drawable.borderfull);
+        TextView emptyView = new TextView(this);
+        ((BadBudgetApplication)this.getApplication()).initializeTableCell(emptyView, "", R.drawable.borderfull);
 
         row.addView(totalView);
         row.addView(totalAmountView);
         row.addView(frequencyView);
-        row.addView(budgetSourceView);
+        row.addView(emptyView);
 
         table.addView(row);
     }

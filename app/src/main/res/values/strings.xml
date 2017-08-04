@@ -419,7 +419,7 @@
     <string name="losses_column_1">Description</string>
     <string name="losses_column_2">Value</string>
     <string name="losses_column_3">Frequency</string>
-    <string name="losses_column_4">Source</string>
+    <string name="losses_column_4">Next Loss</string>
     <string name="losses_add">Add Loss</string>
 
     <!-- Add Gain Activity Strings -->
