@@ -30,8 +30,8 @@ android {
         }
         paid {
             applicationId "com.badbudget.erikartymiuk.badbudget"
-            versionCode 36
-            versionName "2.25"
+            versionCode 37
+            versionName "2.30"
             buildConfigField('boolean', 'FREE_VERSION', "false")
         }
     }

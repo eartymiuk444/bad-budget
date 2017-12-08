@@ -62,12 +62,10 @@ public class CopyExistingDialog extends DialogFragment
             currIndex++;
         }
 
-        singleChoiceBudgetList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onNothingSelected(AdapterView<?> parent) {}
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        singleChoiceBudgetList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 listPositionSelected = position;
             }
-
         });
 
         ListAdapter listAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_single_choice, budgetNames);
