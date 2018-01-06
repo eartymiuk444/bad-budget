@@ -2,11 +2,19 @@ package com.badbudget.erikartymiuk.badbudget.bbmain;
 
 import com.badbudget.erikartymiuk.badbudget.R;
 
+import java.nio.channels.spi.AbstractSelectionKey;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 /**
  * Class representing a tracker history item
  * Created by Erik Artymiuk on 10/29/2016.
  */
-public class TrackerHistoryItem {
+public class TrackerHistoryItem implements Comparable<TrackerHistoryItem> {
 
     public static final String ACTION_SUBTRACT_STRING = "Subtracted";
     public static final String ACTION_ADD_STRING = "Added";
@@ -155,5 +163,57 @@ public class TrackerHistoryItem {
             }
         }
         return null;
+    }
+
+    public int compareTo(TrackerHistoryItem other)
+    {
+        DateFormat formatDateTime = new SimpleDateFormat(BadBudgetApplication.TRACKER_DATE_FORMAT + " " + BadBudgetApplication.TRACKER_TIME_FORMAT);
+
+        try
+        {
+            Date date = null;
+            Date otherDate = null;
+
+            if (false) //this.getTimeString() != null && !this.getTimeString().equals(""))
+            {
+                date = formatDateTime.parse(this.getDateString() + " " + this.getTimeString());
+            }
+            else
+            {
+                date = formatDateTime.parse(this.getDateString() + " " + "00:00 AM");
+            }
+
+            if (false) //other.getTimeString() != null && !other.getTimeString().equals(""))
+            {
+                otherDate = formatDateTime.parse(other.getDateString() + " " + other.getTimeString());
+            }
+            else
+            {
+                otherDate = formatDateTime.parse(other.getDateString() + " " + "00:00 AM");
+            }
+
+            System.out.println("\n");
+
+            System.out.println(date);
+            System.out.println(otherDate);
+
+            int result = date.compareTo(otherDate);
+            System.out.println(result);
+
+            System.out.println("\n");
+
+            return result;
+
+        }
+        catch (ParseException e) {
+            //TODO
+
+            System.out.println(this.getDateString() + " " + this.getTimeString());
+            System.out.println(other.getDateString() + " " + other.getTimeString());
+
+
+            System.err.println("Parse Exception");
+            return 0;
+        }
     }
 }

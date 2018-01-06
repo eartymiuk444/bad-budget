@@ -372,6 +372,8 @@ public class BBDatabaseContract
             TrackerHistoryItem trackerHistoryItem = new TrackerHistoryItem(budgetItemDescription, userTransactionDescription, date, day, time, action, addSubtractAmount, originalBudgetAmount, updatedBudgetAmount);
             trackerHistoryItemList.add(trackerHistoryItem);
         }
+
+        Collections.sort(trackerHistoryItemList);
     }
 
     /**
