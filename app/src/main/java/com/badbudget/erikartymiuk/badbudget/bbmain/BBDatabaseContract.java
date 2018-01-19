@@ -331,8 +331,10 @@ public class BBDatabaseContract
          * we use the created_at field. Auto updates will always be handled prior to any user generated history
          * items and thus the created at fields show up as least recent for a given date.
          */
-        String sortOrder = TrackerHistoryItems.COLUMN_DATE + " " + TrackerHistoryItems.SORT_ORDER_DESC +
+        String sortOrder = "dateTime(" + TrackerHistoryItems.COLUMN_DATE + ")" + " " + TrackerHistoryItems.SORT_ORDER_DESC +
                             "," + TrackerHistoryItems.COLUMN_CREATED_AT + " " + TrackerHistoryItems.SORT_ORDER_DESC;
+
+
 
         //Going to select all the tracker history items with our query, sorted
         //by date and time. The where clause (including its args), group by, and having
@@ -373,7 +375,7 @@ public class BBDatabaseContract
             trackerHistoryItemList.add(trackerHistoryItem);
         }
 
-        Collections.sort(trackerHistoryItemList);
+        //Collections.sort(trackerHistoryItemList);
     }
 
     /**

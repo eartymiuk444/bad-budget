@@ -174,7 +174,7 @@ public class TrackerHistoryItem implements Comparable<TrackerHistoryItem> {
             Date date = null;
             Date otherDate = null;
 
-            if (false) //this.getTimeString() != null && !this.getTimeString().equals(""))
+            if (this.getTimeString() != null && !this.getTimeString().equals(""))
             {
                 date = formatDateTime.parse(this.getDateString() + " " + this.getTimeString());
             }
@@ -183,7 +183,7 @@ public class TrackerHistoryItem implements Comparable<TrackerHistoryItem> {
                 date = formatDateTime.parse(this.getDateString() + " " + "00:00 AM");
             }
 
-            if (false) //other.getTimeString() != null && !other.getTimeString().equals(""))
+            if (other.getTimeString() != null && !other.getTimeString().equals(""))
             {
                 otherDate = formatDateTime.parse(other.getDateString() + " " + other.getTimeString());
             }
@@ -197,7 +197,8 @@ public class TrackerHistoryItem implements Comparable<TrackerHistoryItem> {
             System.out.println(date);
             System.out.println(otherDate);
 
-            int result = date.compareTo(otherDate);
+            int result = otherDate.compareTo(date);
+
             System.out.println(result);
 
             System.out.println("\n");
