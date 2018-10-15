@@ -318,7 +318,7 @@ public class BBDatabaseContract
                 TrackerHistoryItems.COLUMN_BUDGET_ITEM_DESCRIPTION,
                 TrackerHistoryItems.COLUMN_USER_TRANSACTION_DESCRIPTION,
                 TrackerHistoryItems.COLUMN_DATE,
-        TrackerHistoryItems.COLUMN_DAY,
+                TrackerHistoryItems.COLUMN_DAY,
                 TrackerHistoryItems.COLUMN_TIME,
                 TrackerHistoryItems.COLUMN_ACTION,
                 TrackerHistoryItems.COLUMN_ACTION_AMOUNT,
