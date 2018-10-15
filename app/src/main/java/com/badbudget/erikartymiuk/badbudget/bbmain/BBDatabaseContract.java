@@ -318,27 +318,17 @@ public class BBDatabaseContract
                 TrackerHistoryItems.COLUMN_BUDGET_ITEM_DESCRIPTION,
                 TrackerHistoryItems.COLUMN_USER_TRANSACTION_DESCRIPTION,
                 TrackerHistoryItems.COLUMN_DATE,
-                TrackerHistoryItems.COLUMN_DAY,
+        TrackerHistoryItems.COLUMN_DAY,
                 TrackerHistoryItems.COLUMN_TIME,
                 TrackerHistoryItems.COLUMN_ACTION,
                 TrackerHistoryItems.COLUMN_ACTION_AMOUNT,
                 TrackerHistoryItems.COLUMN_ORIGINAL_BUDGET_AMOUNT,
                 TrackerHistoryItems.COLUMN_UPDATED_BUDGET_AMOUNT
-        };
+    };
 
-        /**
-         * Sorting tracker history items works by first sorting by the date string. Then to sort within a date
-         * we use the created_at field. Auto updates will always be handled prior to any user generated history
-         * items and thus the created at fields show up as least recent for a given date.
-         */
-        String sortOrder = "dateTime(" + TrackerHistoryItems.COLUMN_DATE + ")" + " " + TrackerHistoryItems.SORT_ORDER_DESC +
-                            "," + TrackerHistoryItems.COLUMN_CREATED_AT + " " + TrackerHistoryItems.SORT_ORDER_DESC;
-
-
-
-        //Going to select all the tracker history items with our query, sorted
-        //by date and time. The where clause (including its args), group by, and having
-        //statements are null.
+    //Going to select all the tracker history items with our query, unsorted.
+    // The where clause (including its args), group by, having, and sort by
+    //statements are null.
         Cursor cursor = db.query(
                 TrackerHistoryItems.TABLE_NAME + "_" + budgetId,
                 projection,
@@ -346,7 +336,7 @@ public class BBDatabaseContract
                 null,
                 null,
                 null,
-                sortOrder
+                null
         );
 
         int budgetItemDescriptionIndex = cursor.getColumnIndexOrThrow(TrackerHistoryItems.COLUMN_BUDGET_ITEM_DESCRIPTION);
@@ -375,7 +365,7 @@ public class BBDatabaseContract
             trackerHistoryItemList.add(trackerHistoryItem);
         }
 
-        //Collections.sort(trackerHistoryItemList);
+        Collections.sort(trackerHistoryItemList);
     }
 
     /**

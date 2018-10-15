@@ -165,8 +165,24 @@ public class TrackerHistoryItem implements Comparable<TrackerHistoryItem> {
         return null;
     }
 
+    /**
+     * Compares two TrackerHistoryItems using their date and time strings. It parses
+     * their dates using {@link BadBudgetApplication#TRACKER_DATE_FORMAT} and
+     * {@link BadBudgetApplication#TRACKER_TIME_FORMAT}. If the time string on either
+     * item is null or the empty string, parses it as though it is "00:00 AM" (i.e.
+     * the earliest time for a given day.
+     *
+     * @param other - the TrackerHistoryItem to compare this one to
+     * @return an int < 0 if this TrackerHistoryItem's datetime is less than the specified TrackerHistoryItem,
+     *          0 if they are equal, and an int > 0 if this TrackerHistoryItem's datetime is greater.
+     */
     public int compareTo(TrackerHistoryItem other)
     {
+        /**
+         * Sorting tracker history items works by first sorting by the date string. Then to sort within a date
+         * we use the created_at field. Auto updates will always be handled prior to any user generated history
+         * items and thus the created at fields show up as least recent for a given date.
+         */
         DateFormat formatDateTime = new SimpleDateFormat(BadBudgetApplication.TRACKER_DATE_FORMAT + " " + BadBudgetApplication.TRACKER_TIME_FORMAT);
 
         try
@@ -192,27 +208,12 @@ public class TrackerHistoryItem implements Comparable<TrackerHistoryItem> {
                 otherDate = formatDateTime.parse(other.getDateString() + " " + "00:00 AM");
             }
 
-            System.out.println("\n");
-
-            System.out.println(date);
-            System.out.println(otherDate);
-
             int result = otherDate.compareTo(date);
-
-            System.out.println(result);
-
-            System.out.println("\n");
-
             return result;
 
         }
         catch (ParseException e) {
-            //TODO
-
-            System.out.println(this.getDateString() + " " + this.getTimeString());
-            System.out.println(other.getDateString() + " " + other.getTimeString());
-
-
+            //TODO EA 10/15/2018 - Think on this error?
             System.err.println("Parse Exception");
             return 0;
         }
