@@ -3,425 +3,421 @@
 <!--
 Layout for the add Misc payment activity. Similar to the add savings activity.
  -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <!-- Everything besides the title is scrollable -->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:fitsSystemWindows="true"
-    tools:context=".inputforms.AddMiscPayment">
-
-    <!-- Everything besides the title is scrollable -->
-    <ScrollView
+    tools:context=".inputforms.AddMiscPayment"
+    android:layout_alignParentTop="true">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
+        android:orientation="vertical"
+        >
+
+        <!-- Scrollable screen separated into  2 Linear Layouts, The Basic Debt Info, and the payment information-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            >
+            android:padding="@dimen/add_payment_padding">
 
-            <!-- Scrollable screen separated into  2 Linear Layouts, The Basic Debt Info, and the payment information-->
+            <!-- Debt Name/Description-->
+            <TextView
+                android:id="@+id/addMiscPaymentDebtPrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_misc_payment_debt_prompt"
+                android:textSize="@dimen/standard_text_size"
+                android:textStyle="bold"
+                />
+            <EditText
+                android:id="@+id/addMiscPaymentDebtHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_misc_payment_debt_hint"
+                android:textSize="@dimen/standard_text_size"
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                />
+
+            <!--  Current Value/Debt Amount -->
+            <TextView
+                android:id="@+id/addMiscPaymentCurrentValuePrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_misc_payment_value_prompt"
+                android:textSize="@dimen/standard_text_size"
+                android:textStyle="bold"
+                />
+            <EditText
+                android:id="@+id/addMiscPaymentCurrentValueHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_misc_payment_value_hint"
+                android:textSize="@dimen/standard_text_size"
+                android:inputType="numberDecimal|numberSigned"
+                android:imeOptions="actionDone"
+                />
+
+            <!--  Interest Rate -->
+            <TextView
+                android:id="@+id/addMiscPaymentInterestRatePrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_misc_payment_interest_rate_prompt"
+                android:textSize="@dimen/standard_text_size"
+                android:textStyle="bold"
+                />
+            <EditText
+                android:id="@+id/addMiscPaymentInterestRateHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_misc_payment_interest_rate_hint"
+                android:textSize="@dimen/standard_text_size"
+                android:inputType="numberDecimal|numberSigned"
+                android:imeOptions="actionDone"
+                />
+
+            <!-- Quicklook Checkbox -->
+            <CheckBox android:id="@+id/addMiscPaymentQuicklookCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_misc_payment_quicklook_checkbox"
+                android:textSize="@dimen/standard_text_size"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+
+        <!-- Second section, is all of the payment information. Includes a title,
+         and then each input field is one line with a prompt on the same line. Two of
+         the lines also include a checkbox (for payoff and ongoing designations) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/add_payment_padding">
+
+            <!-- Payment Section Title -->
+            <TextView
+                android:id="@+id/addMiscPaymentPaymentPrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_misc_payment_payment_prompt"
+                android:textSize="@dimen/larger_text_size"
+                android:textStyle="bold"
+                />
+
+            <!-- Payment frequency field -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/add_payment_padding">
-
-                <!-- Debt Name/Description-->
+                android:orientation="horizontal"
+                android:weightSum="2">
                 <TextView
-                    android:id="@+id/addMiscPaymentDebtPrompt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_misc_payment_debt_prompt"
-                    android:textSize="@dimen/standard_text_size"
+                    android:id="@+id/addMiscPaymentFrequencyPrompt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/add_misc_payment_frequency_prompt"
+                    android:textSize="@dimen/smaller_text_size"
                     android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
                     />
-                <EditText
-                    android:id="@+id/addMiscPaymentDebtHint"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/add_misc_payment_debt_hint"
-                    android:textSize="@dimen/standard_text_size"
-                    android:inputType="text"
-                    android:imeOptions="actionDone"
-                    />
-
-                <!--  Current Value/Debt Amount -->
-                <TextView
-                    android:id="@+id/addMiscPaymentCurrentValuePrompt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_misc_payment_value_prompt"
-                    android:textSize="@dimen/standard_text_size"
-                    android:textStyle="bold"
-                    />
-                <EditText
-                    android:id="@+id/addMiscPaymentCurrentValueHint"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/add_misc_payment_value_hint"
-                    android:textSize="@dimen/standard_text_size"
-                    android:inputType="numberDecimal|numberSigned"
-                    android:imeOptions="actionDone"
-                    />
-
-                <!--  Interest Rate -->
-                <TextView
-                    android:id="@+id/addMiscPaymentInterestRatePrompt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_misc_payment_interest_rate_prompt"
-                    android:textSize="@dimen/standard_text_size"
-                    android:textStyle="bold"
-                    />
-                <EditText
-                    android:id="@+id/addMiscPaymentInterestRateHint"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/add_misc_payment_interest_rate_hint"
-                    android:textSize="@dimen/standard_text_size"
-                    android:inputType="numberDecimal|numberSigned"
-                    android:imeOptions="actionDone"
-                    />
-
-                <!-- Quicklook Checkbox -->
-                <CheckBox android:id="@+id/addMiscPaymentQuicklookCheckbox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_misc_payment_quicklook_checkbox"
-                    android:textSize="@dimen/standard_text_size"
-                    android:textStyle="bold"
+                <Spinner
+                    android:id="@+id/addMiscPaymentFrequencySpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/smaller_text_size"
+                    android:gravity="center_vertical"
+                    android:entries="@array/add_misc_payment_frequency_array"
+                    android:padding="@dimen/add_payment_small_padding"
+                    android:layout_weight="1"
                     />
             </LinearLayout>
 
-            <!-- Second section, is all of the payment information. Includes a title,
-             and then each input field is one line with a prompt on the same line. Two of
-             the lines also include a checkbox (for payoff and ongoing designations) -->
+            <!-- Payment amount field, includes payoff checkbox -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/add_payment_padding">
-
-                <!-- Payment Section Title -->
+                android:orientation="horizontal"
+                android:weightSum="2">
                 <TextView
-                    android:id="@+id/addMiscPaymentPaymentPrompt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_misc_payment_payment_prompt"
-                    android:textSize="@dimen/larger_text_size"
+                    android:id="@+id/addMiscPaymentAmountPrompt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/add_misc_payment_amount_prompt"
+                    android:textSize="@dimen/smaller_text_size"
                     android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="5"
+                    >
+                    <EditText
+                        android:id="@+id/addMiscPaymentAmountHint"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:hint="@string/add_misc_payment_amount_hint"
+                        android:textSize="@dimen/smaller_text_size"
+                        android:inputType="numberDecimal|numberSigned"
+                        android:imeOptions="actionDone"
+                        android:gravity="center_vertical"
+                        android:enabled="true"
+                        android:layout_weight="4"
+                        />
+
+                    <CheckBox android:id="@+id/addMiscPaymentAmountPayoff"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:checked="false"
+                        android:onClick="payoffCheckboxChecked"
+                        android:layout_weight="1"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+            <!-- Source Account field -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <TextView
+                    android:id="@+id/addMiscPaymentSourcePrompt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/add_misc_payment_source_accout_prompt"
+                    android:textSize="@dimen/smaller_text_size"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    />
+                <Spinner
+                    android:id="@+id/addMiscPaymentSourceSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/smaller_text_size"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/add_payment_small_padding"
+                    android:layout_weight="1"
+                    />
+            </LinearLayout>
+
+            <!-- Next date field -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <TextView
+                    android:id="@+id/addMiscPaymentNextPrompt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/add_misc_payment_next_prompt"
+                    android:textSize="@dimen/smaller_text_size"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    />
+                <TextView
+                    android:id="@+id/addMiscPaymentNextInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/add_misc_payment_date_hint"
+                    android:textSize="@dimen/smaller_text_size"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:onClick="nextDateClicked"
+                    android:padding="@dimen/add_payment_small_padding"
+                    android:layout_weight="1"
+                    />
+            </LinearLayout>
+
+            <!-- End date field, includes ongoing checkbox -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <TextView
+                    android:id="@+id/addMiscPaymentEndPrompt"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/add_misc_payment_end_prompt"
+                    android:textSize="@dimen/smaller_text_size"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
                     />
 
-                <!-- Payment frequency field -->
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:padding="@dimen/add_payment_small_padding"
+                    android:weightSum="5"
+                    >
                     <TextView
-                        android:id="@+id/addMiscPaymentFrequencyPrompt"
+                        android:id="@+id/addMiscPaymentInputEnd"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:text="@string/add_misc_payment_frequency_prompt"
-                        android:textSize="@dimen/smaller_text_size"
-                        android:textStyle="bold"
-                        android:gravity="center_vertical"
-                        android:layout_weight="1"
-                        />
-                    <Spinner
-                        android:id="@+id/addMiscPaymentFrequencySpinner"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:textSize="@dimen/smaller_text_size"
-                        android:gravity="center_vertical"
-                        android:entries="@array/add_misc_payment_frequency_array"
-                        android:padding="@dimen/add_payment_small_padding"
-                        android:layout_weight="1"
-                        />
-                </LinearLayout>
-
-                <!-- Payment amount field, includes payoff checkbox -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-                    <TextView
-                        android:id="@+id/addMiscPaymentAmountPrompt"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:text="@string/add_misc_payment_amount_prompt"
-                        android:textSize="@dimen/smaller_text_size"
-                        android:textStyle="bold"
-                        android:gravity="center_vertical"
-                        android:layout_weight="1"
-                        />
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal"
-                        android:weightSum="5"
-                        >
-                        <EditText
-                            android:id="@+id/addMiscPaymentAmountHint"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:hint="@string/add_misc_payment_amount_hint"
-                            android:textSize="@dimen/smaller_text_size"
-                            android:inputType="numberDecimal|numberSigned"
-                            android:imeOptions="actionDone"
-                            android:gravity="center_vertical"
-                            android:enabled="true"
-                            android:layout_weight="4"
-                            />
-
-                        <CheckBox android:id="@+id/addMiscPaymentAmountPayoff"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:checked="false"
-                            android:onClick="payoffCheckboxChecked"
-                            android:layout_weight="1"
-                            />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
-
-                <!-- Source Account field -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-                    <TextView
-                        android:id="@+id/addMiscPaymentSourcePrompt"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:text="@string/add_misc_payment_source_accout_prompt"
-                        android:textSize="@dimen/smaller_text_size"
-                        android:textStyle="bold"
-                        android:gravity="center_vertical"
-                        android:layout_weight="1"
-                        />
-                    <Spinner
-                        android:id="@+id/addMiscPaymentSourceSpinner"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:textSize="@dimen/smaller_text_size"
-                        android:gravity="center_vertical"
-                        android:padding="@dimen/add_payment_small_padding"
-                        android:layout_weight="1"
-                        />
-                </LinearLayout>
-
-                <!-- Next date field -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-                    <TextView
-                        android:id="@+id/addMiscPaymentNextPrompt"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/add_misc_payment_next_prompt"
-                        android:textSize="@dimen/smaller_text_size"
-                        android:textStyle="bold"
-                        android:gravity="center_vertical"
-                        android:layout_weight="1"
-                        />
-                    <TextView
-                        android:id="@+id/addMiscPaymentNextInput"
-                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="@string/add_misc_payment_date_hint"
                         android:textSize="@dimen/smaller_text_size"
                         android:gravity="center_vertical"
                         android:clickable="true"
-                        android:onClick="nextDateClicked"
-                        android:padding="@dimen/add_payment_small_padding"
+                        android:onClick="endDateClicked"
+                        android:layout_weight="4"
+                        />
+                    <CheckBox android:id="@+id/addMiscPaymentOngoingCheckbox"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:checked="false"
+                        android:onClick="ongoingCheckboxChecked"
                         android:layout_weight="1"
                         />
                 </LinearLayout>
+            </LinearLayout>
 
-                <!-- End date field, includes ongoing checkbox -->
+            <!-- Goal Date Field, includes checkbox to enable disable setting goal date
+            then a goal date input if the checkbox is checked -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:id="@+id/addMiscPaymentGoalPrompt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_misc_payment_goal_prompt"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold"
+                    android:paddingTop="@dimen/add_payment_padding"
+                    android:paddingBottom="@dimen/add_payment_small_padding"
+                    />
+
+                <CheckBox android:id="@+id/addMiscPaymentSetGoal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_misc_payment_set_goal_prompt"
+                    android:textSize="@dimen/smaller_text_size"
+                    android:textStyle="bold"
+                    android:onClick="setGoalChecked"/>
+
+                <!-- Goal Date field -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:weightSum="2">
                     <TextView
-                        android:id="@+id/addMiscPaymentEndPrompt"
+                        android:id="@+id/addMiscPaymentGoalDatePrompt"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:text="@string/add_misc_payment_end_prompt"
+                        android:text="@string/add_misc_payment_goal_date_prompt"
                         android:textSize="@dimen/smaller_text_size"
                         android:textStyle="bold"
                         android:gravity="center_vertical"
                         android:layout_weight="1"
                         />
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/addMiscPaymentInputGoal"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/add_payment_small_padding"
-                        android:weightSum="5"
-                        >
-                        <TextView
-                            android:id="@+id/addMiscPaymentInputEnd"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:hint="@string/add_misc_payment_date_hint"
-                            android:textSize="@dimen/smaller_text_size"
-                            android:gravity="center_vertical"
-                            android:clickable="true"
-                            android:onClick="endDateClicked"
-                            android:layout_weight="4"
-                            />
-                        <CheckBox android:id="@+id/addMiscPaymentOngoingCheckbox"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:checked="false"
-                            android:onClick="ongoingCheckboxChecked"
-                            android:layout_weight="1"
-                            />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <!-- Goal Date Field, includes checkbox to enable disable setting goal date
-                then a goal date input if the checkbox is checked -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
-
-                    <TextView
-                        android:id="@+id/addMiscPaymentGoalPrompt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/add_misc_payment_goal_prompt"
-                        android:textSize="@dimen/standard_text_size"
-                        android:textStyle="bold"
-                        android:paddingTop="@dimen/add_payment_padding"
-                        android:paddingBottom="@dimen/add_payment_small_padding"
-                        />
-
-                    <CheckBox android:id="@+id/addMiscPaymentSetGoal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/add_misc_payment_set_goal_prompt"
+                        android:hint="@string/add_misc_payment_date_hint"
                         android:textSize="@dimen/smaller_text_size"
-                        android:textStyle="bold"
-                        android:onClick="setGoalChecked"/>
-
-                    <!-- Goal Date field -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-                        <TextView
-                            android:id="@+id/addMiscPaymentGoalDatePrompt"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:text="@string/add_misc_payment_goal_date_prompt"
-                            android:textSize="@dimen/smaller_text_size"
-                            android:textStyle="bold"
-                            android:gravity="center_vertical"
-                            android:layout_weight="1"
-                            />
-                        <TextView
-                            android:id="@+id/addMiscPaymentInputGoal"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:hint="@string/add_misc_payment_date_hint"
-                            android:textSize="@dimen/smaller_text_size"
-                            android:gravity="center_vertical"
-                            android:onClick="goalDateClicked"
-                            android:padding="@dimen/add_payment_small_padding"
-                            android:layout_weight="1"
-                            />
-                    </LinearLayout>
+                        android:gravity="center_vertical"
+                        android:onClick="goalDateClicked"
+                        android:padding="@dimen/add_payment_small_padding"
+                        android:layout_weight="1"
+                        />
                 </LinearLayout>
             </LinearLayout>
+        </LinearLayout>
 
-            <!-- Fourth and final section are the three buttons (clean, submit, and cancel) -->
-            <LinearLayout
-                android:layout_width="match_parent"
+        <!-- Fourth and final section are the three buttons (clean, submit, and cancel) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/add_payment_small_padding"
+            android:weightSum="3"
+            >
+
+            <android.widget.Button
+                android:id="@+id/addMiscPaymentCleanButton"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/add_payment_small_padding"
-                android:weightSum="3"
-                >
-
-                <android.widget.Button
-                    android:id="@+id/addMiscPaymentCleanButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/add_misc_payment_clean_button"
-                    android:textSize="@dimen/standard_text_size"
-                    android:onClick="addMiscPaymentCleanClick"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/add_payment_small_padding"
-                android:weightSum="3">
-
-                <!-- Submit button -->
-                <android.widget.Button
-                    android:id="@+id/addMiscPaymentSubmitButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/add_misc_payment_submit_button"
-                    android:textSize="@dimen/standard_text_size"
-                    android:onClick="addMiscPaymentSubmitClick"
-                    />
-
-                <!-- Cancel Button -->
-                <android.widget.Button
-                    android:id="@+id/addMiscPaymentCancelButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/add_misc_payment_cancel_button"
-                    android:textSize="@dimen/standard_text_size"
-                    android:onClick="addMiscPaymentCancelClick"
-                    />
-
-                <!-- Delete Button for when the user is editing an existing account -->
-                <android.widget.Button
-                    android:id="@+id/deleteButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/delete_add_edit_string"
-                    android:textSize="@dimen/standard_text_size"
-                    android:onClick="deleteClick"
-                    android:enabled="false"
-                    android:visibility="invisible"
-                    android:background="@color/deleteButtonColor"
-                    />
-
-            </LinearLayout>
+                android:layout_weight="1"
+                android:text="@string/add_misc_payment_clean_button"
+                android:textSize="@dimen/standard_text_size"
+                android:onClick="addMiscPaymentCleanClick"
+                />
 
         </LinearLayout>
-    </ScrollView>
-</RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/add_payment_small_padding"
+            android:weightSum="3">
+
+            <!-- Submit button -->
+            <android.widget.Button
+                android:id="@+id/addMiscPaymentSubmitButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/add_misc_payment_submit_button"
+                android:textSize="@dimen/standard_text_size"
+                android:onClick="addMiscPaymentSubmitClick"
+                />
+
+            <!-- Cancel Button -->
+            <android.widget.Button
+                android:id="@+id/addMiscPaymentCancelButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/add_misc_payment_cancel_button"
+                android:textSize="@dimen/standard_text_size"
+                android:onClick="addMiscPaymentCancelClick"
+                />
+
+            <!-- Delete Button for when the user is editing an existing account -->
+            <android.widget.Button
+                android:id="@+id/deleteButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/delete_add_edit_string"
+                android:textSize="@dimen/standard_text_size"
+                android:onClick="deleteClick"
+                android:enabled="false"
+                android:visibility="invisible"
+                android:background="@color/deleteButtonColor"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

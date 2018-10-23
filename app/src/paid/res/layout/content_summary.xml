@@ -3,254 +3,241 @@
 <!-- Layout for our summary activity -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".bbmain.SummaryActivity">
+    tools:context=".bbmain.SummaryActivity"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/tracker_padding_small"
+    android:paddingTop="@dimen/tracker_padding_small">
 
-    <RelativeLayout
+
+    <Spinner
+        android:id="@+id/summaryFrequencySpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:padding="@dimen/padding_generic"></Spinner>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/tracker_padding_small"
-        android:paddingTop="@dimen/tracker_padding_small">
+        android:layout_below="@id/summaryFrequencySpinner">
 
-        <Spinner
-            android:id="@+id/summaryFrequencySpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:padding="@dimen/padding_generic"></Spinner>
-
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/summaryFrequencySpinner">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/padding_generic">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="@dimen/padding_generic"
-                    android:weightSum="2">
-                    >
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="@dimen/generic_padding_small">
-
-                        <TextView
-                            android:id="@+id/summaryGain"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/summary_activity_gains"
-                            android:textSize="@dimen/standard_text_size" />
-
-                        <TextView
-                            android:id="@+id/summaryGainAmount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingEnd="@dimen/generic_padding_medium"
-                            android:paddingLeft="@dimen/generic_padding_medium"
-                            android:paddingRight="@dimen/generic_padding_medium"
-                            android:paddingStart="@dimen/generic_padding_medium"
-                            android:text="@string/summary_activity_amount_placeholder"
-                            android:textSize="@dimen/standard_text_size" />
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="@dimen/generic_padding_small">
-
-                        <TextView
-                            android:id="@+id/summaryLoss"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/summary_activity_losses"
-                            android:textSize="@dimen/standard_text_size" />
-
-                        <TextView
-                            android:id="@+id/summaryLossAmount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingEnd="@dimen/generic_padding_medium"
-                            android:paddingLeft="@dimen/generic_padding_medium"
-                            android:paddingRight="@dimen/generic_padding_medium"
-                            android:paddingStart="@dimen/generic_padding_medium"
-                            android:text="@string/summary_activity_amount_placeholder"
-                            android:textSize="@dimen/standard_text_size" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="@dimen/generic_padding_small">
-
-                        <TextView
-                            android:id="@+id/summaryContribution"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/summary_activity_contributions"
-                            android:textSize="@dimen/standard_text_size" />
-
-                        <TextView
-                            android:id="@+id/summaryContributionAmount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingEnd="@dimen/generic_padding_medium"
-                            android:paddingLeft="@dimen/generic_padding_medium"
-                            android:paddingRight="@dimen/generic_padding_medium"
-                            android:paddingStart="@dimen/generic_padding_medium"
-                            android:text="@string/summary_activity_amount_placeholder"
-                            android:textSize="@dimen/standard_text_size" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="@dimen/generic_padding_small">
-
-                        <TextView
-                            android:id="@+id/summaryPayment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/summary_activity_payments"
-                            android:textSize="@dimen/standard_text_size" />
-
-                        <TextView
-                            android:id="@+id/summaryPaymentAmount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingEnd="@dimen/generic_padding_medium"
-                            android:paddingLeft="@dimen/generic_padding_medium"
-                            android:paddingRight="@dimen/generic_padding_medium"
-                            android:paddingStart="@dimen/generic_padding_medium"
-                            android:text="@string/summary_activity_amount_placeholder"
-                            android:textSize="@dimen/standard_text_size" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/padding_generic">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="@dimen/generic_padding_small">
-
-                        <TextView
-                            android:id="@+id/summaryNetFlow"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/summary_activity_net_flow"
-                            android:textSize="@dimen/standard_text_size" />
-
-                        <TextView
-                            android:id="@+id/summaryNetFlowAmount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingEnd="@dimen/generic_padding_medium"
-                            android:paddingLeft="@dimen/generic_padding_medium"
-                            android:paddingRight="@dimen/generic_padding_medium"
-                            android:paddingStart="@dimen/generic_padding_medium"
-                            android:text="@string/summary_activity_amount_placeholder"
-                            android:textSize="@dimen/standard_text_size" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="@dimen/generic_padding_small">
-
-                        <TextView
-                            android:id="@+id/summaryCashFlow"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/summary_activity_cash_flow"
-                            android:textSize="@dimen/standard_text_size" />
-
-                        <TextView
-                            android:id="@+id/summaryCashFlowAmount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingEnd="@dimen/generic_padding_medium"
-                            android:paddingLeft="@dimen/generic_padding_medium"
-                            android:paddingRight="@dimen/generic_padding_medium"
-                            android:paddingStart="@dimen/generic_padding_medium"
-                            android:text="@string/summary_activity_amount_placeholder"
-                            android:textSize="@dimen/standard_text_size" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="@dimen/generic_padding_small">
-
-                        <TextView
-                            android:id="@+id/summaryDebtFlow"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/summary_activity_debt_flow"
-                            android:textSize="@dimen/standard_text_size" />
-
-                        <TextView
-                            android:id="@+id/summaryDebtFlowAmount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingEnd="@dimen/generic_padding_medium"
-                            android:paddingLeft="@dimen/generic_padding_medium"
-                            android:paddingRight="@dimen/generic_padding_medium"
-                            android:paddingStart="@dimen/generic_padding_medium"
-                            android:text="@string/summary_activity_amount_placeholder"
-                            android:textSize="@dimen/standard_text_size" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/summarySourcesMoneyOut"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/padding_generic">
-
+                    android:padding="@dimen/generic_padding_small">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/summaryGain"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/summary_activity_source_losses"
-                        android:textSize="@dimen/standard_text_size"
-                        android:textStyle="bold" />
+                        android:text="@string/summary_activity_gains"
+                        android:textSize="@dimen/standard_text_size" />
 
+                    <TextView
+                        android:id="@+id/summaryGainAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/generic_padding_medium"
+                        android:paddingLeft="@dimen/generic_padding_medium"
+                        android:paddingRight="@dimen/generic_padding_medium"
+                        android:paddingStart="@dimen/generic_padding_medium"
+                        android:text="@string/summary_activity_amount_placeholder"
+                        android:textSize="@dimen/standard_text_size" />
                 </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/generic_padding_small">
+
+                    <TextView
+                        android:id="@+id/summaryLoss"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/summary_activity_losses"
+                        android:textSize="@dimen/standard_text_size" />
+
+                    <TextView
+                        android:id="@+id/summaryLossAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/generic_padding_medium"
+                        android:paddingLeft="@dimen/generic_padding_medium"
+                        android:paddingRight="@dimen/generic_padding_medium"
+                        android:paddingStart="@dimen/generic_padding_medium"
+                        android:text="@string/summary_activity_amount_placeholder"
+                        android:textSize="@dimen/standard_text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/generic_padding_small">
+
+                    <TextView
+                        android:id="@+id/summaryContribution"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/summary_activity_contributions"
+                        android:textSize="@dimen/standard_text_size" />
+
+                    <TextView
+                        android:id="@+id/summaryContributionAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/generic_padding_medium"
+                        android:paddingLeft="@dimen/generic_padding_medium"
+                        android:paddingRight="@dimen/generic_padding_medium"
+                        android:paddingStart="@dimen/generic_padding_medium"
+                        android:text="@string/summary_activity_amount_placeholder"
+                        android:textSize="@dimen/standard_text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/generic_padding_small">
+
+                    <TextView
+                        android:id="@+id/summaryPayment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/summary_activity_payments"
+                        android:textSize="@dimen/standard_text_size" />
+
+                    <TextView
+                        android:id="@+id/summaryPaymentAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/generic_padding_medium"
+                        android:paddingLeft="@dimen/generic_padding_medium"
+                        android:paddingRight="@dimen/generic_padding_medium"
+                        android:paddingStart="@dimen/generic_padding_medium"
+                        android:text="@string/summary_activity_amount_placeholder"
+                        android:textSize="@dimen/standard_text_size" />
+                </LinearLayout>
+
             </LinearLayout>
-        </ScrollView>
-    </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_generic">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/generic_padding_small">
+
+                    <TextView
+                        android:id="@+id/summaryNetFlow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/summary_activity_net_flow"
+                        android:textSize="@dimen/standard_text_size" />
+
+                    <TextView
+                        android:id="@+id/summaryNetFlowAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/generic_padding_medium"
+                        android:paddingLeft="@dimen/generic_padding_medium"
+                        android:paddingRight="@dimen/generic_padding_medium"
+                        android:paddingStart="@dimen/generic_padding_medium"
+                        android:text="@string/summary_activity_amount_placeholder"
+                        android:textSize="@dimen/standard_text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/generic_padding_small">
+
+                    <TextView
+                        android:id="@+id/summaryCashFlow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/summary_activity_cash_flow"
+                        android:textSize="@dimen/standard_text_size" />
+
+                    <TextView
+                        android:id="@+id/summaryCashFlowAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/generic_padding_medium"
+                        android:paddingLeft="@dimen/generic_padding_medium"
+                        android:paddingRight="@dimen/generic_padding_medium"
+                        android:paddingStart="@dimen/generic_padding_medium"
+                        android:text="@string/summary_activity_amount_placeholder"
+                        android:textSize="@dimen/standard_text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/generic_padding_small">
+
+                    <TextView
+                        android:id="@+id/summaryDebtFlow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/summary_activity_debt_flow"
+                        android:textSize="@dimen/standard_text_size" />
+
+                    <TextView
+                        android:id="@+id/summaryDebtFlowAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="@dimen/generic_padding_medium"
+                        android:paddingLeft="@dimen/generic_padding_medium"
+                        android:paddingRight="@dimen/generic_padding_medium"
+                        android:paddingStart="@dimen/generic_padding_medium"
+                        android:text="@string/summary_activity_amount_placeholder"
+                        android:textSize="@dimen/standard_text_size" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/summarySourcesMoneyOut"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_generic">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/summary_activity_source_losses"
+                    android:textSize="@dimen/standard_text_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

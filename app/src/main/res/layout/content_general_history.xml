@@ -3,47 +3,43 @@
 <!--
 General History Layout
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".bbmain.BudgetHistoryActivity">
+    tools:context=".bbmain.BudgetHistoryActivity"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/tracker_padding_small"
+    android:paddingTop="@dimen/tracker_padding_small">
 
     <RelativeLayout
+        android:id="@+id/generalHistoryBottomRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/tracker_padding_small"
-        android:paddingTop="@dimen/tracker_padding_small">
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        >
 
-        <RelativeLayout
-            android:id="@+id/generalHistoryBottomRow"
-            android:layout_width="match_parent"
+        <!-- Clear All Button -->
+        <android.widget.Button
+            android:id="@+id/clearAllButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            >
-
-            <!-- Clear All Button -->
-            <android.widget.Button
-                android:id="@+id/clearAllButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:onClick="clearAllButtonClick"
-                android:text="@string/general_history_clear_all"
-                />
-        </RelativeLayout>
-
-        <ListView
-            android:id="@+id/generalHistoryListView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/generalHistoryBottomRow"
-            android:layout_alignParentTop="true"
-            >
-        </ListView>
+            android:onClick="clearAllButtonClick"
+            android:text="@string/general_history_clear_all"
+            />
     </RelativeLayout>
+
+    <ListView
+        android:id="@+id/generalHistoryListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/generalHistoryBottomRow"
+        android:layout_alignParentTop="true"
+        >
+    </ListView>
 </RelativeLayout>

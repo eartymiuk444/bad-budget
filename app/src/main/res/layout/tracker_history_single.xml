@@ -1,88 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Single item for our tracker history list -->
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:paddingTop="@dimen/tracker_history_padding_medium"
+        android:paddingBottom="@dimen/tracker_history_padding_small"
+        android:paddingRight="@dimen/tracker_history_padding_medium"
+        android:paddingLeft="@dimen/tracker_history_padding_medium"
         >
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tracker_history_item_description"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="5"
-            android:paddingTop="@dimen/tracker_history_padding_medium"
-            android:paddingBottom="@dimen/tracker_history_padding_small"
-            android:paddingRight="@dimen/tracker_history_padding_medium"
-            android:paddingLeft="@dimen/tracker_history_padding_medium"
-            >
-            <TextView
-                android:id="@+id/tracker_history_item_description"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:gravity="start"
-                android:textSize="@dimen/single_tracker_history_medium_text"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:text="@string/tracker_history_item"
-                />
+            android:layout_weight="3"
+            android:gravity="start"
+            android:textSize="@dimen/single_tracker_history_medium_text"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@string/tracker_history_item"
+            />
 
-            <TextView
-                android:id="@+id/tracker_history_day_time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="end"
-                android:textSize="@dimen/single_tracker_history_medium_text"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:text="@string/tracker_history_day_time"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tracker_history_day_time"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="5"
-            android:paddingTop="@dimen/tracker_history_padding_medium"
-            android:paddingBottom="@dimen/tracker_history_padding_small"
-            android:paddingRight="@dimen/tracker_history_padding_medium"
-            android:paddingLeft="@dimen/tracker_history_padding_medium"
-            >
-
-            <TextView
-                android:id="@+id/tracker_history_action_description"
-                android:layout_weight="3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="start"
-                android:textSize="@dimen/single_tracker_history_medium_text"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:text="@string/tracker_history_action_default"/>
-
-            <TextView
-                android:id="@+id/tracker_history_date"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:textSize="@dimen/single_tracker_history_medium_text"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:text="@string/tracker_history_date"
-                />
-
-        </LinearLayout>
+            android:layout_weight="2"
+            android:gravity="end"
+            android:textSize="@dimen/single_tracker_history_medium_text"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@string/tracker_history_day_time"/>
     </LinearLayout>
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:paddingTop="@dimen/tracker_history_padding_medium"
+        android:paddingBottom="@dimen/tracker_history_padding_small"
+        android:paddingRight="@dimen/tracker_history_padding_medium"
+        android:paddingLeft="@dimen/tracker_history_padding_medium"
+        >
 
+        <TextView
+            android:id="@+id/tracker_history_action_description"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textSize="@dimen/single_tracker_history_medium_text"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@string/tracker_history_action_default"/>
+
+        <TextView
+            android:id="@+id/tracker_history_date"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textSize="@dimen/single_tracker_history_medium_text"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@string/tracker_history_date"
+            />
+
+    </LinearLayout>
+</LinearLayout>
 

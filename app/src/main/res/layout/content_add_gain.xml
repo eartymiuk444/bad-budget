@@ -3,263 +3,251 @@
 <!--
  Layout for the add gain activity. Modeled after the add account activity.
  -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:fitsSystemWindows="true"
-    tools:context=".inputforms.AddGainActivity">
-
-    <ScrollView
+    tools:context=".inputforms.AddGainActivity"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
+        android:orientation="vertical"
+        >
+
+        <!-- Gain Description Prompt and User Input-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_generic">
+            <TextView
+                android:id="@+id/addGainDescriptionPrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_gain_description_prompt"
+                android:textSize="@dimen/standard_text_size"
+                android:textStyle="bold"
+                />
+            <EditText
+                android:id="@+id/addGainDescriptionInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_gain_description_hint"
+                android:textSize="@dimen/standard_text_size"
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:layout_below="@+id/addGainDescriptionPrompt"
+                />
+        </RelativeLayout>
+
+        <!-- Gain Frequency Field -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:weightSum="12"
-            >
-
-            <!-- Gain Description Prompt and User Input-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:padding="@dimen/padding_generic">
-                <TextView
-                    android:id="@+id/addGainDescriptionPrompt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_gain_description_prompt"
-                    android:textSize="@dimen/standard_text_size"
-                    android:textStyle="bold"
-                    />
-                <EditText
-                    android:id="@+id/addGainDescriptionInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/add_gain_description_hint"
-                    android:textSize="@dimen/standard_text_size"
-                    android:inputType="text"
-                    android:imeOptions="actionDone"
-                    android:layout_below="@+id/addGainDescriptionPrompt"
-                    />
-            </RelativeLayout>
-
-            <!-- Gain Frequency Field -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:orientation="horizontal"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:padding="@dimen/padding_generic">
+            <TextView
+                android:id="@+id/addGainFrequencyPrompt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/add_gain_frequency_prompt"
+                android:textSize="@dimen/standard_text_size"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
                 android:layout_weight="1"
-                android:weightSum="2"
-                android:padding="@dimen/padding_generic">
-                <TextView
-                    android:id="@+id/addGainFrequencyPrompt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/add_gain_frequency_prompt"
-                    android:textSize="@dimen/standard_text_size"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1"
-                    />
-                <Spinner
-                    android:id="@+id/addGainFrequencySpinner"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:textSize="@dimen/standard_text_size"
-                    android:gravity="center_vertical"
-                    android:entries="@array/add_gain_frequency_array"
-                    android:layout_weight="1"
-                    />
-            </LinearLayout>
+                />
+            <Spinner
+                android:id="@+id/addGainFrequencySpinner"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/standard_text_size"
+                android:gravity="center_vertical"
+                android:entries="@array/add_gain_frequency_array"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
 
-            <!-- Gain Amount Prompt and User Input -->
-            <RelativeLayout
+        <!-- Gain Amount Prompt and User Input -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_generic">
+            <TextView
+                android:id="@+id/addGainAmountPrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_gain_amount_prompt"
+                android:textSize="@dimen/standard_text_size"
+                android:textStyle="bold"
+                />
+            <EditText
+                android:id="@+id/addGainAmountInput"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="2"
-                android:padding="@dimen/padding_generic">
-                <TextView
-                    android:id="@+id/addGainAmountPrompt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/add_gain_amount_prompt"
-                    android:textSize="@dimen/standard_text_size"
-                    android:textStyle="bold"
-                    />
-                <EditText
-                    android:id="@+id/addGainAmountInput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/add_gain_amount_hint"
-                    android:textSize="@dimen/standard_text_size"
-                    android:inputType="numberDecimal|numberSigned"
-                    android:imeOptions="actionDone"
-                    android:layout_below="@+id/addGainAmountPrompt"
-                    />
-            </RelativeLayout>
+                android:layout_height="wrap_content"
+                android:hint="@string/add_gain_amount_hint"
+                android:textSize="@dimen/standard_text_size"
+                android:inputType="numberDecimal|numberSigned"
+                android:imeOptions="actionDone"
+                android:layout_below="@+id/addGainAmountPrompt"
+                />
+        </RelativeLayout>
 
-            <!-- Next date field -->
+        <!-- Next date field -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:padding="@dimen/padding_generic">
+            <TextView
+                android:id="@+id/addGainNextPrompt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/add_gain_next_prompt"
+                android:textSize="@dimen/standard_text_size"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                />
+            <TextView
+                android:id="@+id/addGainNextInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/add_gain_date_hint"
+                android:textSize="@dimen/standard_text_size"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:onClick="nextDateClicked"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
+        <!-- End date field, includes ongoing checkbox -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:padding="@dimen/padding_generic">
+            <TextView
+                android:id="@+id/addGainEndPrompt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/add_gain_end_prompt"
+                android:textSize="@dimen/standard_text_size"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                />
+
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:weightSum="2"
-                android:padding="@dimen/padding_generic">
+                android:weightSum="5"
+                android:padding="@dimen/padding_generic"
+                >
                 <TextView
-                    android:id="@+id/addGainNextPrompt"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/add_gain_next_prompt"
-                    android:textSize="@dimen/standard_text_size"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1"
-                    />
-                <TextView
-                    android:id="@+id/addGainNextInput"
-                    android:layout_width="match_parent"
+                    android:id="@+id/addGainEndInput"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:hint="@string/add_gain_date_hint"
                     android:textSize="@dimen/standard_text_size"
                     android:gravity="center_vertical"
                     android:clickable="true"
-                    android:onClick="nextDateClicked"
+                    android:onClick="endDateClicked"
+                    android:layout_weight="4"
+                    />
+                <CheckBox android:id="@+id/addGainOngoingCheckbox"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:checked="false"
+                    android:onClick="ongoingCheckboxChecked"
                     android:layout_weight="1"
                     />
             </LinearLayout>
-
-            <!-- End date field, includes ongoing checkbox -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="1"
-                android:weightSum="2"
-                android:padding="@dimen/padding_generic">
-                <TextView
-                    android:id="@+id/addGainEndPrompt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/add_gain_end_prompt"
-                    android:textSize="@dimen/standard_text_size"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1"
-                    />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:weightSum="5"
-                    android:padding="@dimen/padding_generic"
-                    >
-                    <TextView
-                        android:id="@+id/addGainEndInput"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:hint="@string/add_gain_date_hint"
-                        android:textSize="@dimen/standard_text_size"
-                        android:gravity="center_vertical"
-                        android:clickable="true"
-                        android:onClick="endDateClicked"
-                        android:layout_weight="4"
-                        />
-                    <CheckBox android:id="@+id/addGainOngoingCheckbox"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:checked="false"
-                        android:onClick="ongoingCheckboxChecked"
-                        android:layout_weight="1"
-                        />
-                </LinearLayout>
-            </LinearLayout>
-
-
-            <!-- Destination Field -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:weightSum="2"
-                android:padding="@dimen/padding_generic">
-                <TextView
-                    android:id="@+id/addGainDestinationPrompt"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/add_gain_destination_prompt"
-                    android:textSize="@dimen/standard_text_size"
-                    android:textStyle="bold"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1"
-                    />
-                <Spinner
-                    android:id="@+id/addGainDestinationSpinner"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:textSize="@dimen/standard_text_size"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/addGainButtons"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal"
-                android:weightSum="3"
-                android:padding="@dimen/padding_generic">
-
-                <!-- Submit Button to Add Gain -->
-                <android.widget.Button
-                    android:id="@+id/submitButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/add_gain_submit"
-                    android:textSize="@dimen/standard_text_size"
-                    android:onClick="submitClick"
-                    />
-
-                <!-- Cancel Button for Undo Decision to Add Gain -->
-                <android.widget.Button
-                    android:id="@+id/cancelButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/add_gain_cancel"
-                    android:textSize="@dimen/standard_text_size"
-                    android:onClick="cancelClick"
-                    />
-
-                <!-- Delete Button for when the user is editing an existing gain -->
-                <android.widget.Button
-                    android:id="@+id/deleteButton"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/delete_add_edit_string"
-                    android:textSize="@dimen/standard_text_size"
-                    android:onClick="deleteClick"
-                    android:enabled="false"
-                    android:visibility="invisible"
-                    android:background="@color/deleteButtonColor"
-                    />
-            </LinearLayout>
-
         </LinearLayout>
-    </ScrollView>
-</RelativeLayout>
+
+
+        <!-- Destination Field -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:padding="@dimen/padding_generic">
+            <TextView
+                android:id="@+id/addGainDestinationPrompt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/add_gain_destination_prompt"
+                android:textSize="@dimen/standard_text_size"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                />
+            <Spinner
+                android:id="@+id/addGainDestinationSpinner"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/standard_text_size"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/addGainButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            android:padding="@dimen/padding_generic">
+
+            <!-- Submit Button to Add Gain -->
+            <android.widget.Button
+                android:id="@+id/submitButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/add_gain_submit"
+                android:textSize="@dimen/standard_text_size"
+                android:onClick="submitClick"
+                />
+
+            <!-- Cancel Button for Undo Decision to Add Gain -->
+            <android.widget.Button
+                android:id="@+id/cancelButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/add_gain_cancel"
+                android:textSize="@dimen/standard_text_size"
+                android:onClick="cancelClick"
+                />
+
+            <!-- Delete Button for when the user is editing an existing gain -->
+            <android.widget.Button
+                android:id="@+id/deleteButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/delete_add_edit_string"
+                android:textSize="@dimen/standard_text_size"
+                android:onClick="deleteClick"
+                android:enabled="false"
+                android:visibility="invisible"
+                android:background="@color/deleteButtonColor"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

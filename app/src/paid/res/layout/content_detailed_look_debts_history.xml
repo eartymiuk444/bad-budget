@@ -5,15 +5,10 @@ Detailed Look Debts History w/ toggle button for today/year history
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/tracker_history_padding_small"
+    android:paddingTop="@dimen/tracker_history_padding_small"
     android:fitsSystemWindows="true">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/tracker_history_padding_small"
-        android:paddingTop="@dimen/tracker_history_padding_small">
-
         <!-- Toggle Button -->
         <android.widget.Button
             android:id="@+id/toggleButton"
@@ -32,8 +27,4 @@ Detailed Look Debts History w/ toggle button for today/year history
             android:layout_height="wrap_content"
             android:layout_above="@id/toggleButton"
             android:layout_alignParentTop="true"></ListView>
-
-    </RelativeLayout>
-
-
 </RelativeLayout>
